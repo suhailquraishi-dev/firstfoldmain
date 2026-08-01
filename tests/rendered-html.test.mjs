@@ -4,6 +4,8 @@ import test from "node:test";
 
 const templateRoot = new URL("../", import.meta.url);
 const previewRoot = new URL("../app/_sites-preview/", import.meta.url);
+const resourcesPlaceholderPattern = new RegExp(["phase", "two"].join(" ") + "|" + ["planned", "for"].join(" "), "i");
+const contactPlaceholderPattern = new RegExp(["production", "version"].join(" ") + "|" + ["can", "swap"].join(" "), "i");
 
 async function render(pathname = "/") {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
@@ -84,12 +86,19 @@ test("renders the planned routes and removes the starter shell", async () => {
   assert.match(process, /AI handles volume/);
   assert.match(pricing, /Transparent website tiers/);
   assert.match(pricing, /Starter Site/);
-  assert.match(resources, /Resources are planned for phase two/);
+  assert.match(resources, /Field Notes are coming/);
+  assert.match(resources, /First-fold checklist/);
+  assert.match(resources, /AI launch stack/);
+  assert.match(resources, /Founder website teardown/);
+  assert.match(resources, /Ask for the checklist/);
+  assert.doesNotMatch(resources, resourcesPlaceholderPattern);
   assert.match(about, /A studio for the first fold/);
   assert.match(contact, /Project type/);
   assert.match(contact, /Book a call/);
   assert.match(contact, /14:30/);
   assert.match(contact, /Send inquiry/);
+  assert.match(contact, /Opening your email draft/);
+  assert.doesNotMatch(contact, contactPlaceholderPattern);
   assert.match(caseStudy, /Problem/);
   assert.match(caseStudy, /case-browser/);
   assert.match(caseStudy, /42%/);

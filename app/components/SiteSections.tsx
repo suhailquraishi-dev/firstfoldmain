@@ -448,18 +448,42 @@ export function PricingPage() {
 }
 
 export function ResourcesPage() {
+  const resourcePreviews = [
+    {
+      label: "Checklist",
+      title: "First-fold checklist",
+      copy: "A practical preflight for the first screen: promise, proof, call to action, mobile hierarchy, and launch QA.",
+    },
+    {
+      label: "Stack notes",
+      title: "AI launch stack",
+      copy: "The working stack behind fast site sprints: research, writing, prototyping, quality checks, and handoff.",
+    },
+    {
+      label: "Teardown",
+      title: "Founder website teardown",
+      copy: "A sharp review format for spotting where a founder site loses clarity, trust, or momentum before the first call.",
+    },
+  ];
+
   return (
     <main className="page-shell">
-      <PageHero title="Resources are planned for phase two." copy="The current rebuild keeps the main product focused on Home, Work, Services, Process, Pricing, About, and Contact." />
-      <section className="split-panel">
+      <PageHero title="Field Notes are coming." copy="Useful checklists, teardown formats, and launch notes are being shaped from the same system we use inside client sprints." />
+      <section className="resource-preview-grid" aria-label="Upcoming FirstFold resources">
+        {resourcePreviews.map((resource, index) => (
+          <article className={`resource-card resource-card--${index + 1}`} key={resource.title}>
+            <span>{resource.label}</span>
+            <h2>{resource.title}</h2>
+            <p>{resource.copy}</p>
+          </article>
+        ))}
+      </section>
+      <section className="resource-cta">
         <div>
-          <h2>Coming next</h2>
-          <p>Guides, templates, and a client portal can live here once the core studio story is shipped.</p>
+          <h2>Want the first checklist?</h2>
+          <p>Ask for it now and we will send the first-fold preflight when the first note is ready.</p>
         </div>
-        <div>
-          <h2>For now</h2>
-          <p>The homepage brings work and services above the fold, which is the priority for this version.</p>
-        </div>
+        <PremiumButton href="/contact">Ask for the checklist</PremiumButton>
       </section>
     </main>
   );
@@ -486,12 +510,12 @@ export function AboutPage() {
 export function ContactPage() {
   return (
     <main className="page-shell contact-page">
-      <PageHero title="Book the first call. Bring the messy version." copy="A clean form for now, ready to connect to a calendar embed or CRM when the production stack is chosen." />
+      <PageHero title="Book the first call. Bring the messy version." copy="Tell us what you are launching. The form opens a ready-to-send email draft so the first note already has useful context." />
       <section className="booking-panel" aria-label="Book a call">
         <div>
           <FoldGlyph />
           <h2>Book a call</h2>
-          <p>Pick a starter slot style here, then use the form below for the project details. The production build can swap this panel for Calendly, SavvyCal, or a native scheduler.</p>
+          <p>Use these sample windows as a guide, then send the form below. We reply with a real scheduling link once we understand the sprint shape.</p>
         </div>
         <div className="calendar-embed" aria-label="Calendar availability preview">
           {["Tue", "Wed", "Thu"].map((day, index) => (
@@ -512,6 +536,22 @@ export function ContactForm() {
 
   function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    const form = new FormData(event.currentTarget);
+    const field = (name: string) => String(form.get(name) ?? "").trim();
+    const projectType = field("projectType") || "Project";
+    const body = [
+      `Name: ${field("name")}`,
+      `Email: ${field("email")}`,
+      `Project type: ${projectType}`,
+      `Budget: ${field("budget")}`,
+      `Timeline: ${field("timeline") || "Not specified"}`,
+      "",
+      "Brief:",
+      field("brief"),
+    ].join("\n");
+
+    window.location.href = `mailto:hello@firstfold.studio?subject=${encodeURIComponent(`FirstFold inquiry: ${projectType}`)}&body=${encodeURIComponent(body)}`;
     setSubmitted(true);
   }
 
@@ -558,7 +598,7 @@ export function ContactForm() {
         hello@firstfold.studio
       </a>
       <div className={submitted ? "form-status is-visible" : "form-status"} role="status">
-        Inquiry noted. The production version can route this into calendar, email, or CRM.
+        Opening your email draft. You can also write to hello@firstfold.studio.
       </div>
     </form>
   );
