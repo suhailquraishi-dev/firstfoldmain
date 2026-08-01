@@ -86,32 +86,53 @@ export function HomePage() {
 
 function Hero() {
   return (
-    <section className="hero-shell theme-yellow">
+    <section className="hero-shell hero-shell--landing theme-yellow">
+      <div className="hero-aurora" aria-hidden="true" />
       <div className="hero-grid">
         <div className="hero-copy">
           <p className="hero-eyebrow">
             <FoldGlyph small />
-            FirstFold Studio / AI-native websites
+            About FirstFold Studio
           </p>
-          <h1>Websites that make the first five seconds count.</h1>
-          <p className="hero-lede">FirstFold turns founder clarity, AI-assisted production, and human taste into launch-ready websites, creator systems, and enterprise packs.</p>
+          <h1>
+            We make the first fold feel
+            <span> alive.</span>
+          </h1>
+          <p className="hero-lede">
+            FirstFold is a small AI-native web studio for founders who need their website to feel credible, clear, and a little impossible to ignore.
+          </p>
+          <div className="inline-proof" aria-label="FirstFold proof points">
+            <span>10-21d site sprints</span>
+            <span>4 case studies</span>
+            <span>Human taste, AI speed</span>
+          </div>
           <div className="hero-actions">
-            <PremiumButton href="/contact">Book a call</PremiumButton>
+            <PremiumButton href="/contact">Book a strategy call</PremiumButton>
             <PremiumButton href="/work" secondary>
               See our work
             </PremiumButton>
           </div>
         </div>
-        <div className="hero-proof" aria-label="FirstFold operating proof">
-          <div className="hero-proof__top">
+        <div className="hero-reel" aria-label="Previous work video showcase">
+          <div className="hero-reel__top">
             <FoldGlyph />
-            <span>AI draft</span>
-            <span>Human pass</span>
+            <span>Work reel</span>
+            <strong>02:14</strong>
           </div>
-          <img src="/human-hero.png" alt="AI-generated fictional founder reviewing a website launch system" width={1536} height={1024} fetchPriority="high" />
-          <div className="hero-proof__card">
-            <strong>10-21d</strong>
-            <span>typical site launch</span>
+          <div className="hero-reel__stage">
+            <img src="/human-hero.png" alt="AI-generated fictional founder reviewing previous website work" width={1536} height={1024} fetchPriority="high" />
+            <button type="button" aria-label="Play FirstFold work reel">
+              <span />
+            </button>
+            <div className="work-peek">
+              {projects.slice(0, 3).map((project) => (
+                <span key={project.slug}>{project.title}</span>
+              ))}
+            </div>
+          </div>
+          <div className="hero-reel__caption">
+            <strong>Previous work, packaged like a launch film.</strong>
+            <span>Websites, creator systems, and enterprise workflows designed to earn trust before the first call.</span>
           </div>
         </div>
       </div>

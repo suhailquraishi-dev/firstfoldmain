@@ -33,8 +33,11 @@ test("server-renders the FirstFold Studio homepage", async () => {
 
   const html = await response.text();
   assert.match(html, /<title>FirstFold Studio \| AI-Native Websites<\/title>/i);
-  assert.match(html, /Websites that make the first five seconds count/);
-  assert.match(html, /FirstFold Studio \/ AI-native websites/);
+  assert.match(html, /We make the first fold feel/);
+  assert.match(html, /About FirstFold Studio/);
+  assert.match(html, /Book a strategy call/);
+  assert.match(html, /Work reel/);
+  assert.match(html, /Previous work, packaged like a launch film/);
   assert.match(html, /Tools we build with/);
   assert.match(html, /FirstFold Studio/);
   assert.match(html, /AI-Native Websites/);
