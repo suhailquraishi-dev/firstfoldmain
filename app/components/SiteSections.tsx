@@ -3,7 +3,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, Check, ChevronDown, Mail, Send } from "lucide-react";
-import { FormEvent, useState } from "react";
+import { FormEvent, WheelEvent, useState } from "react";
 import { faqs, logoRail, metrics, pricingTiers, principles, processSteps, projects, projectTypes, services } from "@/lib/content";
 
 type Project = (typeof projects)[number];
@@ -125,20 +125,39 @@ function Hero() {
       </div>
       <div className="logo-rail" aria-label="Tools FirstFold builds with">
         <strong>Tools we build with</strong>
-        {logoRail.map((logo) => (
-          <span key={logo.name}>
-            <img src={logo.src} alt={logo.name} width={160} height={42} loading="lazy" />
-          </span>
-        ))}
+        <div className="logo-marquee">
+          <div className="logo-marquee__track">
+            {[...logoRail, ...logoRail].map((logo, index) => (
+              <span key={`${logo.name}-${index}`} className="logo-marquee__item" aria-hidden={index >= logoRail.length}>
+                <img src={logo.src} alt={index < logoRail.length ? logo.name : ""} width={160} height={42} loading="lazy" />
+                {logo.wordmark ? <em>{logo.wordmark}</em> : null}
+              </span>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
 }
 
 function WorkPreview() {
+  function onWorkWheel(event: WheelEvent<HTMLDivElement>) {
+    const track = event.currentTarget;
+    const delta = Math.abs(event.deltaY) > Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
+    const atStart = track.scrollLeft <= 0;
+    const atEnd = Math.ceil(track.scrollLeft + track.clientWidth) >= track.scrollWidth;
+
+    if ((delta < 0 && atStart) || (delta > 0 && atEnd)) {
+      return;
+    }
+
+    event.preventDefault();
+    track.scrollLeft += delta;
+  }
+
   return (
     <SectionFrame title="Proof sits right below the fold." copy="The public portfolio can grow later. This first site already shows the case-study pattern clients will expect." accent="yellow" compact>
-      <div className="work-scroll" aria-label="Featured case studies">
+      <div className="work-scroll" aria-label="Featured case studies" onWheel={onWorkWheel}>
         {projects.map((project) => (
           <ProjectCard key={project.slug} project={project} />
         ))}

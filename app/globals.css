@@ -620,7 +620,7 @@ button {
 
 .logo-rail {
   display: grid;
-  grid-template-columns: 1.25fr repeat(6, minmax(0, 1fr));
+  grid-template-columns: minmax(160px, 0.18fr) minmax(0, 1fr);
   gap: 12px;
   align-items: center;
   margin-top: 44px;
@@ -631,10 +631,9 @@ button {
 }
 
 .logo-rail strong,
-.logo-rail span {
+.logo-marquee {
   display: flex;
   align-items: center;
-  justify-content: center;
   min-height: 70px;
   padding: 13px 10px;
   border-top: 1px solid var(--border);
@@ -648,14 +647,82 @@ button {
   text-align: left;
 }
 
+.logo-marquee {
+  position: relative;
+  overflow: hidden;
+  gap: 0;
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.logo-marquee::before,
+.logo-marquee::after {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 2;
+  width: 42px;
+  content: "";
+  pointer-events: none;
+  background: var(--background);
+}
+
+.logo-marquee::before {
+  left: 0;
+}
+
+.logo-marquee::after {
+  right: 0;
+}
+
+.logo-marquee__track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  animation: logo-marquee 26s linear infinite;
+}
+
+.logo-marquee__item {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-width: 190px;
+  padding: 0 28px;
+}
+
 .logo-rail img {
   display: block;
   width: auto;
   height: auto;
-  max-width: min(132px, 78%);
+  max-width: 140px;
   max-height: 34px;
   opacity: 0.68;
   filter: grayscale(1);
+}
+
+.logo-marquee__item:not(:has(em)) img {
+  max-width: 170px;
+}
+
+.logo-marquee__item em {
+  color: #56524d;
+  font-style: normal;
+  font-size: clamp(18px, 1.5vw, 25px);
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0.68;
+}
+
+@keyframes logo-marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 .section-frame,
@@ -1637,7 +1704,7 @@ button {
   }
 
   .logo-rail {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: minmax(140px, 0.24fr) minmax(0, 1fr);
   }
 
   .pill-cloud {
@@ -1712,7 +1779,17 @@ button {
   }
 
   .logo-rail {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .logo-rail strong {
+    min-height: 46px;
+  }
+
+  .logo-marquee__item {
+    min-width: 170px;
+    padding: 0 20px;
   }
 
   .pill-cloud {
