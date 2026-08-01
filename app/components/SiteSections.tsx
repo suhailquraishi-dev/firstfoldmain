@@ -90,10 +90,6 @@ function Hero() {
       <div className="hero-aurora" aria-hidden="true" />
       <div className="hero-grid">
         <div className="hero-copy">
-          <p className="hero-eyebrow">
-            <FoldGlyph small />
-            About FirstFold Studio
-          </p>
           <h1>
             We make the first fold feel
             <span> alive.</span>
@@ -589,6 +585,7 @@ export function Footer() {
         <a href="/pricing">Pricing</a>
         <a href="mailto:hello@firstfold.studio">hello@firstfold.studio</a>
       </div>
+      <img className="footer-wordmark" src="/firstfold-wordmark.svg" alt="FirstFold" width={1476} height={319} loading="lazy" />
     </footer>
   );
 }

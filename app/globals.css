@@ -1,22 +1,6 @@
 @import "tailwindcss";
 
 @font-face {
-  font-family: "Season Sans";
-  src: url("/fonts/SeasonSans-Regular.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Season Sans";
-  src: url("/fonts/SeasonSans-Medium.ttf") format("truetype");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
   font-family: "Season Serif";
   src: url("/fonts/SeasonSerif-Regular.ttf") format("truetype");
   font-weight: 400;
@@ -44,13 +28,13 @@
   --brown: #5a3517;
   --blue: #94c8ec;
   --orange: #f0441f;
-  --mono: "SF Mono", "Roboto Mono", "IBM Plex Mono", "Space Mono", ui-monospace, Menlo, Consolas, monospace;
+  --native-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: "Season Sans", "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-sans: var(--native-sans);
 }
 
 * {
@@ -67,12 +51,9 @@ body {
   min-height: 100vh;
   margin: 0;
   overflow-x: hidden;
-  background:
-    linear-gradient(rgba(17, 17, 17, 0.035) 1px, transparent 1px) 0 0 / 30px 30px,
-    linear-gradient(90deg, rgba(17, 17, 17, 0.025) 1px, transparent 1px) 0 0 / 30px 30px,
-    var(--background);
+  background: var(--background);
   color: var(--foreground);
-  font-family: "Season Sans", "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: var(--native-sans);
   font-weight: 300;
   letter-spacing: 0;
 }
@@ -104,7 +85,6 @@ button {
 }
 
 .section-kicker,
-.hero-eyebrow,
 .page-hero p,
 .service-panel > span,
 .service-detail > span,
@@ -120,9 +100,9 @@ button {
 .logo-rail strong,
 .full-bleed-moment span,
 .full-bleed-moment i {
-  font-family: var(--mono);
+  font-family: var(--native-sans);
   font-weight: 600;
-  letter-spacing: 0.02em;
+  letter-spacing: 0;
   text-transform: uppercase;
 }
 
@@ -218,20 +198,18 @@ button {
   border: 1px solid var(--border);
   border-radius: 999px;
   background: rgba(255, 254, 250, 0.82);
-  box-shadow: 0 12px 35px rgba(42, 31, 20, 0.08);
   backdrop-filter: blur(18px);
   transform: translateX(-50%);
 }
 
 .site-nav--compact {
   background: rgba(255, 254, 250, 0.95);
-  box-shadow: 0 10px 24px rgba(42, 31, 20, 0.12);
 }
 
 .brand-mark {
   display: block;
-  width: 150px;
-  min-width: 150px;
+  width: 112px;
+  min-width: 112px;
 }
 
 .brand-mark img,
@@ -288,10 +266,9 @@ button {
   border-radius: 999px;
   color: #fff;
   background: #111;
-  box-shadow: 3px 3px 0 var(--accent, var(--yellow));
   font-size: 14px;
   font-weight: 400;
-  transition: transform 160ms ease, box-shadow 160ms ease;
+  transition: transform 160ms ease, background 160ms ease;
 }
 
 .premium-button--secondary {
@@ -304,7 +281,6 @@ button {
 .premium-button:hover,
 .submit-button:hover {
   transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0 var(--accent, var(--yellow));
 }
 
 .nav-toggle {
@@ -365,18 +341,7 @@ button {
 }
 
 .hero-aurora {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: min(720px, 62vw);
-  height: 380px;
-  pointer-events: none;
-  background:
-    repeating-linear-gradient(90deg, rgba(240, 68, 31, 0) 0 18px, rgba(240, 68, 31, 0.38) 18px 38px, rgba(255, 210, 30, 0.12) 38px 46px),
-    radial-gradient(circle at 78% 0%, rgba(240, 68, 31, 0.72), transparent 46%),
-    linear-gradient(180deg, rgba(240, 68, 31, 0.45), transparent 78%);
-  filter: blur(1px);
-  mask-image: linear-gradient(180deg, #000 0%, transparent 92%);
+  display: none;
 }
 
 .hero-grid {
@@ -395,7 +360,6 @@ button {
   min-width: 0;
 }
 
-.hero-eyebrow,
 .section-kicker,
 .page-hero p,
 .case-hero p {
@@ -415,7 +379,7 @@ button {
 .site-footer h2,
 .about-system h2,
 .founder-band blockquote {
-  font-family: "Season Serif", Georgia, serif;
+  font-family: "Season Serif", ui-serif, serif;
   font-weight: 400;
   letter-spacing: 0;
 }
@@ -455,7 +419,6 @@ button {
   border: 1px solid var(--line);
   border-radius: 999px;
   background: var(--paper);
-  box-shadow: 2px 2px 0 var(--yellow);
   font-size: 13px;
   font-weight: 500;
 }
@@ -478,22 +441,6 @@ button {
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--paper);
-  box-shadow: 12px 12px 0 var(--accent);
-}
-
-.hero-reel::after,
-.about-photo::after {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  content: "";
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 18% 14%, rgba(255, 210, 30, 0.22), transparent 30%),
-    linear-gradient(135deg, rgba(90, 53, 23, 0.22), rgba(240, 68, 31, 0.1) 54%, rgba(255, 210, 30, 0.2)),
-    repeating-radial-gradient(circle at 20% 20%, rgba(17, 17, 17, 0.08) 0 1px, transparent 1px 4px);
-  mix-blend-mode: multiply;
-  opacity: 0.42;
 }
 
 .hero-reel__stage img {
@@ -545,7 +492,6 @@ button {
   border-radius: 50%;
   background: var(--yellow);
   transform: translate(-50%, -50%);
-  box-shadow: 4px 4px 0 var(--orange);
 }
 
 .hero-reel__stage button span {
@@ -697,7 +643,6 @@ button {
   border-radius: 8px;
   background: var(--paper);
   color: var(--foreground);
-  box-shadow: 6px 6px 0 var(--accent);
 }
 
 .project-card {
@@ -706,12 +651,12 @@ button {
   min-height: 440px;
   padding: 18px;
   scroll-snap-align: start;
-  transition: transform 180ms ease, box-shadow 180ms ease;
+  transition: transform 180ms ease, border-color 180ms ease;
 }
 
 .project-card:hover {
   transform: translateY(-5px);
-  box-shadow: 10px 10px 0 var(--accent);
+  border-color: var(--accent);
 }
 
 .project-card__visual {
@@ -721,10 +666,7 @@ button {
   padding: 16px;
   border: 1px solid var(--line);
   border-radius: 7px;
-  background:
-    linear-gradient(rgba(17, 17, 17, 0.09) 1px, transparent 1px) 0 0 / 18px 18px,
-    linear-gradient(90deg, rgba(17, 17, 17, 0.08) 1px, transparent 1px) 0 0 / 18px 18px,
-    var(--accent);
+  background: var(--accent);
 }
 
 .project-card__visual span {
@@ -781,9 +723,7 @@ button {
   border: 1px solid var(--line);
   border-radius: 8px;
   overflow: hidden;
-  background:
-    radial-gradient(rgba(17, 17, 17, 0.18) 1px, transparent 1px) 0 0 / 14px 14px,
-    var(--paper);
+  background: var(--paper);
 }
 
 .pill-cloud span,
@@ -797,7 +737,6 @@ button {
   border: 1px solid var(--line);
   border-radius: 999px;
   background: var(--paper);
-  box-shadow: 3px 3px 0 var(--accent);
 }
 
 .pill-cloud span {
@@ -806,7 +745,6 @@ button {
   justify-content: center;
   border-width: 0 1px 1px 0;
   border-radius: 0;
-  box-shadow: none;
   font-size: clamp(22px, 3.4vw, 46px);
   transform: none;
 }
@@ -935,20 +873,7 @@ button {
   overflow: hidden;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
-  background:
-    linear-gradient(rgba(17, 17, 17, 0.12) 1px, transparent 1px) 0 0 / 34px 34px,
-    linear-gradient(90deg, rgba(17, 17, 17, 0.1) 1px, transparent 1px) 0 0 / 34px 34px,
-    var(--yellow);
-}
-
-.full-bleed-moment::before {
-  position: absolute;
-  inset: 0;
-  content: "";
-  background:
-    radial-gradient(circle at 88% 16%, rgba(240, 68, 31, 0.34), transparent 18%),
-    radial-gradient(circle at 12% 82%, rgba(90, 53, 23, 0.22), transparent 22%);
-  mix-blend-mode: multiply;
+  background: var(--yellow);
 }
 
 .full-bleed-moment__inner {
@@ -968,7 +893,7 @@ button {
 .full-bleed-moment h2 {
   max-width: 1040px;
   margin: 0;
-  font-family: "Season Serif", Georgia, serif;
+  font-family: "Season Serif", ui-serif, serif;
   font-size: clamp(72px, 11vw, 178px);
   font-weight: 400;
   line-height: 0.78;
@@ -994,7 +919,6 @@ button {
   font-size: 12px;
   font-style: normal;
   transform: rotate(-7deg);
-  box-shadow: 4px 4px 0 var(--brown);
 }
 
 .founder-band {
@@ -1180,11 +1104,6 @@ button {
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--paper);
-  box-shadow: 6px 6px 0 var(--blue);
-}
-
-.split-panel > div:first-child {
-  box-shadow-color: var(--yellow);
 }
 
 .split-panel h2 {
@@ -1243,12 +1162,11 @@ button {
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--paper);
-  box-shadow: 6px 6px 0 var(--yellow);
 }
 
 .booking-panel h2 {
   margin: 18px 0 10px;
-  font-family: "Season Serif", Georgia, serif;
+  font-family: "Season Serif", ui-serif, serif;
   font-size: clamp(42px, 5vw, 72px);
   font-weight: 400;
   line-height: 0.94;
@@ -1264,10 +1182,7 @@ button {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
-  background:
-    linear-gradient(rgba(17, 17, 17, 0.07) 1px, transparent 1px) 0 0 / 22px 22px,
-    linear-gradient(90deg, rgba(17, 17, 17, 0.06) 1px, transparent 1px) 0 0 / 22px 22px,
-    var(--paper);
+  background: var(--paper);
 }
 
 .calendar-embed button {
@@ -1386,10 +1301,7 @@ button {
   align-content: space-between;
   gap: 18px;
   overflow: hidden;
-  background:
-    linear-gradient(rgba(17, 17, 17, 0.1) 1px, transparent 1px) 0 0 / 24px 24px,
-    linear-gradient(90deg, rgba(17, 17, 17, 0.08) 1px, transparent 1px) 0 0 / 24px 24px,
-    var(--accent);
+  background: var(--accent);
 }
 
 .case-browser {
@@ -1422,15 +1334,12 @@ button {
   align-content: end;
   min-height: 250px;
   padding: 22px;
-  background:
-    linear-gradient(rgba(17, 17, 17, 0.06) 1px, transparent 1px) 0 0 / 18px 18px,
-    linear-gradient(90deg, rgba(17, 17, 17, 0.05) 1px, transparent 1px) 0 0 / 18px 18px,
-    #fffefa;
+  background: #fffefa;
 }
 
 .case-browser__stage strong {
   margin-top: 10px;
-  font-family: "Season Serif", Georgia, serif;
+  font-family: "Season Serif", ui-serif, serif;
   font-size: clamp(48px, 6vw, 86px);
   font-weight: 400;
   line-height: 0.86;
@@ -1511,6 +1420,14 @@ button {
   margin-bottom: 28px;
 }
 
+.footer-wordmark {
+  display: block;
+  width: min(100%, 1320px);
+  height: auto;
+  margin: clamp(46px, 8vw, 92px) auto 0;
+  filter: brightness(0);
+}
+
 .footer-bottom {
   display: flex;
   flex-wrap: wrap;
@@ -1547,7 +1464,6 @@ button {
     border: 1px solid var(--line);
     border-radius: 18px;
     background: var(--paper);
-    box-shadow: 0 16px 34px rgba(42, 31, 20, 0.12);
   }
 
   .mobile-panel.is-open {
@@ -1600,8 +1516,8 @@ button {
 
 @media (max-width: 640px) {
   .brand-mark {
-    width: 136px;
-    min-width: 136px;
+    width: 104px;
+    min-width: 104px;
   }
 
   .hero-shell,

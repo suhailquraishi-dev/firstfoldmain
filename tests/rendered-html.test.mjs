@@ -34,7 +34,7 @@ test("server-renders the FirstFold Studio homepage", async () => {
   const html = await response.text();
   assert.match(html, /<title>FirstFold Studio \| AI-Native Websites<\/title>/i);
   assert.match(html, /We make the first fold feel/);
-  assert.match(html, /About FirstFold Studio/);
+  assert.doesNotMatch(html, /About FirstFold Studio/);
   assert.match(html, /Book a strategy call/);
   assert.match(html, /Work reel/);
   assert.match(html, /Previous work, packaged like a launch film/);
@@ -48,6 +48,7 @@ test("server-renders the FirstFold Studio homepage", async () => {
   assert.match(html, /firstfold-logo\.svg/);
   assert.match(html, /human-hero\.png/);
   assert.match(html, /human-team\.png/);
+  assert.match(html, /firstfold-wordmark\.svg/);
   assert.match(html, /The site is the first proof/);
   assert.match(html, /Pretty is easy/);
   assert.match(html, /not another beige deck/);
