@@ -69,7 +69,7 @@ export function HomePage() {
       <Hero />
       <WorkPreview />
       <WhoFor />
-      <ServicesPreview />
+      <PricingPreview />
       <ProcessTeaser />
       <FullBleedMoment />
       <FounderNote />
@@ -180,12 +180,40 @@ function WhoFor() {
   );
 }
 
-function ServicesPreview() {
+function PricingPreview() {
   return (
-    <SectionFrame title="Three products. One calm operating system." copy="The website offer leads. Creator and enterprise packs extend the same strategy into media and scaled production." accent="brown">
-      <div className="service-grid service-grid--three">
-        {services.map((service, index) => (
-          <ServicePanel key={service.name} service={service} index={index} primary={index === 0} />
+    <SectionFrame
+      title="Pick the sprint that matches the stage."
+      copy="Start with a focused site, grow into a fuller system, or scope something custom when the website needs to become infrastructure."
+      accent="yellow"
+    >
+      <div className="pricing-preview" aria-label="Website sprint pricing preview">
+        {pricingTiers.map((tier, index) => (
+          <article className={index === 1 ? "pricing-preview-card is-featured" : "pricing-preview-card"} key={tier.name}>
+            <span>{tier.timeline}</span>
+            <h3>{tier.name}</h3>
+            <strong>{tier.price}</strong>
+            <p>{tier.summary}</p>
+            <ul>
+              {tier.includes.slice(0, 5).map((item) => (
+                <li key={item}>
+                  <Check size={15} aria-hidden="true" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <PremiumButton href="/contact" secondary={index !== 1}>
+              {tier.price === "Talk to us" ? "Book custom call" : "Start here"}
+            </PremiumButton>
+          </article>
+        ))}
+      </div>
+      <div className="pricing-proof-strip" aria-label="Every sprint includes">
+        {["Strategy included", "Design + build", "Launch QA"].map((item) => (
+          <span key={item}>
+            <Check size={15} aria-hidden="true" />
+            {item}
+          </span>
         ))}
       </div>
     </SectionFrame>
