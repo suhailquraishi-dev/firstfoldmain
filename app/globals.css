@@ -434,6 +434,14 @@ button {
   overflow-wrap: break-word;
 }
 
+.hero-copy h1 {
+  max-width: 980px;
+  line-height: 0.84;
+  font-kerning: normal;
+  font-feature-settings: "kern" 1, "liga" 1;
+  text-rendering: optimizeLegibility;
+}
+
 .hero-copy h1 span {
   color: var(--orange);
 }
