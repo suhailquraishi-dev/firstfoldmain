@@ -8,11 +8,14 @@ export const navItems = [
 ];
 
 export const logoRail = [
-  { name: "Linear", wordmark: "Linear", src: "/logos/linear.svg" },
-  { name: "OpenAI", src: "/logos/openai.svg" },
-  { name: "Figma", wordmark: "Figma", src: "/logos/figma.svg" },
   { name: "Vercel", wordmark: "Vercel", src: "/logos/vercel.svg" },
-  { name: "Arc", wordmark: "Arc", src: "/logos/arc.svg" },
+  { name: "Claude", wordmark: "Claude", src: "/logos/claude.svg" },
+  { name: "Codex", wordmark: "Codex", src: "/logos/codex.svg" },
+  { name: "ChatGPT", wordmark: "ChatGPT", src: "/logos/chatgpt.svg" },
+  { name: "Netlify", wordmark: "Netlify", src: "/logos/netlify.svg" },
+  { name: "Figma", wordmark: "Figma", src: "/logos/figma.svg" },
+  { name: "Xcode", wordmark: "Xcode", src: "/logos/xcode.svg" },
+  { name: "Replit", wordmark: "Replit", src: "/logos/replit.svg" },
 ];
 
 export const services = [
