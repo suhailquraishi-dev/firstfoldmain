@@ -36,7 +36,7 @@ test("server-renders the FirstFold Studio homepage", async () => {
   assert.match(html, /We make the first fold feel/);
   assert.doesNotMatch(html, /About FirstFold Studio/);
   assert.match(html, /Book a strategy call/);
-  assert.match(html, /Work reel/);
+  assert.doesNotMatch(html, /Work reel/);
   assert.match(html, /Previous work, packaged like a launch film/);
   assert.match(html, /Tools we build with/);
   assert.match(html, /FirstFold Studio/);

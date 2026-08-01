@@ -26,14 +26,12 @@ export function PremiumButton({ href, children, secondary = false }: { href: str
 }
 
 export function SectionFrame({
-  eyebrow,
   title,
   copy,
   children,
   accent = "yellow",
   compact = false,
 }: {
-  eyebrow: string;
   title: string;
   copy?: string;
   children: React.ReactNode;
@@ -42,10 +40,6 @@ export function SectionFrame({
 }) {
   return (
     <section className={compact ? `section-frame section-frame--compact theme-${accent}` : `section-frame theme-${accent}`}>
-      <div className="section-kicker">
-        <FoldGlyph small />
-        {eyebrow}
-      </div>
       <div className="section-heading">
         <h2>{title}</h2>
         {copy ? <p>{copy}</p> : null}
@@ -94,13 +88,16 @@ function Hero() {
             We make the first fold feel
             <span> alive.</span>
           </h1>
+          <p className="hero-lede">
+            FirstFold is a small AI-native web studio for founders who need their website to feel credible, clear, and a little impossible to ignore.
+          </p>
+          <div className="inline-proof" aria-label="FirstFold proof points">
+            <span>10-21d site sprints</span>
+            <span>4 case studies</span>
+            <span>Human taste, AI speed</span>
+          </div>
         </div>
         <div className="hero-reel" aria-label="Previous work video showcase">
-          <div className="hero-reel__top">
-            <FoldGlyph />
-            <span>Work reel</span>
-            <strong>02:14</strong>
-          </div>
           <div className="hero-reel__stage">
             <img src="/human-hero.png" alt="AI-generated fictional founder reviewing previous website work" width={1536} height={1024} fetchPriority="high" />
             <button type="button" aria-label="Play FirstFold work reel">
@@ -114,14 +111,6 @@ function Hero() {
           </div>
         </div>
         <div className="hero-info">
-          <p className="hero-lede">
-            FirstFold is a small AI-native web studio for founders who need their website to feel credible, clear, and a little impossible to ignore.
-          </p>
-          <div className="inline-proof" aria-label="FirstFold proof points">
-            <span>10-21d site sprints</span>
-            <span>4 case studies</span>
-            <span>Human taste, AI speed</span>
-          </div>
           <div className="hero-actions">
             <PremiumButton href="/contact">Book a strategy call</PremiumButton>
             <PremiumButton href="/work" secondary>
@@ -137,7 +126,9 @@ function Hero() {
       <div className="logo-rail" aria-label="Tools FirstFold builds with">
         <strong>Tools we build with</strong>
         {logoRail.map((logo) => (
-          <span key={logo}>{logo}</span>
+          <span key={logo.name}>
+            <img src={logo.src} alt={logo.name} width={160} height={42} loading="lazy" />
+          </span>
         ))}
       </div>
     </section>
@@ -146,7 +137,7 @@ function Hero() {
 
 function WorkPreview() {
   return (
-    <SectionFrame eyebrow="Selected work" title="Proof sits right below the fold." copy="The public portfolio can grow later. This first site already shows the case-study pattern clients will expect." accent="yellow" compact>
+    <SectionFrame title="Proof sits right below the fold." copy="The public portfolio can grow later. This first site already shows the case-study pattern clients will expect." accent="yellow" compact>
       <div className="work-scroll" aria-label="Featured case studies">
         {projects.map((project) => (
           <ProjectCard key={project.slug} project={project} />
@@ -158,7 +149,7 @@ function WorkPreview() {
 
 function WhoFor() {
   return (
-    <SectionFrame eyebrow="Who it is for" title="Built for teams who cannot afford a vague first impression." accent="blue" compact>
+    <SectionFrame title="Built for teams who cannot afford a vague first impression." accent="blue" compact>
       <div className="pill-cloud">
         {["Founders", "AI products", "SaaS teams", "Creator-led brands", "Enterprise GTM", "Productized services"].map((item, index) => (
           <span key={item} className={`pill-${index % 3}`}>
@@ -172,7 +163,7 @@ function WhoFor() {
 
 function ServicesPreview() {
   return (
-    <SectionFrame eyebrow="What FirstFold does" title="Three products. One calm operating system." copy="The website offer leads. Creator and enterprise packs extend the same strategy into media and scaled production." accent="brown">
+    <SectionFrame title="Three products. One calm operating system." copy="The website offer leads. Creator and enterprise packs extend the same strategy into media and scaled production." accent="brown">
       <div className="service-grid service-grid--three">
         {services.map((service, index) => (
           <ServicePanel key={service.name} service={service} index={index} primary={index === 0} />
@@ -213,7 +204,7 @@ export function ServicePanel({ service, index, primary = false }: { service: (ty
 
 function ProcessTeaser() {
   return (
-    <SectionFrame eyebrow="Process preview" title="AI creates speed. Humans keep taste." copy="The split is explicit once, then the site lets the work feel premium without overexplaining the tools." accent="yellow">
+    <SectionFrame title="AI creates speed. Humans keep taste." copy="The split is explicit once, then the site lets the work feel premium without overexplaining the tools." accent="yellow">
       <div className="metrics-grid">
         {metrics.map((metric) => (
           <article className="metric-card" key={metric.value}>
@@ -240,7 +231,6 @@ function FullBleedMoment() {
   return (
     <section className="full-bleed-moment">
       <div className="full-bleed-moment__inner">
-        <span>[N.04/05] / POINT OF VIEW</span>
         <h2>
           Pretty is easy.
           <br />
@@ -255,7 +245,7 @@ function FullBleedMoment() {
 
 function FounderNote() {
   return (
-    <SectionFrame eyebrow="Founder note" title="The site is the first proof." accent="brown" compact>
+    <SectionFrame title="The site is the first proof." accent="brown" compact>
       <div className="founder-band">
         <img src="/human-team.png" alt="AI-generated fictional studio team arranging launch materials" width={1792} height={1024} loading="lazy" />
         <MotionText>
@@ -299,7 +289,7 @@ export function WorkPage() {
 
   return (
     <main className="page-shell">
-      <PageHero eyebrow="Work" title="Case studies with the work doing the talking." copy="Filter by Website, Creator Pack, or Enterprise. Each thumbnail opens into a full case-study structure." />
+      <PageHero title="Case studies with the work doing the talking." copy="Filter by Website, Creator Pack, or Enterprise. Each thumbnail opens into a full case-study structure." />
       <div className="filter-bar" aria-label="Filter work by type">
         {projectTypes.map((type) => (
           <button key={type} type="button" className={filter === type ? "is-active" : ""} onClick={() => setFilter(type)}>
@@ -319,7 +309,7 @@ export function WorkPage() {
 export function ServicesPage() {
   return (
     <main className="page-shell">
-      <PageHero eyebrow="Services" title="AI-native websites lead. Creator and enterprise packs extend the system." copy="Each product shows what is included, who it is for, starting price, turnaround, and how AI and human judgment divide the work." />
+      <PageHero title="AI-native websites lead. Creator and enterprise packs extend the system." copy="Each product shows what is included, who it is for, starting price, turnaround, and how AI and human judgment divide the work." />
         <div className="service-detail-grid">
         {services.map((service, index) => (
           <article className={index === 0 ? `service-detail service-detail--primary ${service.color}` : `service-detail ${service.color}`} key={service.name}>
@@ -356,7 +346,7 @@ export function ServicesPage() {
 export function ProcessPage() {
   return (
     <main className="page-shell">
-      <PageHero eyebrow="Process" title="Less manual work. More intelligent execution." copy="A five-step path from discovery to launch, with real timing and clear AI/human responsibility." />
+      <PageHero title="Less manual work. More intelligent execution." copy="A five-step path from discovery to launch, with real timing and clear AI/human responsibility." />
       <div className="process-list">
         {processSteps.map((step) => (
           <article className="process-row" key={step.label}>
@@ -384,7 +374,7 @@ export function ProcessPage() {
 export function PricingPage() {
   return (
     <main className="page-shell">
-      <PageHero eyebrow="Pricing" title="Transparent website tiers. Custom paths for bigger systems." copy="At minimum, every site sprint includes strategy, design, implementation, responsive QA, and a clear launch handoff." />
+      <PageHero title="Transparent website tiers. Custom paths for bigger systems." copy="At minimum, every site sprint includes strategy, design, implementation, responsive QA, and a clear launch handoff." />
       <div className="pricing-grid">
         {pricingTiers.map((tier, index) => (
           <article className={index === 1 ? "pricing-card is-featured" : "pricing-card"} key={tier.name}>
@@ -413,7 +403,7 @@ export function PricingPage() {
 export function ResourcesPage() {
   return (
     <main className="page-shell">
-      <PageHero eyebrow="Resources" title="Resources are planned for phase two." copy="The current rebuild keeps the main product focused on Home, Work, Services, Process, Pricing, About, and Contact." />
+      <PageHero title="Resources are planned for phase two." copy="The current rebuild keeps the main product focused on Home, Work, Services, Process, Pricing, About, and Contact." />
       <section className="split-panel">
         <div>
           <h2>Coming next</h2>
@@ -431,7 +421,7 @@ export function ResourcesPage() {
 export function AboutPage() {
   return (
     <main className="page-shell">
-      <PageHero eyebrow="About" title="A studio for the first fold and everything it implies." copy="FirstFold is built around one belief: the first screen should reveal the quality of the entire company." />
+      <PageHero title="A studio for the first fold and everything it implies." copy="FirstFold is built around one belief: the first screen should reveal the quality of the entire company." />
       <section className="about-system">
         <div>
           <FoldGlyph />
@@ -449,7 +439,7 @@ export function AboutPage() {
 export function ContactPage() {
   return (
     <main className="page-shell contact-page">
-      <PageHero eyebrow="Contact" title="Book the first call. Bring the messy version." copy="A clean form for now, ready to connect to a calendar embed or CRM when the production stack is chosen." />
+      <PageHero title="Book the first call. Bring the messy version." copy="A clean form for now, ready to connect to a calendar embed or CRM when the production stack is chosen." />
       <section className="booking-panel" aria-label="Book a call">
         <div>
           <FoldGlyph />
@@ -531,7 +521,7 @@ export function FAQAccordion() {
   const [open, setOpen] = useState(0);
 
   return (
-    <SectionFrame eyebrow="FAQ" title="Simple answers, no theatre." accent="yellow" compact>
+    <SectionFrame title="Simple answers, no theatre." accent="yellow" compact>
       <div className="faq-list">
         {faqs.map((item, index) => {
           const active = open === index;
@@ -556,13 +546,9 @@ export function FAQAccordion() {
   );
 }
 
-export function PageHero({ eyebrow, title, copy }: { eyebrow: string; title: string; copy: string }) {
+export function PageHero({ title, copy }: { title: string; copy: string }) {
   return (
     <section className="page-hero">
-      <p>
-        <FoldGlyph small />
-        {eyebrow}
-      </p>
       <h1>{title}</h1>
       <span>{copy}</span>
     </section>

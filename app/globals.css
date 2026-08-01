@@ -57,12 +57,12 @@
 }
 
 :root {
-  --background: #f8f7f3;
+  --background: #ffffff;
   --foreground: #111111;
   --muted: #5f5b54;
   --line: #101010;
   --border: #d9d3c8;
-  --paper: #fffefd;
+  --paper: #ffffff;
   --soft: #ebe4d7;
   --yellow: #ffd21e;
   --brown: #5a3517;
@@ -124,7 +124,6 @@ button {
   outline-offset: 4px;
 }
 
-.section-kicker,
 .page-hero p,
 .service-panel > span,
 .service-detail > span,
@@ -138,7 +137,6 @@ button {
 .pricing-card > span,
 .case-hero p,
 .logo-rail strong,
-.full-bleed-moment span,
 .full-bleed-moment i {
   font-family: var(--season-sans);
   font-weight: 600;
@@ -431,7 +429,6 @@ button {
   border-bottom: 1px solid var(--border);
 }
 
-.section-kicker,
 .page-hero p,
 .case-hero p {
   display: inline-flex;
@@ -512,11 +509,10 @@ button {
 
 .hero-reel {
   position: relative;
-  display: grid;
-  align-content: space-between;
-  gap: 14px;
+  display: block;
   overflow: hidden;
-  min-height: 560px;
+  min-height: 0;
+  padding: 14px;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--paper);
@@ -525,7 +521,7 @@ button {
 .hero-reel__stage img {
   display: block;
   width: 100%;
-  height: 398px;
+  height: 100%;
   object-fit: cover;
   object-position: center;
   filter: sepia(0.28) saturate(1.24) contrast(1.06) brightness(0.96);
@@ -552,7 +548,8 @@ button {
   position: relative;
   z-index: 2;
   overflow: hidden;
-  margin: 0 14px;
+  aspect-ratio: 16 / 9;
+  margin: 0;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: #111;
@@ -609,7 +606,6 @@ button {
   display: grid;
   gap: 6px;
   padding-top: 22px;
-  border-top: 1px solid var(--border);
 }
 
 .hero-reel__caption strong {
@@ -636,6 +632,10 @@ button {
 
 .logo-rail strong,
 .logo-rail span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 70px;
   padding: 13px 10px;
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
@@ -644,7 +644,18 @@ button {
 .logo-rail strong {
   color: var(--foreground);
   font-size: 11px;
+  justify-content: flex-start;
   text-align: left;
+}
+
+.logo-rail img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: min(132px, 78%);
+  max-height: 34px;
+  opacity: 0.68;
+  filter: grayscale(1);
 }
 
 .section-frame,
@@ -663,7 +674,7 @@ button {
   grid-template-columns: minmax(0, 0.78fr) minmax(260px, 0.32fr);
   gap: clamp(24px, 5vw, 70px);
   align-items: end;
-  margin: 18px 0 42px;
+  margin: 0 0 42px;
 }
 
 .section-heading h2,
@@ -794,12 +805,12 @@ button {
 }
 
 .pill-cloud {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0;
-  min-height: 230px;
-  align-content: center;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 12px;
+  align-items: stretch;
+  min-height: 0;
+  padding: 18px;
   border: 1px solid var(--line);
   border-radius: 8px;
   overflow: hidden;
@@ -820,13 +831,23 @@ button {
 }
 
 .pill-cloud span {
-  min-width: min(33.333%, 360px);
-  min-height: 96px;
+  min-width: 0;
+  min-height: 132px;
   justify-content: center;
-  border-width: 0 1px 1px 0;
-  border-radius: 0;
-  font-size: clamp(22px, 3.4vw, 46px);
+  border-radius: 8px;
+  text-align: center;
+  font-size: clamp(18px, 2.6vw, 38px);
+  line-height: 0.98;
   transform: none;
+}
+
+.pill-cloud span:nth-child(1),
+.pill-cloud span:nth-child(2),
+.pill-cloud span:nth-child(3),
+.pill-cloud span:nth-child(4),
+.pill-cloud span:nth-child(5),
+.pill-cloud span:nth-child(6) {
+  grid-column: span 2;
 }
 
 .pill-cloud .pill-0 {
@@ -961,13 +982,10 @@ button {
   z-index: 1;
   width: min(1440px, 100%);
   margin: 0 auto;
-  padding: clamp(72px, 10vw, 130px) max(22px, calc((100vw - 1440px) / 2 + 48px));
-}
-
-.full-bleed-moment span {
-  display: block;
-  margin-bottom: 22px;
-  font-size: 13px;
+  padding-top: clamp(72px, 10vw, 130px);
+  padding-right: max(22px, calc((100vw - 1440px) / 2 + 48px));
+  padding-bottom: clamp(72px, 10vw, 130px);
+  padding-left: max(220px, calc((100vw - 1440px) / 2 + 220px));
 }
 
 .full-bleed-moment h2 {
@@ -1579,6 +1597,11 @@ button {
     padding-left: max(22px, calc((100vw - 1440px) / 2 + 48px));
   }
 
+  .full-bleed-moment__inner {
+    padding-right: max(22px, calc((100vw - 1440px) / 2 + 48px));
+    padding-left: max(22px, calc((100vw - 1440px) / 2 + 48px));
+  }
+
   .hero-grid,
   .section-heading,
   .founder-band,
@@ -1615,6 +1638,14 @@ button {
 
   .logo-rail {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .pill-cloud {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pill-cloud span:nth-child(n) {
+    grid-column: auto;
   }
 }
 
@@ -1660,15 +1691,12 @@ button {
     font-size: clamp(42px, 13vw, 62px);
   }
 
-  .hero-reel,
-  .hero-reel__stage img {
+  .hero-reel {
     width: 100%;
-    min-height: 380px;
-    height: 380px;
   }
 
-  .hero-reel {
-    height: auto;
+  .hero-reel__stage img {
+    height: 100%;
   }
 
   .hero-reel__top {
@@ -1685,6 +1713,10 @@ button {
 
   .logo-rail {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pill-cloud {
+    grid-template-columns: 1fr;
   }
 
   .work-scroll {
