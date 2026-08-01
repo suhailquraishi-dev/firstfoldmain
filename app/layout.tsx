@@ -5,7 +5,7 @@ import { LivingNav } from "./components/LivingNav";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("http://localhost:3000"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://firstfoldmain.vercel.app"),
   title: {
     default: "FirstFold Studio",
     template: "%s",

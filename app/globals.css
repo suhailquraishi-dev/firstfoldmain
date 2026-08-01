@@ -1,18 +1,19 @@
-@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Pixelify+Sans:wght@400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
 @import "tailwindcss";
 
 :root {
-  --background: #f5f3ee;
+  --background: #f8f7f3;
   --foreground: #111111;
-  --muted: #69645d;
-  --line: #151515;
-  --border: #ded8cd;
-  --paper: #fffefa;
-  --soft: #ece7dc;
-  --yellow: #f9de72;
-  --brown: #6b4423;
-  --blue: #b9d4e8;
-  --orange: #e8492a;
+  --muted: #5f5b54;
+  --line: #101010;
+  --border: #d9d3c8;
+  --paper: #fffefd;
+  --soft: #ebe4d7;
+  --yellow: #ffd21e;
+  --brown: #5a3517;
+  --blue: #94c8ec;
+  --orange: #f0441f;
+  --mono: "SF Mono", "Roboto Mono", "IBM Plex Mono", "Space Mono", ui-monospace, Menlo, Consolas, monospace;
 }
 
 @theme inline {
@@ -71,7 +72,6 @@ button {
   outline-offset: 4px;
 }
 
-.pixel-font,
 .section-kicker,
 .hero-eyebrow,
 .page-hero p,
@@ -85,10 +85,14 @@ button {
 .case-body span,
 .before-after span,
 .pricing-card > span,
-.case-hero p {
-  font-family: "Pixelify Sans", "SF Pro Text", -apple-system, sans-serif;
-  font-weight: 500;
-  letter-spacing: 0;
+.case-hero p,
+.logo-rail strong,
+.full-bleed-moment span,
+.full-bleed-moment i {
+  font-family: var(--mono);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
 
 .cursor-orbit {
@@ -108,7 +112,7 @@ button {
 .cursor-orbit--active {
   width: 54px;
   height: 54px;
-  background: rgba(249, 222, 114, 0.3);
+  background: rgba(255, 210, 30, 0.34);
 }
 
 .fold-glyph {
@@ -397,12 +401,28 @@ button {
   box-shadow: 12px 12px 0 var(--accent);
 }
 
+.hero-proof::after,
+.about-photo::after {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  content: "";
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 18% 14%, rgba(255, 210, 30, 0.22), transparent 30%),
+    linear-gradient(135deg, rgba(90, 53, 23, 0.22), rgba(240, 68, 31, 0.1) 54%, rgba(255, 210, 30, 0.2)),
+    repeating-radial-gradient(circle at 20% 20%, rgba(17, 17, 17, 0.08) 0 1px, transparent 1px 4px);
+  mix-blend-mode: multiply;
+  opacity: 0.42;
+}
+
 .hero-proof img {
   display: block;
   width: 100%;
   height: 470px;
   object-fit: cover;
   object-position: center;
+  filter: sepia(0.28) saturate(1.24) contrast(1.06) brightness(0.96);
 }
 
 .hero-proof__top,
@@ -449,20 +469,27 @@ button {
 
 .logo-rail {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: 1.25fr repeat(6, minmax(0, 1fr));
   gap: 12px;
   align-items: center;
   margin-top: 44px;
-  color: #89837a;
+  color: #767068;
   font-size: 16px;
   font-weight: 600;
   text-align: center;
 }
 
+.logo-rail strong,
 .logo-rail span {
   padding: 13px 10px;
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
+}
+
+.logo-rail strong {
+  color: var(--foreground);
+  font-size: 11px;
+  text-align: left;
 }
 
 .section-frame,
@@ -619,9 +646,15 @@ button {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 12px;
+  gap: 0;
   min-height: 230px;
   align-content: center;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  background:
+    radial-gradient(rgba(17, 17, 17, 0.18) 1px, transparent 1px) 0 0 / 14px 14px,
+    var(--paper);
 }
 
 .pill-cloud span,
@@ -639,22 +672,25 @@ button {
 }
 
 .pill-cloud span {
-  font-size: clamp(24px, 4vw, 52px);
-  transform: rotate(var(--tilt, 0deg));
+  min-width: min(33.333%, 360px);
+  min-height: 96px;
+  justify-content: center;
+  border-width: 0 1px 1px 0;
+  border-radius: 0;
+  box-shadow: none;
+  font-size: clamp(22px, 3.4vw, 46px);
+  transform: none;
 }
 
 .pill-cloud .pill-0 {
-  --tilt: -4deg;
   background: var(--yellow);
 }
 
 .pill-cloud .pill-1 {
-  --tilt: 3deg;
   background: var(--blue);
 }
 
 .pill-cloud .pill-2 {
-  --tilt: -1deg;
   background: var(--paper);
 }
 
@@ -758,11 +794,92 @@ button {
   font-weight: 400;
 }
 
+.full-bleed-moment {
+  position: relative;
+  left: 50%;
+  width: 100vw;
+  min-height: min(760px, 92svh);
+  margin: clamp(28px, 5vw, 72px) 0;
+  margin-left: -50vw;
+  display: grid;
+  align-items: center;
+  overflow: hidden;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background:
+    linear-gradient(rgba(17, 17, 17, 0.12) 1px, transparent 1px) 0 0 / 34px 34px,
+    linear-gradient(90deg, rgba(17, 17, 17, 0.1) 1px, transparent 1px) 0 0 / 34px 34px,
+    var(--yellow);
+}
+
+.full-bleed-moment::before {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background:
+    radial-gradient(circle at 88% 16%, rgba(240, 68, 31, 0.34), transparent 18%),
+    radial-gradient(circle at 12% 82%, rgba(90, 53, 23, 0.22), transparent 22%);
+  mix-blend-mode: multiply;
+}
+
+.full-bleed-moment__inner {
+  position: relative;
+  z-index: 1;
+  width: min(1440px, 100%);
+  margin: 0 auto;
+  padding: clamp(72px, 10vw, 130px) max(22px, calc((100vw - 1440px) / 2 + 48px));
+}
+
+.full-bleed-moment span {
+  display: block;
+  margin-bottom: 22px;
+  font-size: 13px;
+}
+
+.full-bleed-moment h2 {
+  max-width: 1040px;
+  margin: 0;
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: clamp(72px, 11vw, 178px);
+  font-weight: 400;
+  line-height: 0.78;
+}
+
+.full-bleed-moment p {
+  max-width: 540px;
+  margin: 28px 0 0;
+  color: rgba(17, 17, 17, 0.76);
+  font-size: clamp(20px, 2vw, 28px);
+  line-height: 1.24;
+}
+
+.full-bleed-moment i {
+  position: absolute;
+  right: max(22px, calc((100vw - 1440px) / 2 + 70px));
+  bottom: clamp(36px, 7vw, 88px);
+  padding: 10px 14px;
+  border: 2px solid var(--line);
+  border-radius: 999px;
+  color: #fff;
+  background: var(--orange);
+  font-size: 12px;
+  font-style: normal;
+  transform: rotate(-7deg);
+  box-shadow: 4px 4px 0 var(--brown);
+}
+
 .founder-band {
+  position: relative;
   display: grid;
   grid-template-columns: minmax(300px, 0.62fr) minmax(280px, 0.38fr);
   gap: 14px;
   align-items: stretch;
+}
+
+.about-photo {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
 }
 
 .founder-band img,
@@ -774,6 +891,7 @@ button {
   object-position: center;
   border: 1px solid var(--line);
   border-radius: 8px;
+  filter: sepia(0.34) saturate(1.18) contrast(1.08) brightness(0.92);
 }
 
 .founder-band figure {

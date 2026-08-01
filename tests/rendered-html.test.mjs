@@ -35,6 +35,7 @@ test("server-renders the FirstFold Studio homepage", async () => {
   assert.match(html, /<title>FirstFold Studio \| AI-Native Websites<\/title>/i);
   assert.match(html, /Websites that make the first five seconds count/);
   assert.match(html, /FirstFold Studio \/ AI-native websites/);
+  assert.match(html, /Tools we build with/);
   assert.match(html, /FirstFold Studio/);
   assert.match(html, /AI-Native Websites/);
   assert.match(html, /Creator Packs/);
@@ -45,6 +46,8 @@ test("server-renders the FirstFold Studio homepage", async () => {
   assert.match(html, /human-hero\.png/);
   assert.match(html, /human-team\.png/);
   assert.match(html, /The site is the first proof/);
+  assert.match(html, /Pretty is easy/);
+  assert.match(html, /not another beige deck/);
   assert.doesNotMatch(html, /Your site is taking shape|react-loading-skeleton|codex-preview/i);
 });
 

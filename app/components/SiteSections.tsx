@@ -77,6 +77,7 @@ export function HomePage() {
       <WhoFor />
       <ServicesPreview />
       <ProcessTeaser />
+      <FullBleedMoment />
       <FounderNote />
       <FAQAccordion />
     </main>
@@ -114,7 +115,8 @@ function Hero() {
           </div>
         </div>
       </div>
-      <div className="logo-rail" aria-label="Tools and teams FirstFold is designed to sit beside">
+      <div className="logo-rail" aria-label="Tools FirstFold builds with">
+        <strong>Tools we build with</strong>
         {logoRail.map((logo) => (
           <span key={logo}>{logo}</span>
         ))}
@@ -212,6 +214,23 @@ function ProcessTeaser() {
         ))}
       </div>
     </SectionFrame>
+  );
+}
+
+function FullBleedMoment() {
+  return (
+    <section className="full-bleed-moment">
+      <div className="full-bleed-moment__inner">
+        <span>[N.04/05] / POINT OF VIEW</span>
+        <h2>
+          Pretty is easy.
+          <br />
+          The fold has to work.
+        </h2>
+        <p>AI can make a hundred options. FirstFold exists for the one worth shipping.</p>
+        <i aria-hidden="true">not another beige deck</i>
+      </div>
+    </section>
   );
 }
 
