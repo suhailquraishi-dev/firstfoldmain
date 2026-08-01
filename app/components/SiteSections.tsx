@@ -94,20 +94,6 @@ function Hero() {
             We make the first fold feel
             <span> alive.</span>
           </h1>
-          <p className="hero-lede">
-            FirstFold is a small AI-native web studio for founders who need their website to feel credible, clear, and a little impossible to ignore.
-          </p>
-          <div className="inline-proof" aria-label="FirstFold proof points">
-            <span>10-21d site sprints</span>
-            <span>4 case studies</span>
-            <span>Human taste, AI speed</span>
-          </div>
-          <div className="hero-actions">
-            <PremiumButton href="/contact">Book a strategy call</PremiumButton>
-            <PremiumButton href="/work" secondary>
-              See our work
-            </PremiumButton>
-          </div>
         </div>
         <div className="hero-reel" aria-label="Previous work video showcase">
           <div className="hero-reel__top">
@@ -125,6 +111,22 @@ function Hero() {
                 <span key={project.slug}>{project.title}</span>
               ))}
             </div>
+          </div>
+        </div>
+        <div className="hero-info">
+          <p className="hero-lede">
+            FirstFold is a small AI-native web studio for founders who need their website to feel credible, clear, and a little impossible to ignore.
+          </p>
+          <div className="inline-proof" aria-label="FirstFold proof points">
+            <span>10-21d site sprints</span>
+            <span>4 case studies</span>
+            <span>Human taste, AI speed</span>
+          </div>
+          <div className="hero-actions">
+            <PremiumButton href="/contact">Book a strategy call</PremiumButton>
+            <PremiumButton href="/work" secondary>
+              See our work
+            </PremiumButton>
           </div>
           <div className="hero-reel__caption">
             <strong>Previous work, packaged like a launch film.</strong>
