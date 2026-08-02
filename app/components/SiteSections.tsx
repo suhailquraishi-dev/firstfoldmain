@@ -148,7 +148,7 @@ function Hero() {
           </div>
         </div>
       </div>
-      <LogoStrip label="Major clients" logos={clientLogos} className="client-logo-strip" />
+      <LogoStrip label="Major clients" logos={clientLogos} moving className="client-logo-strip" />
     </section>
   );
 }
@@ -230,8 +230,15 @@ function WorkPreview() {
               className="work-scroll"
               style={{ x: reduced ? 0 : x }}
             >
-              {projects.map((project) => (
-                <ProjectCard key={project.slug} project={project} />
+              {projects.map((project, index) => (
+                <WorkCarouselCard
+                  key={project.slug}
+                  project={project}
+                  index={index}
+                  total={projects.length}
+                  progress={scrollYProgress}
+                  reduced={reduced}
+                />
               ))}
             </motion.div>
           </div>
@@ -433,6 +440,30 @@ function FounderNote() {
         ))}
       </div>
     </SectionFrame>
+  );
+}
+
+function WorkCarouselCard({
+  project,
+  index,
+  total,
+  progress,
+  reduced,
+}: {
+  project: Project;
+  index: number;
+  total: number;
+  progress: ReturnType<typeof useScroll>["scrollYProgress"];
+  reduced: boolean | null;
+}) {
+  const center = total <= 1 ? 0 : index / (total - 1);
+  const scale = useTransform(progress, [Math.max(0, center - 0.25), center, Math.min(1, center + 0.25)], [0.9, 1, 0.9]);
+  const opacity = useTransform(progress, [Math.max(0, center - 0.25), center, Math.min(1, center + 0.25)], [0.72, 1, 0.72]);
+
+  return (
+    <motion.div className="work-scroll__item" style={reduced ? undefined : { scale, opacity }}>
+      <ProjectCard project={project} />
+    </motion.div>
   );
 }
 
