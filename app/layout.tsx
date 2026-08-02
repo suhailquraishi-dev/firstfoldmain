@@ -36,8 +36,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <LivingNav />
         <ClientProviders>
-          <LivingNav />
           {children}
           <Footer />
         </ClientProviders>

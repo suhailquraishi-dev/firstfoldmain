@@ -1,20 +1,20 @@
 "use client";
 
 /* eslint-disable @next/next/no-img-element */
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { Check, ChevronDown, Mail } from "lucide-react";
-import { FormEvent, WheelEvent, useState } from "react";
-import { faqs, logoRail, metrics, pricingTiers, principles, processSteps, projects, projectTypes, services } from "@/lib/content";
+import { type CSSProperties, FormEvent, useEffect, useRef, useState } from "react";
+import { clientLogos, faqs, logoRail, metrics, navItems, pricingTiers, principles, processSteps, projects, projectTypes, services } from "@/lib/content";
 
 type Project = (typeof projects)[number];
 
 const audienceCards = [
-  { label: "01", title: "Founders", copy: "Turn messy momentum into a site people trust fast.", tone: "pill-0" },
-  { label: "02", title: "AI products", copy: "Explain the system before the demo has to carry it.", tone: "pill-1" },
-  { label: "03", title: "SaaS teams", copy: "Make the product feel mature without sanding it flat.", tone: "pill-2" },
-  { label: "04", title: "Creator-led brands", copy: "Package expertise into a public rhythm with edges.", tone: "pill-0" },
-  { label: "05", title: "Enterprise GTM", copy: "Give every team a cleaner story to launch from.", tone: "pill-1" },
-  { label: "06", title: "Productized services", copy: "Make the offer obvious, priced, and repeatable.", tone: "pill-2" },
+  { label: "01", title: "Founders", copy: "Make momentum credible.", tone: "pill-0", imagePosition: "0% 0%" },
+  { label: "02", title: "AI products", copy: "Explain the system fast.", tone: "pill-1", imagePosition: "50% 0%" },
+  { label: "03", title: "SaaS teams", copy: "Feel mature. Stay clear.", tone: "pill-2", imagePosition: "100% 0%" },
+  { label: "04", title: "Creator-led brands", copy: "Turn expertise into rhythm.", tone: "pill-0", imagePosition: "0% 100%" },
+  { label: "05", title: "Enterprise GTM", copy: "Launch one clean story.", tone: "pill-1", imagePosition: "50% 100%" },
+  { label: "06", title: "Productized services", copy: "Make the offer obvious.", tone: "pill-2", imagePosition: "100% 100%" },
 ];
 
 const principleIcons = ["/icons/brain-circuit.svg", "/icons/focus.svg", "/icons/badge-check.svg", "/icons/workflow.svg"];
@@ -47,7 +47,7 @@ export function SectionFrame({
   className,
   replayMotion = false,
 }: {
-  title: string;
+  title: React.ReactNode;
   copy?: string;
   children: React.ReactNode;
   accent?: "yellow" | "blue" | "brown" | "orange";
@@ -105,6 +105,7 @@ export function HomePage() {
       <WorkPreview />
       <WhoFor />
       <PricingPreview />
+      <ToolRail />
       <ProcessTeaser />
       <FullBleedMoment />
       <FounderNote />
@@ -114,12 +115,6 @@ export function HomePage() {
 }
 
 function Hero() {
-  const heroSignals = [
-    { value: "10-21d", label: "Launch window" },
-    { value: "$4.8k+", label: "Starter sprint" },
-    { value: "4", label: "Proof patterns" },
-  ];
-
   return (
     <section className="hero-shell hero-shell--landing theme-yellow">
       <div className="hero-aurora" aria-hidden="true" />
@@ -129,19 +124,11 @@ function Hero() {
             We make the first fold feel
             <span> alive.</span>
           </h1>
-          <p className="hero-lede">FirstFold builds crisp AI-native sites for founders who need trust, clarity, and momentum from the first screen.</p>
+          <p className="hero-lede">Crisp AI-native sites for founders who need trust from the first screen.</p>
           <div className="inline-proof inline-proof--single">
             <PremiumButton href="/pricing" secondary>
               Explore plans
             </PremiumButton>
-          </div>
-          <div className="hero-signal-grid" aria-label="FirstFold launch signals">
-            {heroSignals.map((signal, index) => (
-              <span key={signal.label} className={`signal-${index}`}>
-                <strong>{signal.value}</strong>
-                <em>{signal.label}</em>
-              </span>
-            ))}
           </div>
         </div>
         <div className="hero-reel" aria-label="Previous work video showcase">
@@ -166,68 +153,125 @@ function Hero() {
           </div>
           <div className="hero-reel__caption">
             <strong>Previous work, packaged like a launch film.</strong>
-            <span>Sites, creator systems, and workflows built to earn trust before the first call.</span>
+            <span>Sites and systems built to earn trust before the first call.</span>
           </div>
         </div>
       </div>
-      <div className="logo-rail" aria-label="Tools FirstFold builds with">
-        <strong>Tools we build with</strong>
-        <div className="logo-marquee">
-          <div className="logo-marquee__track">
-            {[...logoRail, ...logoRail].map((logo, index) => (
-              <span key={`${logo.name}-${index}`} className="logo-marquee__item" aria-hidden={index >= logoRail.length}>
-                <img src={logo.src} alt={index < logoRail.length ? logo.name : ""} width={160} height={42} loading="lazy" />
-                {logo.wordmark ? <em>{logo.wordmark}</em> : null}
-              </span>
-            ))}
-          </div>
+      <LogoStrip label="Major clients" logos={clientLogos} className="client-logo-strip" />
+    </section>
+  );
+}
+
+function ToolRail() {
+  return (
+    <section className="tool-rail-section" aria-label="Tools FirstFold builds with">
+      <LogoStrip label="Tools we build with" logos={logoRail} moving />
+    </section>
+  );
+}
+
+function LogoStrip({
+  label,
+  logos,
+  moving = false,
+  className,
+}: {
+  label: string;
+  logos: { name: string; src: string; wordmark?: string }[];
+  moving?: boolean;
+  className?: string;
+}) {
+  const list = moving ? [...logos, ...logos] : logos;
+
+  return (
+    <div className={["logo-strip", moving ? "logo-strip--moving" : "", className ?? ""].filter(Boolean).join(" ")}>
+      <strong>{label}</strong>
+      <div className="logo-strip__divider" aria-hidden="true" />
+      <div className={moving ? "logo-marquee" : "logo-strip__logos"}>
+        <div className={moving ? "logo-marquee__track" : "logo-strip__track"}>
+          {list.map((logo, index) => (
+            <span key={`${logo.name}-${index}`} className="logo-strip__item" aria-hidden={moving && index >= logos.length}>
+              <img src={logo.src} alt={!moving || index < logos.length ? logo.name : ""} width={180} height={46} loading="lazy" />
+              {logo.wordmark ? <em>{logo.wordmark}</em> : null}
+            </span>
+          ))}
         </div>
+      </div>
+    </div>
+  );
+}
+
+function WorkPreview() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const viewportRef = useRef<HTMLDivElement | null>(null);
+  const trackRef = useRef<HTMLDivElement | null>(null);
+  const [scrollDistance, setScrollDistance] = useState(0);
+  const reduced = useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end end"] });
+  const x = useTransform(scrollYProgress, [0, 1], [0, -scrollDistance]);
+
+  useEffect(() => {
+    const updateDistance = () => {
+      const viewport = viewportRef.current;
+      const track = trackRef.current;
+      if (!viewport || !track) return;
+      setScrollDistance(Math.max(0, track.scrollWidth - viewport.clientWidth));
+    };
+
+    updateDistance();
+    const observer = new ResizeObserver(updateDistance);
+    if (viewportRef.current) observer.observe(viewportRef.current);
+    if (trackRef.current) observer.observe(trackRef.current);
+    window.addEventListener("resize", updateDistance);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", updateDistance);
+    };
+  }, []);
+
+  return (
+    <section ref={sectionRef} className="work-horizontal-section" style={{ "--work-scroll-distance": `${scrollDistance}px` } as CSSProperties}>
+      <div className="work-horizontal-sticky">
+        <SectionFrame title="Proof sits right below the fold." copy="Clear promise. Visible proof." accent="yellow" compact className="work-proof-section">
+          <div ref={viewportRef} className="work-scroll-viewport" aria-label="Featured case studies">
+            <motion.div
+              ref={trackRef}
+              className="work-scroll"
+              style={{ x: reduced ? 0 : x }}
+            >
+              {projects.map((project) => (
+                <ProjectCard key={project.slug} project={project} />
+              ))}
+            </motion.div>
+          </div>
+        </SectionFrame>
       </div>
     </section>
   );
 }
 
-function WorkPreview() {
-  function onWorkWheel(event: WheelEvent<HTMLDivElement>) {
-    const track = event.currentTarget;
-    const delta = Math.abs(event.deltaY) > Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
-    const atStart = track.scrollLeft <= 0;
-    const atEnd = Math.ceil(track.scrollLeft + track.clientWidth) >= track.scrollWidth;
-
-    if ((delta < 0 && atStart) || (delta > 0 && atEnd)) {
-      return;
-    }
-
-    event.preventDefault();
-    track.scrollLeft += delta;
-  }
-
-  return (
-    <SectionFrame title="Proof sits right below the fold." copy="Clear promise. Visible proof. Faster trust." accent="yellow" compact className="work-proof-section" replayMotion>
-      <motion.div
-        className="work-scroll"
-        aria-label="Featured case studies"
-        onWheel={onWorkWheel}
-        initial={{ opacity: 0.72, y: 84 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: false, margin: "-16% 0px -16% 0px" }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      >
-        {projects.map((project) => (
-          <ProjectCard key={project.slug} project={project} />
-        ))}
-      </motion.div>
-    </SectionFrame>
-  );
-}
-
 function WhoFor() {
   return (
-    <SectionFrame title="Built for teams that cannot waste the first impression." copy="Different stages, same problem: the opening screen has to make the company feel real." accent="blue" compact>
+    <SectionFrame
+      title={
+        <>
+          Built for sharp
+          <br />
+          first impressions.
+        </>
+      }
+      copy="Six ways to earn trust fast."
+      accent="blue"
+      compact
+      className="audience-section"
+    >
       <div className="pill-cloud">
         {audienceCards.map((item) => (
           <article key={item.title} className={item.tone}>
             <span>{item.label}</span>
+            <div className="audience-card__media" aria-hidden="true">
+              <i style={{ backgroundPosition: item.imagePosition }} />
+            </div>
             <h3>{item.title}</h3>
             <p>{item.copy}</p>
           </article>
@@ -241,16 +285,25 @@ function PricingPreview() {
   return (
     <SectionFrame
       title="Pick the sprint that matches the stage."
-      copy="Start focused, expand into a system, or scope the custom layer when the site becomes infrastructure."
+      copy="Start focused. Grow the system. Scope custom when the site becomes infrastructure."
       accent="yellow"
+      className="pricing-preview-section"
     >
       <div className="pricing-preview" aria-label="Website sprint pricing preview">
         {pricingTiers.map((tier, index) => (
           <article className={index === 1 ? "pricing-preview-card is-featured" : "pricing-preview-card"} key={tier.name}>
-            <span>{tier.timeline}</span>
-            <h3>{tier.name}</h3>
-            <strong>{tier.price}</strong>
+            <div className="pricing-preview-card__head">
+              <h3>{tier.name}</h3>
+              <div className="pricing-preview-card__price">
+                <strong>{tier.price}</strong>
+                <span>{tier.timeline}</span>
+              </div>
+            </div>
             <p>{tier.summary}</p>
+            <PremiumButton href="/contact" secondary={index !== 1}>
+              {tier.price === "Talk to us" ? "Book custom call" : "Start here"}
+            </PremiumButton>
+            <div className="pricing-preview-card__rule" aria-hidden="true" />
             <ul>
               {tier.includes.slice(0, 5).map((item) => (
                 <li key={item}>
@@ -259,9 +312,6 @@ function PricingPreview() {
                 </li>
               ))}
             </ul>
-            <PremiumButton href="/contact" secondary={index !== 1}>
-              {tier.price === "Talk to us" ? "Book custom call" : "Start here"}
-            </PremiumButton>
           </article>
         ))}
       </div>
@@ -341,7 +391,7 @@ function FullBleedMoment() {
     <section className="full-bleed-moment">
       <div className="full-bleed-moment__inner">
         <h2>
-          Pretty is easy.
+          Sharp is easy.
           <br />
           The fold has to work.
         </h2>
@@ -356,12 +406,10 @@ function FounderNote() {
     <SectionFrame title="The site is the first proof." accent="brown" compact>
       <div className="founder-band">
         <img src="/human-team.png" alt="AI-generated fictional studio team arranging launch materials" width={1792} height={1024} loading="lazy" />
-        <MotionText>
-          <figure>
-            <blockquote>“AI should make the work feel more alive, not less personal.”</blockquote>
-            <figcaption>FirstFold Studio philosophy</figcaption>
-          </figure>
-        </MotionText>
+        <figure>
+          <blockquote>AI should make the work feel more alive, not less personal.</blockquote>
+          <figcaption>FirstFold Studio philosophy</figcaption>
+        </figure>
       </div>
       <div className="principle-row">
         {principles.map((principle, index) => (
@@ -379,7 +427,7 @@ export function ProjectCard({ project }: { project: Project }) {
   return (
     <a href={`/work/${project.slug}`} className={`project-card ${project.accent}`}>
       <div className="project-card__visual" aria-hidden="true">
-        <span>{project.stat}</span>
+        <img src={project.image} alt="" width={1536} height={1024} loading="lazy" />
         <i>{project.type}</i>
       </div>
       <div>
@@ -671,7 +719,7 @@ export function FAQAccordion() {
   const [open, setOpen] = useState(0);
 
   return (
-    <SectionFrame title="Simple answers, no theatre." accent="yellow" compact>
+    <SectionFrame title="Straight answers. No theatre." accent="yellow" compact>
       <div className="faq-list">
         {faqs.map((item, index) => {
           const active = open === index;
@@ -719,7 +767,13 @@ export function Footer() {
       </div>
       <div className="footer-bottom">
         <span>© 2026 FirstFold Studio</span>
-        <a href="/pricing">Pricing</a>
+        <nav className="footer-links" aria-label="Footer navigation">
+          {navItems.map((item) => (
+            <a key={item.href} href={item.href}>
+              {item.label}
+            </a>
+          ))}
+        </nav>
         <a href="mailto:hello@firstfold.studio">hello@firstfold.studio</a>
       </div>
       <img className="footer-wordmark" src="/firstfold-wordmark.svg" alt="FirstFold" width={1476} height={319} loading="lazy" />

@@ -1,14 +1,17 @@
 export const navItems = [
-  { label: "Work", href: "/work" },
-  { label: "Services", href: "/services" },
-  { label: "Process", href: "/process" },
-  { label: "Pricing", href: "/pricing" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
+  { label: "Home", href: "/", icon: "/icons/nav/house.svg" },
+  { label: "Work", href: "/work", icon: "/icons/nav/panels-top-left.svg" },
+  { label: "Services", href: "/services", icon: "/icons/nav/sparkle.svg" },
+  { label: "Process", href: "/process", icon: "/icons/nav/workflow.svg" },
+  { label: "Pricing", href: "/pricing", icon: "/icons/nav/badge-dollar-sign.svg" },
+  { label: "About", href: "/about", icon: "/icons/nav/user-round.svg" },
+  { label: "Contact", href: "/contact", icon: "/icons/nav/mail.svg" },
 ];
 
 export const logoRail = [
   { name: "Vercel", wordmark: "Vercel", src: "/logos/vercel.svg" },
+  { name: "Next.js", wordmark: "Next.js", src: "/logos/nextjs.svg" },
+  { name: "Cursor", wordmark: "Cursor", src: "/logos/cursor.svg" },
   { name: "Claude", wordmark: "Claude", src: "/logos/claude.svg" },
   { name: "Codex", wordmark: "Codex", src: "/logos/codex.svg" },
   { name: "ChatGPT", wordmark: "ChatGPT", src: "/logos/chatgpt.svg" },
@@ -16,6 +19,15 @@ export const logoRail = [
   { name: "Figma", wordmark: "Figma", src: "/logos/figma.svg" },
   { name: "Xcode", wordmark: "Xcode", src: "/logos/xcode.svg" },
   { name: "Replit", wordmark: "Replit", src: "/logos/replit.svg" },
+];
+
+export const clientLogos = [
+  { name: "Client 1", src: "/logos/clients/client-1.svg" },
+  { name: "Client 2", src: "/logos/clients/client-2.svg" },
+  { name: "Client 3", src: "/logos/clients/client-3.svg" },
+  { name: "Client 4", src: "/logos/clients/client-4.svg" },
+  { name: "Client 5", src: "/logos/clients/client-5.svg" },
+  { name: "Client 6", src: "/logos/clients/client-6.svg" },
 ];
 
 export const services = [
@@ -74,6 +86,7 @@ export const projects = [
     stat: "42%",
     statLabel: "more qualified calls in 30 days",
     accent: "accent-yellow",
+    image: "/images/work/signal-desk.png",
     next: "founder-field-notes",
   },
   {
@@ -87,6 +100,7 @@ export const projects = [
     stat: "4w",
     statLabel: "of posts from one founder interview",
     accent: "accent-blue",
+    image: "/images/work/founder-field-notes.png",
     next: "atlas-enable",
   },
   {
@@ -100,6 +114,7 @@ export const projects = [
     stat: "2.4x",
     statLabel: "faster drafts with human approval",
     accent: "accent-brown",
+    image: "/images/work/atlas-enable.png",
     next: "signal-desk",
   },
   {
@@ -113,6 +128,7 @@ export const projects = [
     stat: "6p",
     statLabel: "site with a reusable page pattern",
     accent: "accent-orange",
+    image: "/images/work/northstar-launch.png",
     next: "signal-desk",
   },
 ];

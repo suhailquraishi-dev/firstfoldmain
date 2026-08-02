@@ -42,6 +42,7 @@ test("server-renders the FirstFold Studio homepage", async () => {
   assert.match(html, /Explore plans/);
   assert.doesNotMatch(html, /Work reel/);
   assert.match(html, /Previous work, packaged like a launch film/);
+  assert.match(html, /Major clients/);
   assert.match(html, /Tools we build with/);
   assert.match(html, /FirstFold Studio/);
   assert.match(html, /Pick the sprint that matches the stage/);
@@ -59,12 +60,16 @@ test("server-renders the FirstFold Studio homepage", async () => {
   assert.match(html, /firstfold-logo\.svg/);
   assert.match(html, /human-hero\.png/);
   assert.match(html, /human-team\.png/);
+  assert.match(html, /images\/work\/signal-desk\.png/);
+  assert.match(html, /logos\/clients\/client-1\.svg/);
+  assert.match(html, /logos\/nextjs\.svg/);
+  assert.match(html, /logos\/cursor\.svg/);
   assert.match(html, /firstfold-wordmark\.svg/);
   assert.match(html, /The site is the first proof/);
-  assert.match(html, /Pretty is easy/);
+  assert.match(html, /Sharp is easy/);
   assert.doesNotMatch(html, removedStickerPattern);
   assert.match(html, /brain-circuit\.svg/);
-  assert.match(html, /Clear promise\. Visible proof\. Faster trust/);
+  assert.match(html, /Clear promise\. Visible proof/);
   assert.doesNotMatch(html, /Your site is taking shape|react-loading-skeleton|codex-preview/i);
 });
 
@@ -118,4 +123,12 @@ test("renders the planned routes and removes the starter shell", async () => {
   await access(new URL("public/favicon.svg", templateRoot));
   await access(new URL("public/human-hero.png", templateRoot));
   await access(new URL("public/human-team.png", templateRoot));
+  await access(new URL("public/images/audience-card-sheet.png", templateRoot));
+  await access(new URL("public/images/work/signal-desk.png", templateRoot));
+  await access(new URL("public/images/work/founder-field-notes.png", templateRoot));
+  await access(new URL("public/images/work/atlas-enable.png", templateRoot));
+  await access(new URL("public/images/work/northstar-launch.png", templateRoot));
+  await access(new URL("public/logos/clients/client-1.svg", templateRoot));
+  await access(new URL("public/logos/nextjs.svg", templateRoot));
+  await access(new URL("public/logos/cursor.svg", templateRoot));
 });

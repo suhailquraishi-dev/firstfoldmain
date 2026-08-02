@@ -10,7 +10,11 @@ export function LivingNav() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const activeItem = navItems.find((item) => item.href === pathname);
+
+  const isActive = (href: string) => {
+    if (href === "/") return pathname === "/";
+    return pathname === href || pathname.startsWith(`${href}/`);
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -25,17 +29,15 @@ export function LivingNav() {
         <img src="/firstfold-logo.svg" alt="FirstFold Studio" width={2044} height={380} />
       </a>
 
-      <div className="nav-context" aria-label="FirstFold studio context">
-        <span>AI-native web studio</span>
-        <strong>{activeItem?.label ?? "Home"}</strong>
-      </div>
-
       <nav className="nav-links" aria-label="Primary navigation">
         {navItems.map((item) => {
-          const active = pathname === item.href;
+          const active = isActive(item.href);
           return (
             <a key={item.href} href={item.href} className={active ? "nav-link is-active" : "nav-link"}>
-              <span>{item.label}</span>
+              <span className="nav-link__body">
+                <img className="nav-link__icon" src={item.icon} alt="" width={18} height={18} aria-hidden="true" />
+                <span>{item.label}</span>
+              </span>
               <span className="cta-arrow" aria-hidden="true">
                 <img src="/right-arrow.svg" alt="" width={16} height={16} />
               </span>
@@ -44,17 +46,23 @@ export function LivingNav() {
         })}
       </nav>
 
-      <div className="nav-proof" aria-label="Current sprint availability">
-        <span>Now booking</span>
-        <strong>10-21d sprints</strong>
+      <div className="nav-actions" aria-label="Start a FirstFold project">
+        <span className="nav-section-label">Start project</span>
+        <a href="/contact" className="nav-action-link">
+          <img className="nav-action-icon" src="/icons/nav/calendar-days.svg" alt="" width={18} height={18} aria-hidden="true" />
+          <span>Book a call</span>
+          <span className="cta-arrow" aria-hidden="true">
+            <img src="/right-arrow.svg" alt="" width={16} height={16} />
+          </span>
+        </a>
+        <a href="mailto:hello@firstfold.studio" className="nav-action-link">
+          <img className="nav-action-icon" src="/icons/nav/message-circle.svg" alt="" width={18} height={18} aria-hidden="true" />
+          <span>Send a message</span>
+          <span className="cta-arrow" aria-hidden="true">
+            <img src="/right-arrow.svg" alt="" width={16} height={16} />
+          </span>
+        </a>
       </div>
-
-      <a href="/contact" className="nav-cta">
-        <span>Start</span>
-        <span className="cta-arrow" aria-hidden="true">
-          <img src="/right-arrow.svg" alt="" width={18} height={18} />
-        </span>
-      </a>
 
       <button
         className="nav-toggle"
@@ -68,15 +76,18 @@ export function LivingNav() {
 
       <div className={open ? "mobile-panel is-open" : "mobile-panel"}>
         {navItems.map((item) => (
-          <a key={item.href} href={item.href} onClick={() => setOpen(false)}>
-            <span>{item.label}</span>
+          <a key={item.href} href={item.href} className={isActive(item.href) ? "is-active" : ""} onClick={() => setOpen(false)}>
+            <span className="nav-link__body">
+              <img className="nav-link__icon" src={item.icon} alt="" width={18} height={18} aria-hidden="true" />
+              <span>{item.label}</span>
+            </span>
             <span className="cta-arrow" aria-hidden="true">
               <img src="/right-arrow.svg" alt="" width={16} height={16} />
             </span>
           </a>
         ))}
         <a href="/contact" className="mobile-cta" onClick={() => setOpen(false)}>
-          <span>Start a launch</span>
+          <span>Book a call</span>
           <span className="cta-arrow" aria-hidden="true">
             <img src="/right-arrow.svg" alt="" width={18} height={18} />
           </span>
