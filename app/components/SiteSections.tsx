@@ -8,6 +8,17 @@ import { faqs, logoRail, metrics, pricingTiers, principles, processSteps, projec
 
 type Project = (typeof projects)[number];
 
+const audienceCards = [
+  { label: "01", title: "Founders", copy: "Turn messy momentum into a site people trust fast.", tone: "pill-0" },
+  { label: "02", title: "AI products", copy: "Explain the system before the demo has to carry it.", tone: "pill-1" },
+  { label: "03", title: "SaaS teams", copy: "Make the product feel mature without sanding it flat.", tone: "pill-2" },
+  { label: "04", title: "Creator-led brands", copy: "Package expertise into a public rhythm with edges.", tone: "pill-0" },
+  { label: "05", title: "Enterprise GTM", copy: "Give every team a cleaner story to launch from.", tone: "pill-1" },
+  { label: "06", title: "Productized services", copy: "Make the offer obvious, priced, and repeatable.", tone: "pill-2" },
+];
+
+const principleIcons = ["/icons/brain-circuit.svg", "/icons/focus.svg", "/icons/badge-check.svg", "/icons/workflow.svg"];
+
 export function FoldGlyph({ small = false }: { small?: boolean }) {
   return (
     <span className={small ? "fold-glyph fold-glyph--small" : "fold-glyph"} aria-hidden="true">
@@ -34,6 +45,7 @@ export function SectionFrame({
   accent = "yellow",
   compact = false,
   className,
+  replayMotion = false,
 }: {
   title: string;
   copy?: string;
@@ -41,15 +53,32 @@ export function SectionFrame({
   accent?: "yellow" | "blue" | "brown" | "orange";
   compact?: boolean;
   className?: string;
+  replayMotion?: boolean;
 }) {
+  const reduced = useReducedMotion();
   const classes = ["section-frame", compact ? "section-frame--compact" : "", `theme-${accent}`, className ?? ""].filter(Boolean).join(" ");
+  const heading = (
+    <>
+      <h2>{title}</h2>
+      {copy ? <p>{copy}</p> : null}
+    </>
+  );
 
   return (
     <section className={classes}>
-      <div className="section-heading">
-        <h2>{title}</h2>
-        {copy ? <p>{copy}</p> : null}
-      </div>
+      {replayMotion ? (
+        <motion.div
+          className="section-heading"
+          initial={reduced ? false : { opacity: 0.25, y: 72 }}
+          whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
+          viewport={{ once: false, margin: "-18% 0px -18% 0px" }}
+          transition={{ duration: 0.78, ease: [0.16, 1, 0.3, 1] }}
+        >
+          {heading}
+        </motion.div>
+      ) : (
+        <div className="section-heading">{heading}</div>
+      )}
       {children}
     </section>
   );
@@ -85,6 +114,12 @@ export function HomePage() {
 }
 
 function Hero() {
+  const heroSignals = [
+    { value: "10-21d", label: "Launch window" },
+    { value: "$4.8k+", label: "Starter sprint" },
+    { value: "4", label: "Proof patterns" },
+  ];
+
   return (
     <section className="hero-shell hero-shell--landing theme-yellow">
       <div className="hero-aurora" aria-hidden="true" />
@@ -94,13 +129,19 @@ function Hero() {
             We make the first fold feel
             <span> alive.</span>
           </h1>
-          <p className="hero-lede">
-            FirstFold is a small AI-native web studio for founders who need their website to feel credible, clear, and a little impossible to ignore.
-          </p>
-          <div className="inline-proof" aria-label="FirstFold proof points">
-            <span>10-21d site sprints</span>
-            <span>4 case studies</span>
-            <span>Human taste, AI speed</span>
+          <p className="hero-lede">FirstFold builds crisp AI-native sites for founders who need trust, clarity, and momentum from the first screen.</p>
+          <div className="inline-proof inline-proof--single">
+            <PremiumButton href="/pricing" secondary>
+              Explore plans
+            </PremiumButton>
+          </div>
+          <div className="hero-signal-grid" aria-label="FirstFold launch signals">
+            {heroSignals.map((signal, index) => (
+              <span key={signal.label} className={`signal-${index}`}>
+                <strong>{signal.value}</strong>
+                <em>{signal.label}</em>
+              </span>
+            ))}
           </div>
         </div>
         <div className="hero-reel" aria-label="Previous work video showcase">
@@ -125,7 +166,7 @@ function Hero() {
           </div>
           <div className="hero-reel__caption">
             <strong>Previous work, packaged like a launch film.</strong>
-            <span>Websites, creator systems, and enterprise workflows designed to earn trust before the first call.</span>
+            <span>Sites, creator systems, and workflows built to earn trust before the first call.</span>
           </div>
         </div>
       </div>
@@ -162,14 +203,14 @@ function WorkPreview() {
   }
 
   return (
-    <SectionFrame title="Proof sits right below the fold." copy="The public portfolio can grow later. This first site already shows the case-study pattern clients will expect." accent="yellow" compact className="work-proof-section">
+    <SectionFrame title="Proof sits right below the fold." copy="Clear promise. Visible proof. Faster trust." accent="yellow" compact className="work-proof-section" replayMotion>
       <motion.div
         className="work-scroll"
         aria-label="Featured case studies"
         onWheel={onWorkWheel}
         initial={{ opacity: 0.72, y: 84 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-16%" }}
+        viewport={{ once: false, margin: "-16% 0px -16% 0px" }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       >
         {projects.map((project) => (
@@ -182,12 +223,14 @@ function WorkPreview() {
 
 function WhoFor() {
   return (
-    <SectionFrame title="Built for teams who cannot afford a vague first impression." accent="blue" compact>
+    <SectionFrame title="Built for teams that cannot waste the first impression." copy="Different stages, same problem: the opening screen has to make the company feel real." accent="blue" compact>
       <div className="pill-cloud">
-        {["Founders", "AI products", "SaaS teams", "Creator-led brands", "Enterprise GTM", "Productized services"].map((item, index) => (
-          <span key={item} className={`pill-${index % 3}`}>
-            {item}
-          </span>
+        {audienceCards.map((item) => (
+          <article key={item.title} className={item.tone}>
+            <span>{item.label}</span>
+            <h3>{item.title}</h3>
+            <p>{item.copy}</p>
+          </article>
         ))}
       </div>
     </SectionFrame>
@@ -198,7 +241,7 @@ function PricingPreview() {
   return (
     <SectionFrame
       title="Pick the sprint that matches the stage."
-      copy="Start with a focused site, grow into a fuller system, or scope something custom when the website needs to become infrastructure."
+      copy="Start focused, expand into a system, or scope the custom layer when the site becomes infrastructure."
       accent="yellow"
     >
       <div className="pricing-preview" aria-label="Website sprint pricing preview">
@@ -270,7 +313,7 @@ export function ServicePanel({ service, index, primary = false }: { service: (ty
 
 function ProcessTeaser() {
   return (
-    <SectionFrame title="AI creates speed. Humans keep taste." copy="The split is explicit once, then the site lets the work feel premium without overexplaining the tools." accent="yellow">
+    <SectionFrame title="AI creates speed. Humans keep taste." copy="Fast drafts are useful. Final judgment is still human." accent="yellow">
       <div className="metrics-grid">
         {metrics.map((metric) => (
           <article className="metric-card" key={metric.value}>
@@ -302,8 +345,7 @@ function FullBleedMoment() {
           <br />
           The fold has to work.
         </h2>
-        <p>AI can make a hundred options. FirstFold exists for the one worth shipping.</p>
-        <i aria-hidden="true">not another beige deck</i>
+        <p>AI can make a hundred options. FirstFold helps ship the one that matters.</p>
       </div>
     </section>
   );
@@ -322,9 +364,9 @@ function FounderNote() {
         </MotionText>
       </div>
       <div className="principle-row">
-        {principles.map((principle) => (
+        {principles.map((principle, index) => (
           <span key={principle}>
-            <FoldGlyph small />
+            <img src={principleIcons[index]} alt="" width={28} height={28} loading="lazy" />
             {principle}
           </span>
         ))}

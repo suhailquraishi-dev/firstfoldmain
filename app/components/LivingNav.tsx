@@ -35,7 +35,10 @@ export function LivingNav() {
           const active = pathname === item.href;
           return (
             <a key={item.href} href={item.href} className={active ? "nav-link is-active" : "nav-link"}>
-              {item.label}
+              <span>{item.label}</span>
+              <span className="cta-arrow" aria-hidden="true">
+                <img src="/right-arrow.svg" alt="" width={16} height={16} />
+              </span>
             </a>
           );
         })}
@@ -66,7 +69,10 @@ export function LivingNav() {
       <div className={open ? "mobile-panel is-open" : "mobile-panel"}>
         {navItems.map((item) => (
           <a key={item.href} href={item.href} onClick={() => setOpen(false)}>
-            {item.label}
+            <span>{item.label}</span>
+            <span className="cta-arrow" aria-hidden="true">
+              <img src="/right-arrow.svg" alt="" width={16} height={16} />
+            </span>
           </a>
         ))}
         <a href="/contact" className="mobile-cta" onClick={() => setOpen(false)}>

@@ -6,6 +6,7 @@ const templateRoot = new URL("../", import.meta.url);
 const previewRoot = new URL("../app/_sites-preview/", import.meta.url);
 const resourcesPlaceholderPattern = new RegExp(["phase", "two"].join(" ") + "|" + ["planned", "for"].join(" "), "i");
 const contactPlaceholderPattern = new RegExp(["production", "version"].join(" ") + "|" + ["can", "swap"].join(" "), "i");
+const removedStickerPattern = new RegExp(["not", "another", "beige", "deck"].join(" "), "i");
 
 async function render(pathname = "/") {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
@@ -38,6 +39,7 @@ test("server-renders the FirstFold Studio homepage", async () => {
   assert.match(html, /We make the first fold feel/);
   assert.doesNotMatch(html, /About FirstFold Studio/);
   assert.match(html, /Book a strategy call/);
+  assert.match(html, /Explore plans/);
   assert.doesNotMatch(html, /Work reel/);
   assert.match(html, /Previous work, packaged like a launch film/);
   assert.match(html, /Tools we build with/);
@@ -60,7 +62,9 @@ test("server-renders the FirstFold Studio homepage", async () => {
   assert.match(html, /firstfold-wordmark\.svg/);
   assert.match(html, /The site is the first proof/);
   assert.match(html, /Pretty is easy/);
-  assert.match(html, /not another beige deck/);
+  assert.doesNotMatch(html, removedStickerPattern);
+  assert.match(html, /brain-circuit\.svg/);
+  assert.match(html, /Clear promise\. Visible proof\. Faster trust/);
   assert.doesNotMatch(html, /Your site is taking shape|react-loading-skeleton|codex-preview/i);
 });
 
