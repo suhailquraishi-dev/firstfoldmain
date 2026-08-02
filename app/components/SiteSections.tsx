@@ -133,10 +133,6 @@ function Hero() {
               See our work
             </PremiumButton>
           </div>
-          <div className="hero-reel__caption">
-            <strong>Previous work, packaged like a launch film.</strong>
-            <span>Sites and systems built to earn trust before the first call.</span>
-          </div>
         </div>
         <div className="hero-reel" aria-label="Previous work video showcase">
           <div className="hero-reel__stage">
@@ -384,8 +380,8 @@ function ProcessTeaser() {
       <div className="metrics-grid">
         {metrics.map((metric) => (
           <article className="metric-card" key={metric.value}>
-            <strong>{metric.value}</strong>
             <span>{metric.label}</span>
+            <strong>{metric.value}</strong>
           </article>
         ))}
       </div>
