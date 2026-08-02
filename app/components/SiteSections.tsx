@@ -2,7 +2,7 @@
 
 /* eslint-disable @next/next/no-img-element */
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, Check, ChevronDown, Mail, Send } from "lucide-react";
+import { Check, ChevronDown, Mail } from "lucide-react";
 import { FormEvent, WheelEvent, useState } from "react";
 import { faqs, logoRail, metrics, pricingTiers, principles, processSteps, projects, projectTypes, services } from "@/lib/content";
 
@@ -20,7 +20,9 @@ export function PremiumButton({ href, children, secondary = false }: { href: str
   return (
     <a href={href} className={secondary ? "premium-button premium-button--secondary" : "premium-button"}>
       <span>{children}</span>
-      <ArrowRight size={16} aria-hidden="true" />
+      <span className="cta-arrow" aria-hidden="true">
+        <img src="/right-arrow.svg" alt="" width={20} height={20} />
+      </span>
     </a>
   );
 }
@@ -31,15 +33,19 @@ export function SectionFrame({
   children,
   accent = "yellow",
   compact = false,
+  className,
 }: {
   title: string;
   copy?: string;
   children: React.ReactNode;
   accent?: "yellow" | "blue" | "brown" | "orange";
   compact?: boolean;
+  className?: string;
 }) {
+  const classes = ["section-frame", compact ? "section-frame--compact" : "", `theme-${accent}`, className ?? ""].filter(Boolean).join(" ");
+
   return (
-    <section className={compact ? `section-frame section-frame--compact theme-${accent}` : `section-frame theme-${accent}`}>
+    <section className={classes}>
       <div className="section-heading">
         <h2>{title}</h2>
         {copy ? <p>{copy}</p> : null}
@@ -156,12 +162,20 @@ function WorkPreview() {
   }
 
   return (
-    <SectionFrame title="Proof sits right below the fold." copy="The public portfolio can grow later. This first site already shows the case-study pattern clients will expect." accent="yellow" compact>
-      <div className="work-scroll" aria-label="Featured case studies" onWheel={onWorkWheel}>
+    <SectionFrame title="Proof sits right below the fold." copy="The public portfolio can grow later. This first site already shows the case-study pattern clients will expect." accent="yellow" compact className="work-proof-section">
+      <motion.div
+        className="work-scroll"
+        aria-label="Featured case studies"
+        onWheel={onWorkWheel}
+        initial={{ opacity: 0.72, y: 84 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-16%" }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      >
         {projects.map((project) => (
           <ProjectCard key={project.slug} project={project} />
         ))}
-      </div>
+      </motion.div>
     </SectionFrame>
   );
 }
@@ -244,7 +258,12 @@ export function ServicePanel({ service, index, primary = false }: { service: (ty
           </li>
         ))}
       </ul>
-      <a href="/services">View service <ArrowRight size={15} aria-hidden="true" /></a>
+      <a href="/services" className="text-cta">
+        View service
+        <span className="cta-arrow" aria-hidden="true">
+          <img src="/right-arrow.svg" alt="" width={18} height={18} />
+        </span>
+      </a>
     </motion.article>
   );
 }
@@ -590,8 +609,10 @@ export function ContactForm() {
         <textarea name="brief" required placeholder="A new site, sharper creator system, enterprise workflow, or something still taking shape..." rows={6} />
       </label>
       <button type="submit" className="submit-button">
-        <Send size={16} aria-hidden="true" />
-        Send inquiry
+        <span>Send inquiry</span>
+        <span className="cta-arrow" aria-hidden="true">
+          <img src="/right-arrow.svg" alt="" width={18} height={18} />
+        </span>
       </button>
       <a className="email-fallback" href="mailto:hello@firstfold.studio">
         <Mail size={16} aria-hidden="true" />
@@ -646,7 +667,6 @@ export function Footer() {
   return (
     <footer className="site-footer theme-yellow">
       <div>
-        <img className="footer-logo" src="/firstfold-logo.svg" alt="FirstFold Studio" width={2044} height={380} loading="lazy" />
         <h2>Make the first fold worth believing.</h2>
       </div>
       <div className="footer-cta">

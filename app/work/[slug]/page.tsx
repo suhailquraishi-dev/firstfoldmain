@@ -1,6 +1,6 @@
+/* eslint-disable @next/next/no-img-element */
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ArrowRight } from "lucide-react";
 import { getProject, projects } from "@/lib/content";
 import { FoldGlyph, PremiumButton } from "@/app/components/SiteSections";
 
@@ -94,8 +94,10 @@ export default async function Page({ params }: PageProps) {
       </section>
 
       <a className="next-project" href={`/work/${nextProject.slug}`}>
-        Next project: {nextProject.title}
-        <ArrowRight size={17} aria-hidden="true" />
+        <span>Next project: {nextProject.title}</span>
+        <span className="cta-arrow" aria-hidden="true">
+          <img src="/right-arrow.svg" alt="" width={18} height={18} />
+        </span>
       </a>
       <PremiumButton href="/contact">Book a similar sprint</PremiumButton>
     </main>
