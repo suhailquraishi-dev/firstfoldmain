@@ -2,7 +2,7 @@
 
 /* eslint-disable @next/next/no-img-element */
 import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { Check, ChevronDown, Mail } from "lucide-react";
+import { Check, ChevronDown, Diamond, Mail } from "lucide-react";
 import { type CSSProperties, FormEvent, useEffect, useRef, useState } from "react";
 import { clientLogos, faqs, logoRail, metrics, navItems, pricingTiers, principles, processSteps, projects, projectTypes, services } from "@/lib/content";
 
@@ -117,7 +117,6 @@ export function HomePage() {
 function Hero() {
   return (
     <section className="hero-shell hero-shell--landing theme-yellow">
-      <div className="hero-aurora" aria-hidden="true" />
       <div className="hero-grid">
         <div className="hero-copy">
           <h1>
@@ -125,10 +124,18 @@ function Hero() {
             <span> alive.</span>
           </h1>
           <p className="hero-lede">Crisp AI-native sites for founders who need trust from the first screen.</p>
-          <div className="inline-proof inline-proof--single">
-            <PremiumButton href="/pricing" secondary>
-              Explore plans
+        </div>
+        <div className="hero-info">
+          <p className="hero-proof-copy">A clear promise, visible work, and a page built to move the call forward.</p>
+          <div className="hero-actions">
+            <PremiumButton href="/contact">Book a strategy call</PremiumButton>
+            <PremiumButton href="/work" secondary>
+              See our work
             </PremiumButton>
+          </div>
+          <div className="hero-reel__caption">
+            <strong>Previous work, packaged like a launch film.</strong>
+            <span>Sites and systems built to earn trust before the first call.</span>
           </div>
         </div>
         <div className="hero-reel" aria-label="Previous work video showcase">
@@ -142,18 +149,6 @@ function Hero() {
                 <span key={project.slug}>{project.title}</span>
               ))}
             </div>
-          </div>
-        </div>
-        <div className="hero-info">
-          <div className="hero-actions">
-            <PremiumButton href="/contact">Book a strategy call</PremiumButton>
-            <PremiumButton href="/work" secondary>
-              See our work
-            </PremiumButton>
-          </div>
-          <div className="hero-reel__caption">
-            <strong>Previous work, packaged like a launch film.</strong>
-            <span>Sites and systems built to earn trust before the first call.</span>
           </div>
         </div>
       </div>
@@ -290,30 +285,52 @@ function PricingPreview() {
       className="pricing-preview-section"
     >
       <div className="pricing-preview" aria-label="Website sprint pricing preview">
-        {pricingTiers.map((tier, index) => (
-          <article className={index === 1 ? "pricing-preview-card is-featured" : "pricing-preview-card"} key={tier.name}>
-            <div className="pricing-preview-card__head">
-              <h3>{tier.name}</h3>
-              <div className="pricing-preview-card__price">
-                <strong>{tier.price}</strong>
-                <span>{tier.timeline}</span>
+        {pricingTiers.map((tier, index) => {
+          const isFeatured = index === 1;
+          const isCustom = tier.price === "Talk to us";
+
+          return (
+            <article
+              className={[
+                "pricing-preview-card",
+                isFeatured ? "is-featured" : "",
+                isCustom ? "is-custom" : "",
+              ]
+                .filter(Boolean)
+                .join(" ")}
+              key={tier.name}
+            >
+              <div className="pricing-preview-card__head">
+                <h3>{tier.name}</h3>
+                <div className="pricing-preview-card__price">
+                  <strong>{isCustom ? "Custom" : tier.price}</strong>
+                  <div className="pricing-preview-card__meta">
+                    {isFeatured ? (
+                      <span className="pricing-preview-card__popular">
+                        <Diamond size={13} aria-hidden="true" />
+                        Popular
+                      </span>
+                    ) : null}
+                    <span>{tier.timeline}</span>
+                  </div>
+                </div>
               </div>
-            </div>
-            <p>{tier.summary}</p>
-            <PremiumButton href="/contact" secondary={index !== 1}>
-              {tier.price === "Talk to us" ? "Book custom call" : "Start here"}
-            </PremiumButton>
-            <div className="pricing-preview-card__rule" aria-hidden="true" />
-            <ul>
-              {tier.includes.slice(0, 5).map((item) => (
-                <li key={item}>
-                  <Check size={15} aria-hidden="true" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </article>
-        ))}
+              <p>{tier.summary}</p>
+              <PremiumButton href="/contact" secondary={!isFeatured}>
+                {isCustom ? "Book custom call" : "Start here"}
+              </PremiumButton>
+              <div className="pricing-preview-card__rule" aria-hidden="true" />
+              <ul>
+                {tier.includes.slice(0, 5).map((item) => (
+                  <li key={item}>
+                    <Check size={15} aria-hidden="true" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </article>
+          );
+        })}
       </div>
       <div className="pricing-proof-strip" aria-label="Every sprint includes">
         {["Strategy included", "Design + build", "Launch QA"].map((item) => (
@@ -426,8 +443,23 @@ function FounderNote() {
 export function ProjectCard({ project }: { project: Project }) {
   return (
     <a href={`/work/${project.slug}`} className={`project-card ${project.accent}`}>
-      <div className="project-card__visual" aria-hidden="true">
-        <img src={project.image} alt="" width={1536} height={1024} loading="lazy" />
+      <div
+        className="project-card__visual"
+        aria-hidden="true"
+        style={
+          {
+            "--image-x": project.imageX,
+            "--image-y": project.imageY,
+          } as CSSProperties
+        }
+      >
+        <img
+          src={project.image}
+          alt=""
+          width={1536}
+          height={1024}
+          loading="lazy"
+        />
         <i>{project.type}</i>
       </div>
       <div>

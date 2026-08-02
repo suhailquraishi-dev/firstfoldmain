@@ -527,13 +527,15 @@ button {
 .hero-shell {
   position: relative;
   overflow: hidden;
-  padding-top: clamp(18px, 2.6vw, 36px);
-  padding-bottom: 24px;
+  padding-top: clamp(14px, 2vw, 28px);
+  padding-bottom: clamp(18px, 2.2vw, 30px);
 }
 
 .hero-shell--landing {
-  min-height: auto;
-  padding-top: clamp(8px, 1.6vw, 22px);
+  display: grid;
+  align-content: start;
+  min-height: 100svh;
+  padding-top: clamp(12px, 1.8vw, 26px);
 }
 
 .hero-aurora {
@@ -544,9 +546,9 @@ button {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: minmax(0, 0.56fr) minmax(320px, 0.44fr);
-  gap: clamp(22px, 3.2vw, 44px) clamp(24px, 4vw, 58px);
-  align-items: stretch;
+  grid-template-columns: minmax(0, 0.58fr) minmax(320px, 0.42fr);
+  gap: clamp(18px, 2.6vw, 34px) clamp(26px, 4vw, 58px);
+  align-items: start;
   min-height: 0;
 }
 
@@ -555,7 +557,7 @@ button {
   justify-items: start;
   grid-column: 1 / -1;
   max-width: none;
-  padding: clamp(4px, 1vw, 12px) 0 clamp(6px, 1.4vw, 18px);
+  padding: 0;
   min-width: 0;
   text-align: left;
 }
@@ -563,6 +565,9 @@ button {
 .hero-info {
   display: grid;
   align-content: start;
+  grid-column: 2;
+  grid-row: 2;
+  gap: clamp(14px, 1.8vw, 22px);
   min-width: 0;
   padding: 0;
 }
@@ -606,8 +611,8 @@ button {
 }
 
 .hero-copy h1 {
-  max-width: 1280px;
-  margin: clamp(6px, 0.8vw, 12px) 0 0;
+  max-width: 1240px;
+  margin: 0;
   margin-left: 0;
   line-height: 0.9;
   font-kerning: normal;
@@ -620,10 +625,10 @@ button {
 }
 
 .hero-lede {
-  max-width: 760px;
-  margin: clamp(18px, 2.2vw, 28px) 0 0;
+  max-width: 800px;
+  margin: clamp(14px, 1.4vw, 20px) 0 0;
   color: #332f29;
-  font-size: clamp(18px, 1.8vw, 24px);
+  font-size: clamp(18px, 1.6vw, 23px);
   line-height: 1.42;
 }
 
@@ -662,12 +667,23 @@ button {
 .hero-reel {
   position: relative;
   display: block;
+  grid-column: 1;
+  grid-row: 2;
   overflow: hidden;
   min-height: 0;
   padding: 0;
   border: 0;
   border-radius: 0;
   background: transparent;
+}
+
+.hero-proof-copy {
+  max-width: 540px;
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(22px, 2.3vw, 34px);
+  font-weight: 300;
+  line-height: 1.22;
 }
 
 .hero-reel__stage img {
@@ -757,7 +773,7 @@ button {
   z-index: 2;
   display: grid;
   gap: 6px;
-  padding-top: clamp(18px, 2vw, 24px);
+  padding-top: 0;
 }
 
 .hero-reel__caption strong {
@@ -788,7 +804,12 @@ button {
 }
 
 .client-logo-strip {
-  margin-top: clamp(24px, 3vw, 38px);
+  margin-top: clamp(18px, 2.4vw, 30px);
+}
+
+.client-logo-strip .logo-strip__item img {
+  max-width: clamp(76px, 7vw, 118px);
+  max-height: 34px;
 }
 
 .logo-strip strong {
@@ -1034,7 +1055,7 @@ button {
 .project-card__visual {
   position: relative;
   overflow: hidden;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 1 / 1;
   min-height: 0;
   border: 1px solid var(--line);
   border-radius: 7px;
@@ -1042,11 +1063,14 @@ button {
 }
 
 .project-card__visual img {
+  position: absolute;
+  inset: 0 auto auto 0;
   display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
+  width: 200%;
+  max-width: none;
+  height: auto;
+  min-height: 200%;
+  transform: translate(var(--image-x, 0%), var(--image-y, 0%));
 }
 
 .project-card__visual i {
@@ -1332,14 +1356,19 @@ button {
 .pricing-card::before,
 .service-detail::before {
   position: absolute;
-  inset: 0;
+  inset: -18%;
   z-index: 0;
   content: "";
   pointer-events: none;
   opacity: 0;
-  background: linear-gradient(110deg, rgba(255, 232, 121, 0), rgba(255, 232, 121, 0.5), rgba(240, 68, 31, 0.16), rgba(255, 232, 121, 0));
-  background-size: 240% 100%;
-  transition: opacity 220ms ease;
+  background:
+    radial-gradient(circle at 18% 28%, rgba(255, 232, 121, 0.42), transparent 28%),
+    radial-gradient(circle at 82% 18%, rgba(240, 68, 31, 0.16), transparent 26%),
+    radial-gradient(circle at 58% 82%, rgba(255, 210, 30, 0.28), transparent 34%),
+    radial-gradient(circle at 36% 66%, rgba(240, 68, 31, 0.1), transparent 24%);
+  background-size: 150% 150%;
+  filter: blur(18px);
+  transition: opacity 420ms ease;
 }
 
 .pricing-preview-card:hover::before,
@@ -1351,8 +1380,8 @@ button {
 .resource-card:hover::before,
 .pricing-card:hover::before,
 .service-detail:hover::before {
-  opacity: 1;
-  animation: card-color-wash 1.6s linear infinite;
+  opacity: 0.32;
+  animation: card-color-wash 22s ease-in-out infinite alternate;
 }
 
 .pricing-preview-card > *,
@@ -1372,9 +1401,31 @@ button {
   background: var(--yellow-soft);
 }
 
+.pricing-preview-card.is-custom {
+  background: var(--paper);
+}
+
+.pricing-preview-card.is-custom .pricing-preview-card__price {
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.pricing-preview-card.is-custom .pricing-preview-card__price strong {
+  font-size: clamp(38px, 3.2vw, 52px);
+}
+
+.pricing-preview-card.is-custom .pricing-preview-card__meta > span {
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: #f4f4f4;
+  color: var(--foreground);
+  font-size: 14px;
+}
+
 .pricing-preview-card__head {
   display: grid;
-  gap: clamp(14px, 1.6vw, 22px);
+  gap: clamp(12px, 1.4vw, 18px);
 }
 
 .pricing-preview-card h3 {
@@ -1386,35 +1437,62 @@ button {
 
 .pricing-preview-card__price {
   display: flex;
-  align-items: baseline;
-  gap: 12px;
+  align-items: center;
+  gap: clamp(10px, 1vw, 14px);
   white-space: nowrap;
 }
 
 .pricing-preview-card__price strong {
   display: block;
-  font-size: clamp(42px, 4.2vw, 64px);
+  font-size: clamp(38px, 3.6vw, 56px);
   font-weight: 600;
   line-height: 0.92;
   letter-spacing: -0.02em;
 }
 
-.pricing-preview-card__price span {
+.pricing-preview-card__meta {
+  display: grid;
+  gap: 7px;
+  align-content: center;
+}
+
+.pricing-preview-card__meta > span {
   max-width: none;
-  margin-bottom: 4px;
   color: var(--muted);
   font-size: clamp(16px, 1.1vw, 19px);
   font-weight: 300;
   line-height: 1.15;
 }
 
+.pricing-preview-card__popular {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  justify-self: start;
+  width: max-content;
+  padding: 5px 8px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--paper);
+  color: var(--foreground) !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  line-height: 1 !important;
+}
+
+.pricing-preview-card__popular svg {
+  width: 13px;
+  height: 13px;
+  stroke-width: 2.25;
+}
+
 @keyframes card-color-wash {
   from {
-    background-position: 120% 50%;
+    background-position: 0% 24%;
   }
 
   to {
-    background-position: -120% 50%;
+    background-position: 100% 76%;
   }
 }
 
@@ -2337,6 +2415,12 @@ button {
 
   .hero-copy {
     padding-bottom: 0;
+  }
+
+  .hero-info,
+  .hero-reel {
+    grid-column: 1;
+    grid-row: auto;
   }
 
   .project-grid,

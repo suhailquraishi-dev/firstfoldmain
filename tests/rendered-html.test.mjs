@@ -39,7 +39,8 @@ test("server-renders the FirstFold Studio homepage", async () => {
   assert.match(html, /We make the first fold feel/);
   assert.doesNotMatch(html, /About FirstFold Studio/);
   assert.match(html, /Book a strategy call/);
-  assert.match(html, /Explore plans/);
+  assert.match(html, /See our work/);
+  assert.doesNotMatch(html, /Explore plans/);
   assert.doesNotMatch(html, /Work reel/);
   assert.match(html, /Previous work, packaged like a launch film/);
   assert.match(html, /Major clients/);
@@ -60,11 +61,11 @@ test("server-renders the FirstFold Studio homepage", async () => {
   assert.match(html, /firstfold-logo\.svg/);
   assert.match(html, /human-hero\.png/);
   assert.match(html, /human-team\.png/);
-  assert.match(html, /images\/work\/signal-desk\.png/);
   assert.match(html, /logos\/clients\/client-1\.svg/);
   assert.match(html, /logos\/nextjs\.svg/);
   assert.match(html, /logos\/cursor\.svg/);
   assert.match(html, /firstfold-wordmark\.svg/);
+  assert.match(html, /images\/work\/work-illustration-sheet\.png/);
   assert.match(html, /The site is the first proof/);
   assert.match(html, /Sharp is easy/);
   assert.doesNotMatch(html, removedStickerPattern);
@@ -128,6 +129,7 @@ test("renders the planned routes and removes the starter shell", async () => {
   await access(new URL("public/images/work/founder-field-notes.png", templateRoot));
   await access(new URL("public/images/work/atlas-enable.png", templateRoot));
   await access(new URL("public/images/work/northstar-launch.png", templateRoot));
+  await access(new URL("public/images/work/work-illustration-sheet.png", templateRoot));
   await access(new URL("public/logos/clients/client-1.svg", templateRoot));
   await access(new URL("public/logos/nextjs.svg", templateRoot));
   await access(new URL("public/logos/cursor.svg", templateRoot));

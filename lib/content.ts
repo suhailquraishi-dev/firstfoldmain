@@ -86,7 +86,9 @@ export const projects = [
     stat: "42%",
     statLabel: "more qualified calls in 30 days",
     accent: "accent-yellow",
-    image: "/images/work/signal-desk.png",
+    image: "/images/work/work-illustration-sheet.png",
+    imageX: "0%",
+    imageY: "0%",
     next: "founder-field-notes",
   },
   {
@@ -100,7 +102,9 @@ export const projects = [
     stat: "4w",
     statLabel: "of posts from one founder interview",
     accent: "accent-blue",
-    image: "/images/work/founder-field-notes.png",
+    image: "/images/work/work-illustration-sheet.png",
+    imageX: "-50%",
+    imageY: "0%",
     next: "atlas-enable",
   },
   {
@@ -114,7 +118,9 @@ export const projects = [
     stat: "2.4x",
     statLabel: "faster drafts with human approval",
     accent: "accent-brown",
-    image: "/images/work/atlas-enable.png",
+    image: "/images/work/work-illustration-sheet.png",
+    imageX: "0%",
+    imageY: "-50%",
     next: "signal-desk",
   },
   {
@@ -128,7 +134,9 @@ export const projects = [
     stat: "6p",
     statLabel: "site with a reusable page pattern",
     accent: "accent-orange",
-    image: "/images/work/northstar-launch.png",
+    image: "/images/work/work-illustration-sheet.png",
+    imageX: "-50%",
+    imageY: "-50%",
     next: "signal-desk",
   },
 ];
