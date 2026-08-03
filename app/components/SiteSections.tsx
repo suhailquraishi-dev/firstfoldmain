@@ -3,8 +3,9 @@
 /* eslint-disable @next/next/no-img-element */
 import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { Check, ChevronDown, Diamond, Mail } from "lucide-react";
+import Link from "next/link";
 import { type CSSProperties, FormEvent, useEffect, useRef, useState } from "react";
-import { clientLogos, faqs, logoRail, metrics, navItems, pricingTiers, principles, processSteps, projects, projectTypes, services } from "@/lib/content";
+import { clientLogos, faqs, logoRail, metrics, pricingTiers, principles, processSteps, projects, projectTypes, services } from "@/lib/content";
 
 type Project = (typeof projects)[number];
 
@@ -814,25 +815,35 @@ export function PageHero({ title, copy }: { title: string; copy: string }) {
 
 export function Footer() {
   return (
-    <footer className="site-footer theme-yellow">
-      <div>
-        <h2>Make the first fold worth believing.</h2>
-      </div>
-      <div className="footer-cta">
-        <PremiumButton href="/contact">Book a call</PremiumButton>
-        <PremiumButton href="/work" secondary>
-          See work
-        </PremiumButton>
-      </div>
-      <div className="footer-bottom">
-        <span>© 2026 FirstFold Studio</span>
-        <nav className="footer-links" aria-label="Footer navigation">
-          {navItems.map((item) => (
-            <a key={item.href} href={item.href}>
-              {item.label}
-            </a>
-          ))}
+    <footer className="site-footer theme-orange">
+      <div className="footer-directory">
+        <nav aria-label="Footer products">
+          <h2>Products</h2>
+          <Link href="/services">AI-native websites</Link>
+          <Link href="/services">Creator packs</Link>
+          <Link href="/services">Enterprise systems</Link>
+          <Link href="/pricing">Pricing</Link>
         </nav>
+        <nav aria-label="Footer company">
+          <h2>Company</h2>
+          <Link href="/work">Work</Link>
+          <Link href="/process">Process</Link>
+          <Link href="/about">About</Link>
+          <Link href="/resources">Resources</Link>
+        </nav>
+        <nav aria-label="Footer contact">
+          <h2>Contact</h2>
+          <Link href="/contact">Book a call</Link>
+          <a href="mailto:hello@firstfold.studio">Email us</a>
+          <Link href="/work">Case studies</Link>
+        </nav>
+        <div className="footer-statement">
+          <h2>Making first folds feel alive.</h2>
+          <p>AI-native websites with human taste, clear proof, and launch-ready systems.</p>
+        </div>
+      </div>
+      <div className="footer-brand-row">
+        <span>© 2026 FirstFold Studio</span>
         <a href="mailto:hello@firstfold.studio">hello@firstfold.studio</a>
       </div>
       <img className="footer-wordmark" src="/firstfold-wordmark.svg" alt="FirstFold" width={1476} height={319} loading="lazy" />
