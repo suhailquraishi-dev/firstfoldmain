@@ -19,6 +19,13 @@ const audienceCards = [
 ];
 
 const principleIcons = ["/icons/brain-circuit.svg", "/icons/focus.svg", "/icons/badge-check.svg", "/icons/workflow.svg"];
+const credsDeckSlides = [
+  { title: "FirstFold cover", src: "/images/creds/s1.jpg" },
+  { title: "Creds Deck", src: "/images/creds/s2.jpg" },
+  { title: "Why AI first", src: "/images/creds/s3.jpg" },
+  { title: "AI foundation", src: "/images/creds/s4.jpg" },
+  { title: "Clients served", src: "/images/creds/s5.jpg" },
+];
 
 export function FoldGlyph({ small = false }: { small?: boolean }) {
   return (
@@ -103,6 +110,7 @@ export function HomePage() {
   return (
     <main>
       <Hero />
+      <CredsDeck />
       <WorkPreview />
       <WhoFor />
       <PricingPreview />
@@ -115,16 +123,38 @@ export function HomePage() {
   );
 }
 
+function CredsDeck() {
+  return (
+    <section className="creds-deck-section" aria-label="FirstFold creds deck preview">
+      <div className="creds-deck__copy">
+        <span>Creds deck</span>
+        <h2>Proof, packaged for the first look.</h2>
+        <p>Five proof frames: brand, AI stance, client trust, and the kind of first impression we build toward.</p>
+      </div>
+      <div className="creds-deck__rail" aria-hidden="true">
+        <div className="creds-deck__track">
+          {[...credsDeckSlides, ...credsDeckSlides].map((slide, index) => (
+            <figure className="creds-deck__card" key={`${slide.title}-deck-${index}`}>
+              <img src={slide.src} alt="" width={1920} height={1080} loading="lazy" />
+              <figcaption>{slide.title}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Hero() {
   return (
     <section className="hero-shell hero-shell--landing theme-yellow">
       <div className="hero-grid">
         <div className="hero-copy">
+          <span className="hero-availability">Only 3 spots left this month</span>
           <h1>
             We make the first fold feel
             <span> alive.</span>
           </h1>
-          <p className="hero-lede">Crisp AI-native sites for founders who need trust from the first screen.</p>
         </div>
         <div className="hero-info">
           <p className="hero-proof-copy">A clear promise, visible work, and a page built to move the call forward.</p>
@@ -149,7 +179,7 @@ function Hero() {
           </div>
         </div>
       </div>
-      <LogoStrip label="Major clients" logos={clientLogos} moving className="client-logo-strip" />
+      <LogoStrip label="Clients" logos={clientLogos} moving className="client-logo-strip" />
     </section>
   );
 }
@@ -304,17 +334,17 @@ function PricingPreview() {
                 .join(" ")}
               key={tier.name}
             >
+              {isFeatured ? (
+                <span className="pricing-preview-card__popular">
+                  <Diamond size={13} aria-hidden="true" />
+                  Popular
+                </span>
+              ) : null}
               <div className="pricing-preview-card__head">
                 <h3>{tier.name}</h3>
                 <div className="pricing-preview-card__price">
                   <strong>{isCustom ? "Custom" : tier.price}</strong>
                   <div className="pricing-preview-card__meta">
-                    {isFeatured ? (
-                      <span className="pricing-preview-card__popular">
-                        <Diamond size={13} aria-hidden="true" />
-                        Popular
-                      </span>
-                    ) : null}
                     <span>{tier.timeline}</span>
                   </div>
                 </div>
@@ -408,15 +438,36 @@ function ProcessTeaser() {
 }
 
 function FullBleedMoment() {
+  const landingPages = [...projects, ...projects].slice(0, 6);
+
   return (
     <section className="full-bleed-moment">
       <div className="full-bleed-moment__inner">
-        <h2>
-          Sharp is easy.
-          <br />
-          The fold has to work.
-        </h2>
-        <p>AI can make a hundred options. FirstFold helps ship the one that matters.</p>
+        <div className="full-bleed-moment__copy">
+          <h2>
+            Sharp is easy.
+            <br />
+            The fold has to work.
+          </h2>
+          <p>AI can make a hundred options. FirstFold helps ship the one that matters.</p>
+        </div>
+        <div className="fold-page-stack" aria-hidden="true">
+          {landingPages.map((project, index) => (
+            <span
+              className="fold-page-stack__card"
+              key={`${project.slug}-${index}`}
+              style={
+                {
+                  "--page-index": index,
+                  "--image-x": project.imageX,
+                  "--image-y": project.imageY,
+                } as CSSProperties
+              }
+            >
+              <img src={project.image} alt="" width={1280} height={720} loading="lazy" />
+            </span>
+          ))}
+        </div>
       </div>
     </section>
   );

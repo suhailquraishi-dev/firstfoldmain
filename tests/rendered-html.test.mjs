@@ -43,7 +43,9 @@ test("server-renders the FirstFold Studio homepage", async () => {
   assert.doesNotMatch(html, /Explore plans/);
   assert.doesNotMatch(html, /Work reel/);
   assert.doesNotMatch(html, /Previous work, packaged like a launch film/);
-  assert.match(html, /Major clients/);
+  assert.match(html, /Clients/);
+  assert.match(html, /Creds deck/);
+  assert.match(html, /images\/creds\/s1\.jpg/);
   assert.match(html, /Tools we build with/);
   assert.match(html, /FirstFold Studio/);
   assert.match(html, /Pick the sprint that matches the stage/);
@@ -130,6 +132,11 @@ test("renders the planned routes and removes the starter shell", async () => {
   await access(new URL("public/images/work/atlas-enable.png", templateRoot));
   await access(new URL("public/images/work/northstar-launch.png", templateRoot));
   await access(new URL("public/images/work/work-illustration-sheet.png", templateRoot));
+  await access(new URL("public/images/creds/s1.jpg", templateRoot));
+  await access(new URL("public/images/creds/s2.jpg", templateRoot));
+  await access(new URL("public/images/creds/s3.jpg", templateRoot));
+  await access(new URL("public/images/creds/s4.jpg", templateRoot));
+  await access(new URL("public/images/creds/s5.jpg", templateRoot));
   await access(new URL("public/logos/clients/client-1.svg", templateRoot));
   await access(new URL("public/logos/nextjs.svg", templateRoot));
   await access(new URL("public/logos/cursor.svg", templateRoot));
