@@ -98,6 +98,7 @@ body {
   overflow-x: clip;
   background: var(--background);
   color: var(--foreground);
+  cursor: default;
   font-family: var(--season-sans);
   font-weight: 300;
   letter-spacing: 0;
@@ -117,6 +118,11 @@ select {
 
 button {
   cursor: pointer;
+}
+
+input,
+textarea {
+  cursor: text;
 }
 
 ::selection {
@@ -253,8 +259,9 @@ button {
 .brand-mark {
   display: block;
   justify-self: center;
-  width: 184px;
-  min-width: 184px;
+  width: 100%;
+  min-width: 0;
+  max-width: none;
   margin: 0 auto;
 }
 
@@ -312,6 +319,11 @@ button {
   width: 14px;
   height: 14px;
   opacity: 0;
+}
+
+.nav-link .cta-arrow img,
+.nav-action-link .cta-arrow img {
+  filter: invert(75%) sepia(79%) saturate(924%) hue-rotate(356deg) brightness(103%) contrast(101%);
 }
 
 .nav-link:hover,
@@ -577,19 +589,30 @@ button {
 }
 
 .hero-availability {
+  position: relative;
   display: inline-flex;
   align-items: center;
+  gap: 9px;
   width: max-content;
   max-width: 100%;
   min-height: 34px;
-  padding: 0 11px;
+  padding: 0 13px 0 11px;
   border: 1px solid var(--line);
   border-radius: 4px;
-  background: #ffe8df;
-  color: var(--foreground);
+  background: #fff3b8;
+  color: #2d1a00;
   font-size: 13px;
   font-weight: 500;
   line-height: 1;
+}
+
+.hero-availability::before {
+  width: 8px;
+  height: 8px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--orange);
+  content: "";
 }
 
 .hero-info {
@@ -840,6 +863,8 @@ button {
 }
 
 .client-logo-strip {
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: clamp(26px, 3.2vw, 48px);
   margin-top: 0;
 }
 
@@ -957,8 +982,17 @@ button {
   color: rgba(255, 255, 255, 0.92);
 }
 
+.client-logo-strip strong {
+  align-self: center;
+  padding: 11px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.94);
+  border-radius: 4px;
+  background: #ffffff;
+  color: var(--foreground);
+}
+
 .client-logo-strip .logo-strip__divider {
-  background: rgba(255, 255, 255, 0.86);
+  display: none;
 }
 
 .logo-strip__item em {
@@ -1001,22 +1035,14 @@ button {
 }
 
 .creds-deck__copy > span {
-  width: max-content;
-  padding: 7px 10px;
-  border: 1px solid var(--line);
-  border-radius: 4px;
-  background: var(--paper);
-  color: var(--foreground);
-  font-size: 13px;
-  font-weight: 500;
-  line-height: 1;
+  display: none;
 }
 
 .creds-deck__copy h2 {
-  max-width: 520px;
+  max-width: 500px;
   margin: 0;
   font-family: var(--season-sans);
-  font-size: clamp(42px, 5.2vw, 86px);
+  font-size: clamp(42px, 4.8vw, 76px);
   font-weight: 400;
   line-height: 0.95;
 }

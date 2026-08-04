@@ -127,9 +127,8 @@ function CredsDeck() {
   return (
     <section className="creds-deck-section" aria-label="FirstFold creds deck preview">
       <div className="creds-deck__copy">
-        <span>Creds deck</span>
-        <h2>The proof deck, without the long call.</h2>
-        <p>Clients served, AI-native process, and the FirstFold point of view in one tight read.</p>
+        <h2>Proof, in one deck.</h2>
+        <p>Clients, process, and point of view in one tight read.</p>
         <PremiumButton href="/contact" secondary>
           View full creds deck
         </PremiumButton>
