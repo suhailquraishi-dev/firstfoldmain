@@ -66,7 +66,7 @@
   --paper: #ffffff;
   --soft: #ebe4d7;
   --yellow: #ffd21e;
-  --yellow-soft: #ffeb86;
+  --yellow-soft: #ffec78;
   --brown: #5a3517;
   --blue: #94c8ec;
   --orange: #ff3300;
@@ -233,14 +233,14 @@ button {
   left: 0;
   z-index: 50;
   display: grid;
-  grid-template-rows: auto auto 1fr auto;
-  gap: 22px;
+  grid-template-rows: auto auto 1fr;
+  gap: 24px;
   align-items: start;
   width: 284px;
   height: 100svh;
   min-height: 0;
   max-height: 100svh;
-  padding: 26px 22px 24px;
+  padding: 30px 22px 28px;
   border-right: 1px solid #d7d7d7;
   background: var(--nav-bg);
   overflow: hidden;
@@ -253,8 +253,9 @@ button {
 .brand-mark {
   display: block;
   justify-self: center;
-  width: 160px;
-  min-width: 160px;
+  width: 184px;
+  min-width: 184px;
+  margin: 0 auto;
 }
 
 .brand-mark img,
@@ -331,14 +332,16 @@ button {
 
 .nav-actions {
   display: grid;
-  gap: 10px;
+  align-content: start;
+  gap: 11px;
   width: 100%;
-  padding-block: 18px;
+  padding-block: 22px;
 }
 
 .nav-section-label {
   display: block;
-  padding-left: 38px;
+  padding-left: 10px;
+  margin: 0 0 2px;
   color: #91a0ab;
   font-size: 12px;
   font-weight: 600;
@@ -535,15 +538,15 @@ button {
 .hero-shell {
   position: relative;
   overflow: hidden;
-  padding-top: clamp(14px, 2vw, 28px);
-  padding-bottom: clamp(18px, 2.2vw, 30px);
+  padding-top: clamp(18px, 2.2vw, 32px);
+  padding-bottom: clamp(20px, 2.4vw, 34px);
 }
 
 .hero-shell--landing {
   display: grid;
-  align-content: space-between;
+  align-content: start;
   min-height: 100svh;
-  padding-top: clamp(18px, 2.3vw, 34px);
+  padding-top: clamp(22px, 2.5vw, 38px);
   padding-bottom: 0;
   background: #ff3300;
 }
@@ -556,15 +559,15 @@ button {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: minmax(0, 0.57fr) minmax(360px, 0.43fr);
-  gap: clamp(24px, 2.8vw, 40px) clamp(34px, 4.8vw, 72px);
+  grid-template-columns: minmax(0, 0.6fr) minmax(340px, 0.4fr);
+  gap: clamp(20px, 2.1vw, 32px) clamp(42px, 5vw, 76px);
   align-items: start;
   min-height: 0;
 }
 
 .hero-copy {
   display: grid;
-  gap: clamp(16px, 1.6vw, 24px);
+  gap: clamp(14px, 1.2vw, 20px);
   justify-items: start;
   grid-column: 1 / -1;
   max-width: none;
@@ -582,7 +585,7 @@ button {
   padding: 0 11px;
   border: 1px solid var(--line);
   border-radius: 4px;
-  background: rgba(255, 255, 255, 0.84);
+  background: #ffe8df;
   color: var(--foreground);
   font-size: 13px;
   font-weight: 500;
@@ -594,7 +597,7 @@ button {
   align-content: start;
   grid-column: 2;
   grid-row: 2;
-  gap: clamp(18px, 2.1vw, 28px);
+  gap: clamp(18px, 2vw, 28px);
   min-width: 0;
   padding: 0;
 }
@@ -681,7 +684,7 @@ button {
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 14px;
+  gap: 16px;
   margin-top: 0;
 }
 
@@ -766,8 +769,8 @@ button {
   left: 50%;
   z-index: 3;
   display: grid;
-  width: 64px;
-  height: 64px;
+  width: 44px;
+  height: 44px;
   place-items: center;
   border: 1px solid var(--line);
   border-radius: 4px;
@@ -778,31 +781,10 @@ button {
 .hero-reel__stage button span {
   width: 0;
   height: 0;
-  margin-left: 6px;
-  border-top: 11px solid transparent;
-  border-bottom: 11px solid transparent;
-  border-left: 17px solid var(--line);
-}
-
-.work-peek {
-  position: absolute;
-  right: 14px;
-  bottom: 14px;
-  left: 14px;
-  z-index: 3;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px;
-}
-
-.work-peek span {
-  min-height: 56px;
-  padding: 9px;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  background: rgba(255, 254, 253, 0.9);
-  font-size: 12px;
-  line-height: 1.05;
+  margin-left: 4px;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 13px solid var(--line);
 }
 
 .hero-reel__caption {
@@ -843,13 +825,18 @@ button {
 .hero-client-fade {
   position: relative;
   z-index: 1;
+  isolation: isolate;
   display: grid;
   align-items: end;
-  min-height: clamp(128px, 15vh, 188px);
-  margin-top: clamp(22px, 2.8vw, 40px);
-  padding-top: clamp(38px, 5vw, 78px);
-  padding-bottom: clamp(20px, 2.5vw, 34px);
-  background: linear-gradient(180deg, rgba(255, 51, 0, 0) 0%, rgba(255, 51, 0, 0.72) 34%, #ff3300 100%);
+  min-height: clamp(124px, 13vh, 160px);
+  margin-top: clamp(22px, 2.4vw, 34px);
+  padding-top: clamp(46px, 5.2vw, 78px);
+  padding-bottom: clamp(24px, 2.5vw, 36px);
+  background: linear-gradient(180deg, rgba(255, 51, 0, 0) 0%, rgba(255, 51, 0, 0.42) 22%, rgba(255, 51, 0, 0.84) 58%, #ff3300 100%);
+}
+
+.hero-client-fade::before {
+  display: none;
 }
 
 .client-logo-strip {
@@ -921,12 +908,12 @@ button {
 }
 
 .client-logo-strip .logo-marquee__track {
-  gap: 0;
-  animation-duration: 30s;
+  gap: clamp(30px, 4.2vw, 68px);
+  animation-duration: 34s;
 }
 
 .client-logo-strip .logo-strip__item {
-  min-width: clamp(210px, 15vw, 280px);
+  min-width: clamp(210px, 15.5vw, 292px);
 }
 
 .logo-marquee__track {
@@ -957,17 +944,17 @@ button {
 
 .client-logo-strip.logo-strip--moving .logo-strip__item img {
   width: auto;
-  height: clamp(24px, 2vw, 34px);
-  max-width: clamp(156px, 12vw, 230px);
+  height: clamp(34px, 2.6vw, 44px);
+  max-width: clamp(180px, 14vw, 270px);
   max-height: none;
   object-fit: contain;
   filter: brightness(0) invert(1);
-  opacity: 0.76;
+  opacity: 0.86;
 }
 
 .client-logo-strip,
 .client-logo-strip strong {
-  color: rgba(255, 255, 255, 0.96);
+  color: rgba(255, 255, 255, 0.92);
 }
 
 .client-logo-strip .logo-strip__divider {
@@ -1232,7 +1219,7 @@ button {
 .project-card__visual {
   position: relative;
   overflow: hidden;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 16 / 10;
   min-height: 0;
   border: 1px solid var(--line);
   border-radius: 7px;
@@ -1241,13 +1228,15 @@ button {
 
 .project-card__visual img {
   position: absolute;
-  inset: 0 auto auto 0;
+  inset: 0;
   display: block;
-  width: 200%;
+  width: 100%;
   max-width: none;
-  height: auto;
-  min-height: 200%;
-  transform: translate(var(--image-x, 0%), var(--image-y, 0%));
+  height: 100%;
+  min-height: 0;
+  object-fit: cover;
+  object-position: var(--image-x, center) var(--image-y, center);
+  transform: none;
 }
 
 .project-card__visual i {
@@ -1539,12 +1528,12 @@ button {
   pointer-events: none;
   opacity: 0;
   background:
-    radial-gradient(circle at 18% 28%, rgba(255, 232, 121, 0.5), transparent 29%),
-    radial-gradient(circle at 82% 18%, rgba(240, 68, 31, 0.18), transparent 28%),
-    radial-gradient(circle at 58% 82%, rgba(255, 210, 30, 0.34), transparent 36%),
-    radial-gradient(circle at 36% 66%, rgba(240, 68, 31, 0.12), transparent 26%);
+    radial-gradient(circle at 16% 22%, rgba(255, 236, 120, 0.62), transparent 28%),
+    radial-gradient(circle at 82% 18%, rgba(255, 51, 0, 0.16), transparent 29%),
+    radial-gradient(circle at 58% 84%, rgba(255, 245, 178, 0.42), transparent 38%),
+    radial-gradient(circle at 30% 68%, rgba(255, 51, 0, 0.1), transparent 26%);
   background-size: 180% 180%;
-  filter: blur(20px);
+  filter: blur(24px);
   transition: opacity 420ms ease;
 }
 
@@ -1557,8 +1546,8 @@ button {
 .resource-card:hover::before,
 .pricing-card:hover::before,
 .service-detail:hover::before {
-  opacity: 0.24;
-  animation: card-color-wash 34s ease-in-out infinite alternate;
+  opacity: 0.2;
+  animation: card-color-wash 42s ease-in-out infinite alternate;
 }
 
 .pricing-preview-card > *,
@@ -1576,12 +1565,13 @@ button {
 
 .pricing-preview-card.is-featured {
   background: var(--yellow-soft);
+  color: var(--foreground);
 }
 
 .pricing-preview-card.is-featured p,
 .pricing-preview-card.is-featured .pricing-preview-card__meta > span,
 .pricing-preview-card.is-featured li {
-  color: rgba(17, 17, 17, 0.78);
+  color: #111111;
 }
 
 .pricing-preview-card.is-custom {
@@ -1594,14 +1584,15 @@ button {
 }
 
 .pricing-preview-card.is-custom .pricing-preview-card__price strong {
-  font-size: clamp(38px, 3.2vw, 52px);
+  font-size: clamp(36px, 2.7vw, 46px);
+  white-space: nowrap;
 }
 
 .pricing-preview-card.is-custom .pricing-preview-card__meta > span {
   padding: 6px 8px;
   border: 1px solid var(--border);
   border-radius: 4px;
-  background: #f4f4f4;
+  background: #fff8e4;
   color: var(--foreground);
   font-size: 14px;
 }
@@ -1609,6 +1600,11 @@ button {
 .pricing-preview-card__head {
   display: grid;
   gap: clamp(12px, 1.4vw, 18px);
+  padding-right: 0;
+}
+
+.pricing-preview-card.is-featured .pricing-preview-card__head {
+  padding-right: clamp(112px, 10vw, 150px);
 }
 
 .pricing-preview-card h3 {
@@ -1623,11 +1619,12 @@ button {
   align-items: center;
   gap: clamp(10px, 1vw, 14px);
   white-space: nowrap;
+  flex-wrap: nowrap;
 }
 
 .pricing-preview-card__price strong {
   display: block;
-  font-size: clamp(38px, 3.6vw, 56px);
+  font-size: clamp(36px, 3.7vw, 58px);
   font-weight: 600;
   line-height: 0.92;
   letter-spacing: -0.02em;
@@ -1649,8 +1646,8 @@ button {
 
 .pricing-preview-card__popular {
   position: absolute;
-  top: clamp(22px, 2.4vw, 30px);
-  right: clamp(22px, 2.4vw, 30px);
+  top: clamp(20px, 2vw, 26px);
+  right: clamp(20px, 2vw, 26px);
   z-index: 2;
   display: inline-flex;
   gap: 6px;
@@ -1659,7 +1656,7 @@ button {
   padding: 5px 8px;
   border: 1px solid var(--line);
   border-radius: 4px;
-  background: var(--paper);
+  background: #fff8dc;
   color: var(--foreground) !important;
   font-size: 13px !important;
   font-weight: 500 !important;
@@ -1933,13 +1930,14 @@ button {
 
 .fold-page-stack__card img {
   position: absolute;
-  inset: 0 auto auto 0;
+  inset: 0;
   display: block;
-  width: 200%;
+  width: 100%;
   max-width: none;
-  height: auto;
-  min-height: 200%;
-  transform: translate(var(--image-x, 0%), var(--image-y, 0%));
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: none;
 }
 
 @keyframes fold-page-float {
@@ -2562,13 +2560,16 @@ button {
 .site-footer {
   position: relative;
   overflow: hidden;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  align-content: stretch;
   width: 100%;
   max-width: none;
   --footer-left: max(326px, calc((100vw - 1440px) / 2 + 326px));
   --footer-right: max(22px, calc((100vw - 1440px) / 2 + 48px));
-  min-height: clamp(560px, 46vw, 660px);
-  padding-top: clamp(54px, 5vw, 76px);
-  padding-bottom: clamp(58px, 5.4vw, 82px);
+  min-height: clamp(560px, 48vw, 720px);
+  padding-top: clamp(58px, 5.2vw, 82px);
+  padding-bottom: clamp(34px, 3.1vw, 50px);
   border-top: 1px solid var(--line);
   background: var(--orange);
   color: var(--foreground);
@@ -2578,8 +2579,8 @@ button {
   position: relative;
   z-index: 2;
   display: grid;
-  grid-template-columns: repeat(3, minmax(120px, 0.14fr)) minmax(300px, 0.58fr);
-  gap: clamp(28px, 4vw, 72px);
+  grid-template-columns: repeat(3, minmax(130px, 0.15fr)) minmax(360px, 0.55fr);
+  gap: clamp(44px, 5vw, 92px);
   align-items: start;
   max-width: 100%;
 }
@@ -2587,13 +2588,13 @@ button {
 .footer-directory nav,
 .footer-statement {
   display: grid;
-  gap: 18px;
+  gap: clamp(17px, 1.55vw, 24px);
   align-content: start;
 }
 
 .footer-directory h2,
 .footer-statement h2 {
-  margin: 0 0 clamp(20px, 2.4vw, 36px);
+  margin: 0 0 clamp(16px, 1.8vw, 26px);
   font-size: clamp(20px, 1.5vw, 28px);
   font-weight: 600;
   line-height: 1;
@@ -2628,17 +2629,16 @@ button {
 }
 
 .footer-brand-row {
-  position: absolute;
+  position: relative;
   z-index: 2;
-  right: var(--footer-right);
-  bottom: clamp(34px, 3.2vw, 46px);
-  left: var(--footer-left);
+  grid-row: 3;
   display: flex;
   flex-wrap: wrap;
   gap: 14px 28px;
   justify-content: space-between;
   align-items: center;
   margin: 0;
+  align-self: end;
 }
 
 .footer-brand-row a {
@@ -2646,19 +2646,18 @@ button {
 }
 
 .footer-wordmark {
-  position: absolute;
+  position: relative;
   z-index: 1;
-  right: var(--footer-right);
-  top: 50%;
-  bottom: auto;
-  left: var(--footer-left);
-  width: calc(100vw - var(--footer-left) - var(--footer-right));
+  grid-row: 2;
+  align-self: center;
+  justify-self: center;
+  width: min(1320px, 100%);
   max-width: none;
   height: auto;
   filter: brightness(0);
-  opacity: 0.86;
+  opacity: 0.94;
   pointer-events: none;
-  transform: translateY(-12%);
+  transform: none;
 }
 
 @media (max-width: 1180px) {
@@ -2836,13 +2835,12 @@ button {
   }
 
   .footer-brand-row {
-    right: max(22px, calc((100vw - 1440px) / 2 + 48px));
-    left: max(22px, calc((100vw - 1440px) / 2 + 48px));
+    width: 100%;
   }
 
   .footer-wordmark {
-    left: max(22px, calc((100vw - 1440px) / 2 + 48px));
-    transform: translateY(-4%);
+    width: 100%;
+    transform: none;
   }
 }
 
@@ -2929,14 +2927,6 @@ button {
     font-size: 12px;
   }
 
-  .work-peek {
-    grid-template-columns: 1fr;
-  }
-
-  .work-peek span:nth-child(n + 2) {
-    display: none;
-  }
-
   .logo-strip {
     grid-template-columns: 1fr;
     gap: 12px;
@@ -3004,16 +2994,11 @@ button {
   }
 
   .footer-brand-row {
-    right: 18px;
-    bottom: 18px;
-    left: 18px;
+    width: 100%;
   }
 
   .footer-wordmark {
-    top: auto;
-    left: 18px;
-    right: 18px;
-    bottom: 74px;
+    width: 100%;
     transform: none;
   }
 

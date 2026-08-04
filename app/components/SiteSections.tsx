@@ -20,11 +20,11 @@ const audienceCards = [
 
 const principleIcons = ["/icons/brain-circuit.svg", "/icons/focus.svg", "/icons/badge-check.svg", "/icons/workflow.svg"];
 const credsDeckSlides = [
-  { title: "FirstFold cover", src: "/images/creds/s1.jpg" },
-  { title: "Creds Deck", src: "/images/creds/s2.jpg" },
-  { title: "Why AI first", src: "/images/creds/s3.jpg" },
-  { title: "AI foundation", src: "/images/creds/s4.jpg" },
-  { title: "Clients served", src: "/images/creds/s5.jpg" },
+  { title: "Creds slide 1", src: "/images/creds/s1.jpg" },
+  { title: "Creds slide 2", src: "/images/creds/s2.jpg" },
+  { title: "Creds slide 3", src: "/images/creds/s3.jpg" },
+  { title: "Creds slide 4", src: "/images/creds/s4.jpg" },
+  { title: "Creds slide 5", src: "/images/creds/s5.jpg" },
 ];
 
 export function FoldGlyph({ small = false }: { small?: boolean }) {
@@ -128,8 +128,8 @@ function CredsDeck() {
     <section className="creds-deck-section" aria-label="FirstFold creds deck preview">
       <div className="creds-deck__copy">
         <span>Creds deck</span>
-        <h2>A quick read on how we show up.</h2>
-        <p>The short deck behind FirstFold: positioning, AI-native process, proof, and client context in one pass.</p>
+        <h2>The proof deck, without the long call.</h2>
+        <p>Clients served, AI-native process, and the FirstFold point of view in one tight read.</p>
         <PremiumButton href="/contact" secondary>
           View full creds deck
         </PremiumButton>
@@ -170,14 +170,9 @@ function Hero() {
         <div className="hero-reel" aria-label="Previous work video showcase">
           <div className="hero-reel__stage">
             <img src="/human-hero.png" alt="AI-generated fictional founder reviewing previous website work" width={1536} height={1024} fetchPriority="high" />
-            <button type="button" aria-label="Play FirstFold work reel">
+            <button type="button" aria-label="Play FirstFold showcase">
               <span />
             </button>
-            <div className="work-peek">
-              {projects.slice(0, 3).map((project) => (
-                <span key={project.slug}>{project.title}</span>
-              ))}
-            </div>
           </div>
         </div>
       </div>

@@ -67,7 +67,9 @@ test("server-renders the FirstFold Studio homepage", async () => {
   assert.match(html, /logos\/nextjs\.svg/);
   assert.match(html, /logos\/cursor\.svg/);
   assert.match(html, /firstfold-wordmark\.svg/);
-  assert.match(html, /images\/work\/work-illustration-sheet\.png/);
+  assert.match(html, /images\/work\/signal-desk\.png/);
+  assert.match(html, /images\/work\/founder-field-notes\.png/);
+  assert.match(html, /images\/work\/atlas-enable\.png/);
   assert.match(html, /The site is the first proof/);
   assert.match(html, /Sharp is easy/);
   assert.doesNotMatch(html, removedStickerPattern);
