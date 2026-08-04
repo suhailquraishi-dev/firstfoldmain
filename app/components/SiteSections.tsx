@@ -128,15 +128,17 @@ function CredsDeck() {
     <section className="creds-deck-section" aria-label="FirstFold creds deck preview">
       <div className="creds-deck__copy">
         <span>Creds deck</span>
-        <h2>Proof, packaged for the first look.</h2>
-        <p>Five proof frames: brand, AI stance, client trust, and the kind of first impression we build toward.</p>
+        <h2>A quick read on how we show up.</h2>
+        <p>The short deck behind FirstFold: positioning, AI-native process, proof, and client context in one pass.</p>
+        <PremiumButton href="/contact" secondary>
+          View full creds deck
+        </PremiumButton>
       </div>
       <div className="creds-deck__rail" aria-hidden="true">
         <div className="creds-deck__track">
           {[...credsDeckSlides, ...credsDeckSlides].map((slide, index) => (
             <figure className="creds-deck__card" key={`${slide.title}-deck-${index}`}>
               <img src={slide.src} alt="" width={1920} height={1080} loading="lazy" />
-              <figcaption>{slide.title}</figcaption>
             </figure>
           ))}
         </div>
@@ -179,7 +181,9 @@ function Hero() {
           </div>
         </div>
       </div>
-      <LogoStrip label="Clients" logos={clientLogos} moving className="client-logo-strip" />
+      <div className="hero-client-fade">
+        <LogoStrip label="Clients" logos={clientLogos} moving className="client-logo-strip" />
+      </div>
     </section>
   );
 }
