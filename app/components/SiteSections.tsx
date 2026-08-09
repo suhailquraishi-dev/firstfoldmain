@@ -211,7 +211,7 @@ function ToolRail() {
           <div className="tool-ui-orbit tool-ui-orbit--inner" />
           <div className="tool-ui-hub">
             <FoldGlyph small />
-            <span>FirstFold stack</span>
+            <span>Our Stack</span>
           </div>
           {featuredTools.map((logo, index) => (
             <span className={`tool-ui-node tool-ui-node--${index}`} key={logo.name}>
