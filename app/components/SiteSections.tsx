@@ -1,10 +1,10 @@
 "use client";
 
 /* eslint-disable @next/next/no-img-element */
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { Check, ChevronDown, Clock, Diamond, Globe2, Mail } from "lucide-react";
+import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { Check, ChevronDown, Diamond, Mail } from "lucide-react";
 import Link from "next/link";
-import { type CSSProperties, FormEvent, useState } from "react";
+import { type CSSProperties, FormEvent, useEffect, useRef, useState } from "react";
 import { clientLogos, faqs, logoRail, metrics, pricingTiers, principles, processSteps, projects, projectTypes, services } from "@/lib/content";
 
 type Project = (typeof projects)[number];
@@ -35,29 +35,9 @@ export function FoldGlyph({ small = false }: { small?: boolean }) {
   );
 }
 
-function MeetingIcons() {
-  return (
-    <span className="meeting-icons" aria-hidden="true">
-      <img src="/icons/google-meet.svg" alt="" width={18} height={18} />
-      <img src="/icons/zoom.svg" alt="" width={18} height={18} />
-    </span>
-  );
-}
-
-export function PremiumButton({
-  href,
-  children,
-  secondary = false,
-  meeting = false,
-}: {
-  href: string;
-  children: React.ReactNode;
-  secondary?: boolean;
-  meeting?: boolean;
-}) {
+export function PremiumButton({ href, children, secondary = false }: { href: string; children: React.ReactNode; secondary?: boolean }) {
   return (
     <a href={href} className={secondary ? "premium-button premium-button--secondary" : "premium-button"}>
-      {meeting ? <MeetingIcons /> : null}
       <span>{children}</span>
       <span className="cta-arrow" aria-hidden="true">
         <img src="/right-arrow.svg" alt="" width={20} height={20} />
@@ -131,6 +111,7 @@ export function HomePage() {
     <main>
       <Hero />
       <CredsDeck />
+      <WorkPreview />
       <WhoFor />
       <PricingPreview />
       <ToolRail />
@@ -146,7 +127,8 @@ function CredsDeck() {
   return (
     <section className="creds-deck-section" aria-label="FirstFold creds deck preview">
       <div className="creds-deck__copy">
-        <h2>Proof, packaged.</h2>
+        <h2>Proof, in one deck.</h2>
+        <p>Clients, process, and point of view in one tight read.</p>
         <PremiumButton href="/contact" secondary>
           View full creds deck
         </PremiumButton>
@@ -169,27 +151,27 @@ function Hero() {
     <section className="hero-shell hero-shell--landing theme-yellow">
       <div className="hero-grid">
         <div className="hero-copy">
-          <span className="hero-availability">Booking for Q3 2026</span>
+          <span className="hero-availability">Only 3 spots left this month</span>
           <h1>
-            Launch faster.
-            <br />
-            Grow smarter.
+            We make the first fold feel
+            <span> alive.</span>
           </h1>
-          <p className="hero-subtitle">
-            AI-first creative for ambitious brands—from websites and content to campaigns and everything in between.
-          </p>
+        </div>
+        <div className="hero-info">
+          <p className="hero-proof-copy">A clear promise, visible work, and a page built to move the call forward.</p>
           <div className="hero-actions">
-            <PremiumButton href="/contact" meeting>
-              Book a strategy call
-            </PremiumButton>
-            <PremiumButton href="/pricing" secondary>
-              View Plans
+            <PremiumButton href="/contact">Book a strategy call</PremiumButton>
+            <PremiumButton href="/work" secondary>
+              See our work
             </PremiumButton>
           </div>
         </div>
         <div className="hero-reel" aria-label="Previous work video showcase">
           <div className="hero-reel__stage">
             <img src="/human-hero.png" alt="AI-generated fictional founder reviewing previous website work" width={1536} height={1024} fetchPriority="high" />
+            <button type="button" aria-label="Play FirstFold showcase">
+              <span />
+            </button>
           </div>
         </div>
       </div>
@@ -201,30 +183,9 @@ function Hero() {
 }
 
 function ToolRail() {
-  const featuredTools = logoRail;
-
   return (
     <section className="tool-rail-section" aria-label="Tools FirstFold builds with">
-      <div className="tool-ui-card">
-        <div className="tool-ui-visual" aria-hidden="true">
-          <div className="tool-ui-orbit tool-ui-orbit--outer" />
-          <div className="tool-ui-orbit tool-ui-orbit--inner" />
-          <div className="tool-ui-hub">
-            <FoldGlyph small />
-            <span>FirstFold stack</span>
-          </div>
-          {featuredTools.map((logo, index) => (
-            <span className={`tool-ui-node tool-ui-node--${index}`} key={logo.name}>
-              <img src={logo.src} alt="" width={42} height={42} loading="lazy" />
-            </span>
-          ))}
-        </div>
-        <div className="tool-ui-copy">
-          <p>Tools we build with</p>
-          <h2>One sharp stack.</h2>
-          <span>AI, design, code, and deployment tools connected around the sprint.</span>
-        </div>
-      </div>
+      <LogoStrip label="Tools we build with" logos={logoRail} moving />
     </section>
   );
 }
@@ -257,6 +218,62 @@ function LogoStrip({
         </div>
       </div>
     </div>
+  );
+}
+
+function WorkPreview() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const viewportRef = useRef<HTMLDivElement | null>(null);
+  const trackRef = useRef<HTMLDivElement | null>(null);
+  const [scrollDistance, setScrollDistance] = useState(0);
+  const reduced = useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end end"] });
+  const x = useTransform(scrollYProgress, [0, 1], [0, -scrollDistance]);
+
+  useEffect(() => {
+    const updateDistance = () => {
+      const viewport = viewportRef.current;
+      const track = trackRef.current;
+      if (!viewport || !track) return;
+      setScrollDistance(Math.max(0, track.scrollWidth - viewport.clientWidth));
+    };
+
+    updateDistance();
+    const observer = new ResizeObserver(updateDistance);
+    if (viewportRef.current) observer.observe(viewportRef.current);
+    if (trackRef.current) observer.observe(trackRef.current);
+    window.addEventListener("resize", updateDistance);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", updateDistance);
+    };
+  }, []);
+
+  return (
+    <section ref={sectionRef} className="work-horizontal-section" style={{ "--work-scroll-distance": `${scrollDistance}px` } as CSSProperties}>
+      <div className="work-horizontal-sticky">
+        <SectionFrame title="Proof sits right below the fold." copy="Clear promise. Visible proof." accent="yellow" compact className="work-proof-section">
+          <div ref={viewportRef} className="work-scroll-viewport" aria-label="Featured case studies">
+            <motion.div
+              ref={trackRef}
+              className="work-scroll"
+              style={{ x: reduced ? 0 : x }}
+            >
+              {projects.map((project, index) => (
+                <WorkCarouselCard
+                  key={project.slug}
+                  project={project}
+                  index={index}
+                  total={projects.length}
+                  progress={scrollYProgress}
+                  reduced={reduced}
+                />
+              ))}
+            </motion.div>
+          </div>
+        </SectionFrame>
+      </div>
+    </section>
   );
 }
 
@@ -331,7 +348,7 @@ function PricingPreview() {
                 </div>
               </div>
               <p>{tier.summary}</p>
-              <PremiumButton href="/contact" secondary={!isFeatured} meeting={isCustom}>
+              <PremiumButton href="/contact" secondary={!isFeatured}>
                 {isCustom ? "Book custom call" : "Start here"}
               </PremiumButton>
               <div className="pricing-preview-card__rule" aria-hidden="true" />
@@ -473,6 +490,30 @@ function FounderNote() {
         ))}
       </div>
     </SectionFrame>
+  );
+}
+
+function WorkCarouselCard({
+  project,
+  index,
+  total,
+  progress,
+  reduced,
+}: {
+  project: Project;
+  index: number;
+  total: number;
+  progress: ReturnType<typeof useScroll>["scrollYProgress"];
+  reduced: boolean | null;
+}) {
+  const center = total <= 1 ? 0 : index / (total - 1);
+  const scale = useTransform(progress, [Math.max(0, center - 0.25), center, Math.min(1, center + 0.25)], [0.9, 1, 0.9]);
+  const opacity = useTransform(progress, [Math.max(0, center - 0.25), center, Math.min(1, center + 0.25)], [0.72, 1, 0.72]);
+
+  return (
+    <motion.div className="work-scroll__item" style={reduced ? undefined : { scale, opacity }}>
+      <ProjectCard project={project} />
+    </motion.div>
   );
 }
 
@@ -685,103 +726,22 @@ export function AboutPage() {
 }
 
 export function ContactPage() {
-  const calendarDays = [
-    null,
-    null,
-    null,
-    null,
-    null,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-    10,
-    11,
-    12,
-    13,
-    14,
-    15,
-    16,
-    17,
-    18,
-    19,
-    20,
-    21,
-    22,
-    23,
-    24,
-    25,
-    26,
-    27,
-    28,
-    29,
-    30,
-    31,
-  ];
-  const availableDays = new Set([6, 7, 8, 10, 11, 12, 13, 14, 15]);
-
   return (
     <main className="page-shell contact-page">
-      <PageHero title="Book a call." copy="Pick the sprint shape. We will reply with the cleanest next step." />
+      <PageHero title="Book the first call. Bring the messy version." copy="Tell us what you are launching. The form opens a ready-to-send email draft so the first note already has useful context." />
       <section className="booking-panel" aria-label="Book a call">
-        <div className="booking-card">
-          <div className="booking-card__brand">
-            <span className="booking-card__logo">
-              <img src="/favicon.png" alt="" width={28} height={28} />
-            </span>
-            <strong>FirstFold Studio</strong>
-          </div>
-          <h2>Intro with FirstFold</h2>
-          <p>A focused chat about your launch, timeline, and the first-fold job.</p>
-          <div className="booking-card__meta">
-            <span>
-              <Clock size={18} aria-hidden="true" />
-              20m
-            </span>
-            <span>
-              <img src="/icons/google-meet.svg" alt="" width={18} height={18} />
-              Google Meet
-            </span>
-            <span>
-              <Globe2 size={18} aria-hidden="true" />
-              Asia/Kolkata
-            </span>
-          </div>
+        <div>
+          <FoldGlyph />
+          <h2>Book a call</h2>
+          <p>Use these sample windows as a guide, then send the form below. We reply with a real scheduling link once we understand the sprint shape.</p>
         </div>
         <div className="calendar-embed" aria-label="Calendar availability preview">
-          <div className="calendar-embed__header">
-            <strong>
-              August <span>2026</span>
-            </strong>
-            <span className="calendar-embed__slot">Next open: 14:30</span>
-          </div>
-          <div className="calendar-embed__weekdays" aria-hidden="true">
-            {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
-              <span key={day}>{day}</span>
-            ))}
-          </div>
-          <div className="calendar-embed__grid">
-            {calendarDays.map((day, index) =>
-              day ? (
-                <button
-                  type="button"
-                  key={`${day}-${index}`}
-                  className={availableDays.has(day) ? (day === 6 ? "is-active" : "is-available") : ""}
-                  aria-label={`${day} August 2026${availableDays.has(day) ? ", available" : ""}`}
-                  disabled={!availableDays.has(day)}
-                >
-                  {day}
-                </button>
-              ) : (
-                <span key={`blank-${index}`} aria-hidden="true" />
-              ),
-            )}
-          </div>
+          {["Tue", "Wed", "Thu"].map((day, index) => (
+            <button type="button" key={day} className={index === 1 ? "is-active" : ""}>
+              <span>{day}</span>
+              <strong>{index === 0 ? "11:00" : index === 1 ? "14:30" : "16:00"}</strong>
+            </button>
+          ))}
         </div>
       </section>
       <ContactForm />

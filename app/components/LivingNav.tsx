@@ -4,19 +4,12 @@
 import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-
-const navItems = [
-  { label: "Services", href: "/services" },
-  { label: "Work", href: "/work" },
-  { label: "Our Workflow", href: "/process" },
-  { label: "Plans", href: "/pricing" },
-];
+import { navItems } from "@/lib/content";
 
 export function LivingNav() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [showBookCall, setShowBookCall] = useState(false);
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
@@ -24,30 +17,16 @@ export function LivingNav() {
   };
 
   useEffect(() => {
-    const onScroll = () => {
-      const clients = document.querySelector<HTMLElement>(".hero-client-fade");
-      const landing = document.querySelector<HTMLElement>(".hero-shell--landing");
-      const threshold = clients
-        ? clients.offsetTop + clients.offsetHeight - 80
-        : landing
-          ? landing.offsetTop + landing.offsetHeight - 96
-          : window.innerHeight * 0.85;
-
-      setScrolled(window.scrollY > 24);
-      setShowBookCall(pathname !== "/" || window.scrollY >= threshold);
-    };
-
+    const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, [pathname]);
+  }, []);
 
   return (
-    <>
-      <div className={showBookCall ? "site-nav-backdrop site-nav-backdrop--visible" : "site-nav-backdrop"} aria-hidden="true" />
-      <header className={["site-nav", scrolled ? "site-nav--compact" : "", showBookCall ? "site-nav--show-cta" : ""].filter(Boolean).join(" ")}>
+    <header className={scrolled ? "site-nav site-nav--compact" : "site-nav"}>
       <a href="/" className="brand-mark" aria-label="FirstFold Studio home">
-        <img src="/favicon.png" alt="" width={96} height={96} />
+        <img src="/firstfold-logo.svg" alt="FirstFold Studio" width={2044} height={380} />
       </a>
 
       <nav className="nav-links" aria-label="Primary navigation">
@@ -56,19 +35,34 @@ export function LivingNav() {
           return (
             <a key={item.href} href={item.href} className={active ? "nav-link is-active" : "nav-link"}>
               <span className="nav-link__body">
+                <img className="nav-link__icon" src={item.icon} alt="" width={18} height={18} aria-hidden="true" />
                 <span>{item.label}</span>
+              </span>
+              <span className="cta-arrow" aria-hidden="true">
+                <img src="/right-arrow.svg" alt="" width={16} height={16} />
               </span>
             </a>
           );
         })}
       </nav>
 
-      <a href="/contact" className="nav-cta">
-        <span>Book a call</span>
-        <span className="cta-arrow" aria-hidden="true">
-          <img src="/right-arrow.svg" alt="" width={16} height={16} />
-        </span>
-      </a>
+      <div className="nav-actions" aria-label="Start a FirstFold project">
+        <span className="nav-section-label">Start project</span>
+        <a href="/contact" className="nav-action-link">
+          <img className="nav-action-icon" src="/icons/nav/calendar-days.svg" alt="" width={18} height={18} aria-hidden="true" />
+          <span>Book a call</span>
+          <span className="cta-arrow" aria-hidden="true">
+            <img src="/right-arrow.svg" alt="" width={16} height={16} />
+          </span>
+        </a>
+        <a href="mailto:hello@firstfold.studio" className="nav-action-link">
+          <img className="nav-action-icon" src="/icons/nav/message-circle.svg" alt="" width={18} height={18} aria-hidden="true" />
+          <span>Send a message</span>
+          <span className="cta-arrow" aria-hidden="true">
+            <img src="/right-arrow.svg" alt="" width={16} height={16} />
+          </span>
+        </a>
+      </div>
 
       <button
         className="nav-toggle"
@@ -81,9 +75,10 @@ export function LivingNav() {
       </button>
 
       <div className={open ? "mobile-panel is-open" : "mobile-panel"}>
-        {[{ label: "Home", href: "/" }, ...navItems].map((item) => (
+        {navItems.map((item) => (
           <a key={item.href} href={item.href} className={isActive(item.href) ? "is-active" : ""} onClick={() => setOpen(false)}>
             <span className="nav-link__body">
+              <img className="nav-link__icon" src={item.icon} alt="" width={18} height={18} aria-hidden="true" />
               <span>{item.label}</span>
             </span>
             <span className="cta-arrow" aria-hidden="true">
@@ -98,7 +93,6 @@ export function LivingNav() {
           </span>
         </a>
       </div>
-      </header>
-    </>
+    </header>
   );
 }
