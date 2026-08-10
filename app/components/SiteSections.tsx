@@ -2,21 +2,62 @@
 
 /* eslint-disable @next/next/no-img-element */
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { Check, ChevronDown, Clock, Diamond, Globe2, Mail } from "lucide-react";
+import { ArrowUpRight, BriefcaseBusiness, Check, ChevronDown, Clock, Columns2, Diamond, Globe2, Grid2X2, Mail, PanelTop, Shapes, Smartphone } from "lucide-react";
 import Link from "next/link";
 import { type CSSProperties, FormEvent, useEffect, useState } from "react";
 import { clientLogos, faqs, logoRail, metrics, pricingTiers, principles, processSteps, projects, projectTypes, services } from "@/lib/content";
 
 type Project = (typeof projects)[number];
 
-const audienceCards = [
-  { label: "01", title: "Founders", copy: "Make momentum credible.", tone: "pill-0", imagePosition: "0% 0%" },
-  { label: "02", title: "AI products", copy: "Explain the system fast.", tone: "pill-1", imagePosition: "50% 0%" },
-  { label: "03", title: "SaaS teams", copy: "Feel mature. Stay clear.", tone: "pill-2", imagePosition: "100% 0%" },
-  { label: "04", title: "Creator-led brands", copy: "Turn expertise into rhythm.", tone: "pill-0", imagePosition: "0% 100%" },
-  { label: "05", title: "Enterprise GTM", copy: "Launch one clean story.", tone: "pill-1", imagePosition: "50% 100%" },
-  { label: "06", title: "Productized services", copy: "Make the offer obvious.", tone: "pill-2", imagePosition: "100% 100%" },
+const showcaseFilters = [
+  { label: "All", icon: Grid2X2, active: true },
+  { label: "Landing Pages", icon: PanelTop },
+  { label: "Advanced Apps", icon: Columns2 },
+  { label: "Business Tools", icon: BriefcaseBusiness },
+  { label: "Personal Tools", icon: Shapes },
+  { label: "Mobile Apps", icon: Smartphone },
 ];
+
+const showcaseTemplates = [
+  {
+    title: "Transaction data intelligence",
+    category: "Fintech Infrastructure",
+    image: "/images/showcase/spade.png",
+    href: "https://spade.com/?utm_source=landing.gallery",
+  },
+  {
+    title: "Agentic web CMS",
+    category: "Headless CMS",
+    image: "/images/showcase/prismic.png",
+    href: "https://prismic.io/?utm_source=landing.gallery",
+  },
+  {
+    title: "AI support QA",
+    category: "CX Enablement",
+    image: "/images/showcase/solidroad.png",
+    href: "https://solidroad.com/?utm_source=landing.gallery",
+  },
+  {
+    title: "Business identity verification",
+    category: "Compliance Infrastructure",
+    image: "/images/showcase/duna.png",
+    href: "https://duna.com/?utm_source=landing.gallery",
+  },
+  {
+    title: "Secure code sandboxes",
+    category: "Developer Infrastructure",
+    image: "/images/showcase/daytona.png",
+    href: "https://www.daytona.io/?utm_source=landing.gallery",
+  },
+  {
+    title: "Personal wellness companion",
+    category: "Consumer Health",
+    image: "/images/showcase/holo.png",
+    href: "https://tryholo.com/?utm_source=landing.gallery",
+  },
+];
+
+const audienceRows = ["Founders", "AI products", "SaaS teams", "Creator-led brands", "Enterprise GTM", "Productized services"];
 
 const principleIcons = ["/icons/brain-circuit.svg", "/icons/focus.svg", "/icons/badge-check.svg", "/icons/workflow.svg"];
 const credsDeckSlides = [
@@ -26,6 +67,45 @@ const credsDeckSlides = [
   { title: "Creds slide 4", src: "/images/creds/s4.jpg" },
   { title: "Creds slide 5", src: "/images/creds/s5.jpg" },
 ];
+const bookingCalendarDays = [
+  null,
+  null,
+  null,
+  null,
+  null,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  18,
+  19,
+  20,
+  21,
+  22,
+  23,
+  24,
+  25,
+  26,
+  27,
+  28,
+  29,
+  30,
+  31,
+];
+const bookingAvailableDays = new Set([6, 7, 8, 10, 11, 12, 13, 14, 15]);
 
 export function FoldGlyph({ small = false }: { small?: boolean }) {
   return (
@@ -70,6 +150,7 @@ export function PremiumButton({
 }
 
 export function SectionFrame({
+  eyebrow,
   title,
   copy,
   children,
@@ -78,6 +159,7 @@ export function SectionFrame({
   className,
   replayMotion = false,
 }: {
+  eyebrow?: string;
   title: React.ReactNode;
   copy?: string;
   children: React.ReactNode;
@@ -90,6 +172,7 @@ export function SectionFrame({
   const classes = ["section-frame", compact ? "section-frame--compact" : "", `theme-${accent}`, className ?? ""].filter(Boolean).join(" ");
   const heading = (
     <>
+      {eyebrow ? <span className="section-eyebrow">{eyebrow}</span> : null}
       <h2>{title}</h2>
       {copy ? <p>{copy}</p> : null}
     </>
@@ -132,16 +215,107 @@ export function MotionText({ children }: { children: React.ReactNode }) {
 export function HomePage() {
   return (
     <main>
+      <HomeLoader />
       <Hero />
-      <CredsDeck />
-      <WhoFor />
+      <HowWeWorkSection />
+      <AudienceFitSection />
       <PricingPreview />
       <ToolRail />
       <ProcessTeaser />
       <FullBleedMoment />
       <FounderNote />
       <FAQAccordion />
+      <CredsDeck />
+      <HomeBookingSection />
     </main>
+  );
+}
+
+function HomeLoader() {
+  return (
+    <div className="home-loader" aria-hidden="true">
+      <div className="home-loader__grid">
+        <span className="home-loader__line home-loader__line--top" />
+        <span className="home-loader__line home-loader__line--left" />
+        <span className="home-loader__line home-loader__line--right" />
+        <span className="home-loader__line home-loader__line--center-x" />
+        <span className="home-loader__line home-loader__line--center-y" />
+        <span className="home-loader__line home-loader__line--lower" />
+        <span className="home-loader__line home-loader__line--inner-left" />
+        <span className="home-loader__line home-loader__line--inner-right" />
+      </div>
+      <img className="home-loader__logo" src="/firstfold-logo.svg" alt="" width={2044} height={380} />
+    </div>
+  );
+}
+
+function BookingPreview() {
+  return (
+    <section className="booking-panel" aria-label="Book a call">
+      <div className="booking-card">
+        <div className="booking-card__brand">
+          <span className="booking-card__logo">
+            <img src="/favicon.png" alt="" width={28} height={28} />
+          </span>
+          <strong>FirstFold Studio</strong>
+        </div>
+        <h2>Intro with FirstFold</h2>
+        <p>A focused chat about your launch, timeline, and the first-fold job.</p>
+        <div className="booking-card__meta">
+          <span>
+            <Clock size={18} aria-hidden="true" />
+            20m
+          </span>
+          <span>
+            <img src="/icons/google-meet-2026.webp" alt="" width={18} height={18} />
+            Google Meet
+          </span>
+          <span>
+            <Globe2 size={18} aria-hidden="true" />
+            Asia/Kolkata
+          </span>
+        </div>
+      </div>
+      <div className="calendar-embed" aria-label="Calendar availability preview">
+        <div className="calendar-embed__header">
+          <strong>
+            August <span>2026</span>
+          </strong>
+          <span className="calendar-embed__slot">Next open: 14:30</span>
+        </div>
+        <div className="calendar-embed__weekdays" aria-hidden="true">
+          {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
+            <span key={day}>{day}</span>
+          ))}
+        </div>
+        <div className="calendar-embed__grid">
+          {bookingCalendarDays.map((day, index) =>
+            day ? (
+              <button
+                type="button"
+                key={`${day}-${index}`}
+                className={bookingAvailableDays.has(day) ? (day === 6 ? "is-active" : "is-available") : ""}
+                aria-label={`${day} August 2026${bookingAvailableDays.has(day) ? ", available" : ""}`}
+                disabled={!bookingAvailableDays.has(day)}
+              >
+                {day}
+              </button>
+            ) : (
+              <span key={`blank-${index}`} aria-hidden="true" />
+            ),
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function HomeBookingSection() {
+  return (
+    <section className="home-booking-section">
+      <PageHero title="Book a call." copy="Pick the sprint shape. We will reply with the cleanest next step." />
+      <BookingPreview />
+    </section>
   );
 }
 
@@ -193,12 +367,10 @@ function Hero() {
       <div className="hero-grid">
         <div className="hero-copy">
           <h1>
-            Helping you
-            <br />
-            build V1 <span className="hero-title-mark">Faster</span>
+            Don&apos;t build like you&apos;re Series A when <span className="hero-title-mark">you&apos;re on V1.</span>
           </h1>
           <p className="hero-subtitle">
-            Everything you need to take your idea from “we should build this” to live.
+            Launch-ready websites for your first version, built in 5–7 days.
           </p>
           <div className="hero-actions">
             <PremiumButton href="/contact" meeting>
@@ -261,34 +433,67 @@ function ToolRail() {
   );
 }
 
-function WhoFor() {
+function HowWeWorkSection() {
+  const [selectedCategory, setSelectedCategory] = useState("All");
+
   return (
-    <SectionFrame
-      title={
-        <>
-          Built for sharp
-          <br />
-          first impressions.
-        </>
-      }
-      copy="Six ways to earn trust fast."
-      accent="blue"
-      compact
-      className="audience-section"
-    >
-      <div className="pill-cloud">
-        {audienceCards.map((item) => (
-          <article key={item.title} className={item.tone}>
-            <span>{item.label}</span>
-            <div className="audience-card__media" aria-hidden="true">
-              <i style={{ backgroundPosition: item.imagePosition }} />
-            </div>
-            <h3>{item.title}</h3>
-            <p>{item.copy}</p>
-          </article>
+    <section className="showcase-section" aria-labelledby="showcase-title">
+      <div className="showcase-heading">
+        <div>
+          <h2 id="showcase-title">Need to launch soon? Explore these.</h2>
+          <p>Select from best library, specially curated for you.</p>
+        </div>
+      </div>
+
+      <div className="showcase-filters" aria-label="Template categories">
+        {showcaseFilters.map(({ label, icon: Icon }) => (
+          <button
+            type="button"
+            className={selectedCategory === label ? "is-active" : undefined}
+            key={label}
+            onClick={() => setSelectedCategory(label)}
+          >
+            {selectedCategory === label ? (
+              <motion.span className="showcase-filter-active" layoutId="showcase-filter-active" transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }} />
+            ) : null}
+            <Icon size={18} aria-hidden="true" />
+            <span>{label}</span>
+          </button>
         ))}
       </div>
-    </SectionFrame>
+
+      <div className="showcase-grid" aria-label="Template library">
+        {showcaseTemplates.map((item) => (
+          <a href={item.href} className="showcase-card" key={item.title} target="_blank" rel="noreferrer">
+            <div className="showcase-card__preview">
+              <img src={item.image} alt={`${item.title} landing page screenshot`} width={1440} height={900} loading="lazy" />
+            </div>
+            <h3>{item.title}</h3>
+            <p>{item.category}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function AudienceFitSection() {
+  return (
+    <section className="audience-fit-section" aria-labelledby="audience-fit-title">
+      <div className="audience-fit-copy">
+        <h2 id="audience-fit-title">Start with what actually matters.</h2>
+        <p>Launch with what you need today. Build the rest when you need it.</p>
+      </div>
+      <div className="audience-fit-list" aria-label="Who FirstFold websites are for">
+        {audienceRows.map((item, index) => (
+          <a href="/services" className="audience-fit-row" key={item}>
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <strong>{item}</strong>
+            <ArrowUpRight size={24} aria-hidden="true" />
+          </a>
+        ))}
+      </div>
+    </section>
   );
 }
 
@@ -296,7 +501,7 @@ function PricingPreview() {
   return (
     <SectionFrame
       title="Pick the sprint that matches the stage."
-      copy="Start focused. Grow the system. Scope custom when the site becomes infrastructure."
+      copy="Keep the $4.8k-$8.5k anchor visible, then choose the fold direction: Signal, Orbit, Zero, or Mono."
       accent="yellow"
       className="pricing-preview-section"
     >
@@ -349,7 +554,7 @@ function PricingPreview() {
         })}
       </div>
       <div className="pricing-proof-strip" aria-label="Every sprint includes">
-        {["Strategy included", "Design + build", "Launch QA"].map((item) => (
+        {["Signal / Orbit / Zero / Mono", "Strategy included", "Design + build", "Launch QA"].map((item) => (
           <span key={item}>
             <Check size={15} aria-hidden="true" />
             {item}
@@ -396,7 +601,7 @@ export function ServicePanel({ service, index, primary = false }: { service: (ty
 
 function ProcessTeaser() {
   return (
-    <SectionFrame title="AI creates speed. Humans keep taste." copy="Fast drafts are useful. Final judgment is still human." accent="yellow">
+    <SectionFrame title="Strong foundations, adapted - not rebuilt from zero every time." copy="That's how we keep it fast without cutting corners. AI creates speed; humans keep taste." accent="yellow">
       <div className="metrics-grid">
         {metrics.map((metric) => (
           <article className="metric-card" key={metric.value}>
@@ -686,105 +891,10 @@ export function AboutPage() {
 }
 
 export function ContactPage() {
-  const calendarDays = [
-    null,
-    null,
-    null,
-    null,
-    null,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-    10,
-    11,
-    12,
-    13,
-    14,
-    15,
-    16,
-    17,
-    18,
-    19,
-    20,
-    21,
-    22,
-    23,
-    24,
-    25,
-    26,
-    27,
-    28,
-    29,
-    30,
-    31,
-  ];
-  const availableDays = new Set([6, 7, 8, 10, 11, 12, 13, 14, 15]);
-
   return (
     <main className="page-shell contact-page">
       <PageHero title="Book a call." copy="Pick the sprint shape. We will reply with the cleanest next step." />
-      <section className="booking-panel" aria-label="Book a call">
-        <div className="booking-card">
-          <div className="booking-card__brand">
-            <span className="booking-card__logo">
-              <img src="/favicon.png" alt="" width={28} height={28} />
-            </span>
-            <strong>FirstFold Studio</strong>
-          </div>
-          <h2>Intro with FirstFold</h2>
-          <p>A focused chat about your launch, timeline, and the first-fold job.</p>
-          <div className="booking-card__meta">
-            <span>
-              <Clock size={18} aria-hidden="true" />
-              20m
-            </span>
-            <span>
-              <img src="/icons/google-meet.svg" alt="" width={18} height={18} />
-              Google Meet
-            </span>
-            <span>
-              <Globe2 size={18} aria-hidden="true" />
-              Asia/Kolkata
-            </span>
-          </div>
-        </div>
-        <div className="calendar-embed" aria-label="Calendar availability preview">
-          <div className="calendar-embed__header">
-            <strong>
-              August <span>2026</span>
-            </strong>
-            <span className="calendar-embed__slot">Next open: 14:30</span>
-          </div>
-          <div className="calendar-embed__weekdays" aria-hidden="true">
-            {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
-              <span key={day}>{day}</span>
-            ))}
-          </div>
-          <div className="calendar-embed__grid">
-            {calendarDays.map((day, index) =>
-              day ? (
-                <button
-                  type="button"
-                  key={`${day}-${index}`}
-                  className={availableDays.has(day) ? (day === 6 ? "is-active" : "is-available") : ""}
-                  aria-label={`${day} August 2026${availableDays.has(day) ? ", available" : ""}`}
-                  disabled={!availableDays.has(day)}
-                >
-                  {day}
-                </button>
-              ) : (
-                <span key={`blank-${index}`} aria-hidden="true" />
-              ),
-            )}
-          </div>
-        </div>
-      </section>
+      <BookingPreview />
       <ContactForm />
     </main>
   );

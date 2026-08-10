@@ -6,9 +6,8 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const navItems = [
-  { label: "Services", href: "/services" },
-  { label: "Work", href: "/work" },
-  { label: "Our Workflow", href: "/process" },
+  { label: "Websites", href: "/services", badge: "60% Off" },
+  { label: "How it Works", href: "/process" },
   { label: "Plans", href: "/pricing" },
 ];
 
@@ -17,12 +16,25 @@ export function LivingNav() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [showBookCall, setShowBookCall] = useState(false);
-  const [heroTopNav, setHeroTopNav] = useState(false);
+  const [heroTopNav, setHeroTopNav] = useState(pathname === "/");
+  const [navIntroDone, setNavIntroDone] = useState(pathname !== "/");
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
     return pathname === href || pathname.startsWith(`${href}/`);
   };
+
+  useEffect(() => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reset = window.setTimeout(() => setNavIntroDone(pathname !== "/" || reduced), 0);
+    if (pathname !== "/" || reduced) return () => window.clearTimeout(reset);
+
+    const timer = window.setTimeout(() => setNavIntroDone(true), 1980);
+    return () => {
+      window.clearTimeout(reset);
+      window.clearTimeout(timer);
+    };
+  }, [pathname]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -48,7 +60,7 @@ export function LivingNav() {
   return (
     <>
       <div className={showBookCall ? "site-nav-backdrop site-nav-backdrop--visible" : "site-nav-backdrop"} aria-hidden="true" />
-      <header className={["site-nav", scrolled ? "site-nav--compact" : "", showBookCall ? "site-nav--show-cta" : "", heroTopNav ? "site-nav--home-rail" : ""].filter(Boolean).join(" ")}>
+      <header className={["site-nav", scrolled ? "site-nav--compact" : "", showBookCall ? "site-nav--show-cta" : "", heroTopNav ? "site-nav--home-rail" : "", heroTopNav && !navIntroDone ? "site-nav--loader-wait" : ""].filter(Boolean).join(" ")}>
       <a href="/" className="brand-mark" aria-label="FirstFold Studio home">
         <img src="/favicon.png" alt="" width={96} height={96} />
       </a>
@@ -60,6 +72,7 @@ export function LivingNav() {
             <a key={item.href} href={item.href} className={active ? "nav-link is-active" : "nav-link"}>
               <span className="nav-link__body">
                 <span>{item.label}</span>
+                {"badge" in item ? <span className="nav-link__badge">{item.badge}</span> : null}
               </span>
             </a>
           );
@@ -92,6 +105,7 @@ export function LivingNav() {
           <a key={item.href} href={item.href} className={isActive(item.href) ? "is-active" : ""} onClick={() => setOpen(false)}>
             <span className="nav-link__body">
               <span>{item.label}</span>
+              {"badge" in item ? <span className="nav-link__badge">{item.badge}</span> : null}
             </span>
             <span className="cta-arrow" aria-hidden="true">
               <img src="/right-arrow.svg" alt="" width={16} height={16} />
