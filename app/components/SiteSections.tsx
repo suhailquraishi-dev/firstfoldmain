@@ -374,7 +374,7 @@ function Hero() {
           </p>
           <div className="hero-actions">
             <PremiumButton href="/contact" meeting>
-              Book a strategy call
+              30 Mins. Call
             </PremiumButton>
             <PremiumButton href="/pricing" secondary hideArrow>
               View Plans
