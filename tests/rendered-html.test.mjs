@@ -36,17 +36,20 @@ test("server-renders the FirstFold Studio homepage", async () => {
 
   const html = await response.text();
   assert.match(html, /<title>FirstFold Studio \| AI-Native Websites<\/title>/i);
-  assert.match(html, /Launch faster/);
-  assert.match(html, /Grow smarter/);
-  assert.match(html, /AI-first creative for ambitious brands/);
+  assert.match(html, /Helping you/);
+  assert.match(html, /build V1/);
+  assert.match(html, /Faster/);
+  assert.match(html, /Everything you need to take your idea from “we should build this” to live/);
   assert.doesNotMatch(html, /About FirstFold Studio/);
   assert.match(html, /Book a strategy call/);
   assert.match(html, /View Plans/);
   assert.doesNotMatch(html, /Explore plans/);
   assert.doesNotMatch(html, /Work reel/);
   assert.doesNotMatch(html, /Previous work, packaged like a launch film/);
-  assert.match(html, /Booking for Q3 2026/);
-  assert.match(html, /Clients/);
+  assert.doesNotMatch(html, /Booking select builds for Q3 2026/);
+  assert.doesNotMatch(html, /Schedule a call/);
+  assert.doesNotMatch(html, /Google Meet or Zoom/);
+  assert.match(html, /Trusted by/);
   assert.match(html, /Proof, packaged/);
   assert.match(html, /images\/creds\/s1\.jpg/);
   assert.match(html, /Tools we build with/);
@@ -62,10 +65,9 @@ test("server-renders the FirstFold Studio homepage", async () => {
   assert.match(html, /Launch QA/);
   assert.doesNotMatch(html, /Three products\. One calm operating system/);
   assert.match(html, /One sharp stack/);
-  assert.match(html, /FirstFold stack/);
+  assert.match(html, /Our Stack/);
   assert.match(html, /10-21d/);
   assert.match(html, /favicon\.png/);
-  assert.match(html, /human-hero\.png/);
   assert.match(html, /human-team\.png/);
   assert.match(html, /logos\/clients\/client-1\.svg/);
   assert.match(html, /logos\/nextjs\.svg/);

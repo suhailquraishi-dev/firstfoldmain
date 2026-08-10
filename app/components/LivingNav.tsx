@@ -17,6 +17,7 @@ export function LivingNav() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [showBookCall, setShowBookCall] = useState(false);
+  const [heroTopNav, setHeroTopNav] = useState(false);
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
@@ -34,7 +35,9 @@ export function LivingNav() {
           : window.innerHeight * 0.85;
 
       setScrolled(window.scrollY > 24);
-      setShowBookCall(pathname !== "/" || window.scrollY >= threshold);
+      const isHomeTop = pathname === "/" && window.scrollY < window.innerHeight - 84;
+      setHeroTopNav(isHomeTop);
+      setShowBookCall(!isHomeTop && (pathname !== "/" || window.scrollY >= threshold));
     };
 
     onScroll();
@@ -45,7 +48,7 @@ export function LivingNav() {
   return (
     <>
       <div className={showBookCall ? "site-nav-backdrop site-nav-backdrop--visible" : "site-nav-backdrop"} aria-hidden="true" />
-      <header className={["site-nav", scrolled ? "site-nav--compact" : "", showBookCall ? "site-nav--show-cta" : ""].filter(Boolean).join(" ")}>
+      <header className={["site-nav", scrolled ? "site-nav--compact" : "", showBookCall ? "site-nav--show-cta" : "", heroTopNav ? "site-nav--home-rail" : ""].filter(Boolean).join(" ")}>
       <a href="/" className="brand-mark" aria-label="FirstFold Studio home">
         <img src="/favicon.png" alt="" width={96} height={96} />
       </a>
@@ -68,6 +71,10 @@ export function LivingNav() {
         <span className="cta-arrow" aria-hidden="true">
           <img src="/right-arrow.svg" alt="" width={16} height={16} />
         </span>
+      </a>
+
+      <a href="/contact" className="nav-mobile-call" aria-label="Book a call">
+        <span>Call</span>
       </a>
 
       <button

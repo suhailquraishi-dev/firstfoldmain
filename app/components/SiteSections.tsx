@@ -4,7 +4,7 @@
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Check, ChevronDown, Clock, Diamond, Globe2, Mail } from "lucide-react";
 import Link from "next/link";
-import { type CSSProperties, FormEvent, useState } from "react";
+import { type CSSProperties, FormEvent, useEffect, useState } from "react";
 import { clientLogos, faqs, logoRail, metrics, pricingTiers, principles, processSteps, projects, projectTypes, services } from "@/lib/content";
 
 type Project = (typeof projects)[number];
@@ -38,8 +38,7 @@ export function FoldGlyph({ small = false }: { small?: boolean }) {
 function MeetingIcons() {
   return (
     <span className="meeting-icons" aria-hidden="true">
-      <img src="/icons/google-meet.svg" alt="" width={18} height={18} />
-      <img src="/icons/zoom.svg" alt="" width={18} height={18} />
+      <img src="/icons/google-meet-2026.webp" alt="" width={24} height={24} />
     </span>
   );
 }
@@ -49,19 +48,23 @@ export function PremiumButton({
   children,
   secondary = false,
   meeting = false,
+  hideArrow = false,
 }: {
   href: string;
   children: React.ReactNode;
   secondary?: boolean;
   meeting?: boolean;
+  hideArrow?: boolean;
 }) {
   return (
     <a href={href} className={secondary ? "premium-button premium-button--secondary" : "premium-button"}>
       {meeting ? <MeetingIcons /> : null}
       <span>{children}</span>
-      <span className="cta-arrow" aria-hidden="true">
-        <img src="/right-arrow.svg" alt="" width={20} height={20} />
-      </span>
+      {hideArrow ? null : (
+        <span className="cta-arrow" aria-hidden="true">
+          <img src="/right-arrow.svg" alt="" width={20} height={20} />
+        </span>
+      )}
     </a>
   );
 }
@@ -165,36 +168,65 @@ function CredsDeck() {
 }
 
 function Hero() {
+  const reduced = useReducedMotion();
+  const trustedLogos = clientLogos.slice(0, 6);
+  const [trustedLogoIndex, setTrustedLogoIndex] = useState(0);
+  const trustedLogo = trustedLogos[trustedLogoIndex];
+
+  useEffect(() => {
+    if (reduced || trustedLogos.length < 2) return;
+
+    const interval = window.setInterval(() => {
+      setTrustedLogoIndex((index) => (index + 1) % trustedLogos.length);
+    }, 2800);
+
+    return () => window.clearInterval(interval);
+  }, [reduced, trustedLogos.length]);
+
   return (
-    <section className="hero-shell hero-shell--landing theme-yellow">
+    <section className="hero-shell hero-shell--landing theme-yellow" style={{ "--hero-bg": "url('/images/homepage-hero-bg.webp')" } as CSSProperties}>
+      <div className="hero-lines" aria-hidden="true">
+        <span />
+        <span />
+        <span />
+      </div>
       <div className="hero-grid">
         <div className="hero-copy">
-          <span className="hero-availability">Booking for Q3 2026</span>
           <h1>
-            Launch faster.
+            Helping you
             <br />
-            Grow smarter.
+            build V1 <span className="hero-title-mark">Faster</span>
           </h1>
           <p className="hero-subtitle">
-            AI-first creative for ambitious brands—from websites and content to campaigns and everything in between.
+            Everything you need to take your idea from “we should build this” to live.
           </p>
           <div className="hero-actions">
             <PremiumButton href="/contact" meeting>
               Book a strategy call
             </PremiumButton>
-            <PremiumButton href="/pricing" secondary>
+            <PremiumButton href="/pricing" secondary hideArrow>
               View Plans
             </PremiumButton>
           </div>
         </div>
-        <div className="hero-reel" aria-label="Previous work video showcase">
-          <div className="hero-reel__stage">
-            <img src="/human-hero.png" alt="AI-generated fictional founder reviewing previous website work" width={1536} height={1024} fetchPriority="high" />
+        <div className="hero-client-stack" aria-label="Trusted FirstFold clients">
+          <span>Trusted by</span>
+          <div>
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.img
+                key={trustedLogo.name}
+                src={trustedLogo.src}
+                alt={trustedLogo.name}
+                width={180}
+                height={46}
+                initial={reduced ? false : { opacity: 0, x: -16 }}
+                animate={reduced ? { opacity: 0.88, x: 0 } : { opacity: 0.88, x: 0 }}
+                exit={reduced ? { opacity: 0 } : { opacity: 0, x: 16 }}
+                transition={{ duration: 0.46, ease: [0.16, 1, 0.3, 1] }}
+              />
+            </AnimatePresence>
           </div>
         </div>
-      </div>
-      <div className="hero-client-fade">
-        <LogoStrip label="Clients" logos={clientLogos} moving className="client-logo-strip" />
       </div>
     </section>
   );
@@ -226,37 +258,6 @@ function ToolRail() {
         </div>
       </div>
     </section>
-  );
-}
-
-function LogoStrip({
-  label,
-  logos,
-  moving = false,
-  className,
-}: {
-  label: string;
-  logos: { name: string; src: string; wordmark?: string }[];
-  moving?: boolean;
-  className?: string;
-}) {
-  const list = moving ? [...logos, ...logos] : logos;
-
-  return (
-    <div className={["logo-strip", moving ? "logo-strip--moving" : "", className ?? ""].filter(Boolean).join(" ")}>
-      <strong>{label}</strong>
-      <div className="logo-strip__divider" aria-hidden="true" />
-      <div className={moving ? "logo-marquee" : "logo-strip__logos"}>
-        <div className={moving ? "logo-marquee__track" : "logo-strip__track"}>
-          {list.map((logo, index) => (
-            <span key={`${logo.name}-${index}`} className="logo-strip__item" aria-hidden={moving && index >= logos.length}>
-              <img src={logo.src} alt={!moving || index < logos.length ? logo.name : ""} width={180} height={46} loading="lazy" />
-              {logo.wordmark ? <em>{logo.wordmark}</em> : null}
-            </span>
-          ))}
-        </div>
-      </div>
-    </div>
   );
 }
 
