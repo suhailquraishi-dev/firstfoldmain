@@ -394,13 +394,13 @@ textarea {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 17px;
-  padding: 0 6px;
-  border-radius: 999px;
-  color: #ffffff;
-  background: var(--orange);
-  font-size: 10px;
-  font-weight: 700;
+  min-height: 0;
+  padding: 0;
+  border-radius: 0;
+  color: var(--orange);
+  background: transparent;
+  font-size: inherit;
+  font-weight: 400;
   line-height: 1;
   letter-spacing: 0;
 }
@@ -1187,6 +1187,7 @@ textarea {
   color: #ffffff;
   border-color: var(--orange);
   background: var(--orange);
+  font-weight: 700;
 }
 
 .hero-actions .premium-button:not(.premium-button--secondary) .cta-arrow img {
