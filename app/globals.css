@@ -315,8 +315,10 @@ textarea {
 }
 
 .site-nav--loader-wait {
+  visibility: hidden;
   opacity: 0;
-  transform: translateY(-12px);
+  pointer-events: none;
+  transform: translate(-50%, -12px);
 }
 
 .brand-mark {
@@ -929,15 +931,18 @@ textarea {
 
 .hero-shell--landing::before {
   right: 0;
-  bottom: 0;
+  bottom: -16px;
   left: 0;
   z-index: 0;
-  height: 46%;
-  background: linear-gradient(to bottom, rgba(5, 11, 8, 0), rgba(4, 7, 5, 0.78) 72%, rgba(4, 6, 4, 0.94));
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  mask-image: linear-gradient(to bottom, transparent 0%, #000 30%, #000 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 30%, #000 100%);
+  height: 54%;
+  background:
+    linear-gradient(to bottom, rgba(5, 11, 8, 0), rgba(4, 7, 5, 0.62) 58%, rgba(4, 6, 4, 0.95)),
+    var(--hero-bg) center / cover no-repeat;
+  filter: blur(14px);
+  opacity: 0.92;
+  transform: scale(1.035);
+  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.56) 20%, #000 48%, #000 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.56) 20%, #000 48%, #000 100%);
 }
 
 .hero-shell--landing::after {
@@ -3533,7 +3538,7 @@ textarea {
   margin: 22px 0 14px;
   font-family: var(--season-sans);
   font-size: clamp(38px, 4.2vw, 62px);
-  font-weight: 400;
+  font-weight: 500;
   line-height: 0.98;
 }
 
@@ -3541,6 +3546,7 @@ textarea {
   margin: 0;
   max-width: 520px;
   color: #d7d7d7;
+  font-weight: 400;
   line-height: 1.5;
 }
 
@@ -3555,7 +3561,7 @@ textarea {
   align-items: center;
   gap: 14px;
   color: #a9a9a9;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .booking-card__logo {
@@ -3580,7 +3586,7 @@ textarea {
   margin-top: auto;
   color: #ededed;
   font-size: clamp(18px, 1.7vw, 24px);
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .booking-card__meta span {
@@ -3616,12 +3622,13 @@ textarea {
 .calendar-embed__header strong {
   color: #f8f8f8;
   font-size: clamp(24px, 2.4vw, 34px);
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .calendar-embed__header strong span,
 .calendar-embed__slot {
   color: #8f8f8f;
+  font-weight: 400;
 }
 
 .calendar-embed__weekdays,
@@ -3634,7 +3641,7 @@ textarea {
 .calendar-embed__weekdays span {
   color: #f4f4f4;
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.1em;
   text-align: center;
   text-transform: uppercase;
@@ -3652,6 +3659,7 @@ textarea {
   color: #bdbdbd;
   font: inherit;
   font-size: clamp(16px, 1.6vw, 22px);
+  font-weight: 400;
 }
 
 .calendar-embed__grid button {
@@ -3673,6 +3681,7 @@ textarea {
 .calendar-embed__grid button.is-active {
   background: #fff;
   color: #111;
+  font-weight: 500;
 }
 
 .calendar-embed__grid button:not(:disabled):hover,
@@ -4284,7 +4293,7 @@ textarea {
   }
 
   .hero-shell--landing::before {
-    display: none;
+    height: 58%;
   }
 
   .showcase-heading {

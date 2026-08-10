@@ -57,6 +57,10 @@ export function LivingNav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, [pathname]);
 
+  if (pathname === "/" && !navIntroDone) {
+    return null;
+  }
+
   return (
     <>
       <div className={showBookCall ? "site-nav-backdrop site-nav-backdrop--visible" : "site-nav-backdrop"} aria-hidden="true" />
