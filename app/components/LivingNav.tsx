@@ -105,7 +105,7 @@ export function LivingNav() {
       </button>
 
       <div className={open ? "mobile-panel is-open" : "mobile-panel"}>
-        {[{ label: "Home", href: "/" }, ...navItems].map((item) => (
+        {navItems.map((item) => (
           <a key={item.href} href={item.href} className={isActive(item.href) ? "is-active" : ""} onClick={() => setOpen(false)}>
             <span className="nav-link__body">
               <span>{item.label}</span>
@@ -116,12 +116,6 @@ export function LivingNav() {
             </span>
           </a>
         ))}
-        <a href="/contact" className="mobile-cta" onClick={() => setOpen(false)}>
-          <span>Book a call</span>
-          <span className="cta-arrow" aria-hidden="true">
-            <img src="/right-arrow.svg" alt="" width={18} height={18} />
-          </span>
-        </a>
       </div>
       </header>
     </>
