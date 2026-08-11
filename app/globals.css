@@ -2176,6 +2176,28 @@ textarea {
   padding-top: clamp(44px, 5vw, 72px);
 }
 
+.pricing-preview-section .section-heading {
+  display: block;
+  max-width: 860px;
+  margin-bottom: clamp(36px, 5vw, 62px);
+}
+
+.pricing-preview-section .section-heading h2 {
+  max-width: 760px;
+  font-size: clamp(38px, 4.6vw, 80px);
+  font-weight: 800;
+  line-height: 0.98;
+}
+
+.pricing-preview-section .section-heading p {
+  max-width: 620px;
+  margin: 18px 0 0;
+  color: #8a8e94;
+  font-size: clamp(18px, 1.35vw, 24px);
+  font-weight: 300;
+  line-height: 1.42;
+}
+
 .section-heading {
   display: grid;
   grid-template-columns: minmax(0, 0.78fr) minmax(260px, 0.32fr);
