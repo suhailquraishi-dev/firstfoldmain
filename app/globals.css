@@ -2060,7 +2060,7 @@ textarea {
   align-items: center;
   gap: 9px;
   width: max-content;
-  margin-top: clamp(28px, 3.4vw, 46px);
+  margin: clamp(28px, 3.4vw, 46px) auto 0;
   color: #111111;
   font-size: clamp(18px, 1.28vw, 22px);
   font-weight: 700;
@@ -2070,6 +2070,10 @@ textarea {
 .showcase-more-link .cta-arrow {
   width: 18px;
   height: 18px;
+}
+
+.showcase-more-link .cta-arrow img {
+  filter: invert(28%) sepia(96%) saturate(4112%) hue-rotate(8deg) brightness(105%) contrast(109%);
 }
 
 .showcase-more-link:hover .cta-arrow img {
