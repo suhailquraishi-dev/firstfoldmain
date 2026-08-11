@@ -531,28 +531,47 @@ function PricingPreview() {
                 </span>
               ) : null}
               <div className="pricing-preview-card__head">
-                <h3>{tier.name}</h3>
-                <div className="pricing-preview-card__price">
-                  <strong>{tier.price}</strong>
-                  <div className="pricing-preview-card__meta">
-                    <span>{tier.timeline}</span>
+                <div>
+                  <h3>{tier.name}</h3>
+                  <p className="pricing-preview-card__summary">{tier.summary}</p>
+                </div>
+                <div className="pricing-preview-card__price-row">
+                  <div className="pricing-preview-card__price">
+                    <strong>{tier.price}</strong>
+                    <div className="pricing-preview-card__meta">
+                      <span>{tier.timeline}</span>
+                    </div>
                   </div>
+                  <PremiumButton href="/contact" secondary={!isFeatured}>
+                    {tier.cta}
+                  </PremiumButton>
                 </div>
               </div>
-              <p>{tier.summary}</p>
-              <PremiumButton href="/contact" secondary={!isFeatured}>
-                {tier.cta}
-              </PremiumButton>
+              <div className="pricing-benefit-list" aria-label={`${tier.name} key benefits`}>
+                {tier.benefits.map((benefit) => (
+                  <span key={benefit}>
+                    <Check size={14} aria-hidden="true" />
+                    {benefit}
+                  </span>
+                ))}
+              </div>
               <div className="pricing-preview-card__rule" aria-hidden="true" />
               {"lead" in tier ? <p className="pricing-preview-card__lead">{tier.lead}</p> : null}
-              <ul>
-                {tier.includes.map((item) => (
-                  <li key={item}>
-                    <Check size={15} aria-hidden="true" />
-                    {item}
-                  </li>
+              <div className="pricing-inclusion-groups">
+                {tier.groups.map((group) => (
+                  <div className="pricing-inclusion-group" key={group.label}>
+                    <span>{group.label}</span>
+                    <ul>
+                      {group.items.map((item) => (
+                        <li key={item}>
+                          <Check size={15} aria-hidden="true" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </article>
           );
         })}

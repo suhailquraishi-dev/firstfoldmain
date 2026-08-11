@@ -560,11 +560,11 @@ textarea {
 
 .site-nav--home-rail .nav-cta {
   display: inline-flex;
-  max-width: 240px;
-  min-height: 50px;
+  max-width: 210px;
+  min-height: 42px;
   margin-left: auto;
-  padding: 0 clamp(18px, 1.8vw, 26px);
-  border-radius: 18px;
+  padding: 0 17px;
+  border-radius: 14px;
   font-weight: 700;
   opacity: 1;
   pointer-events: auto;
@@ -2176,34 +2176,10 @@ textarea {
   padding-top: clamp(44px, 5vw, 72px);
 }
 
-.pricing-preview-section .section-heading {
+.section-heading {
   display: block;
   max-width: 860px;
-  margin-bottom: clamp(36px, 5vw, 62px);
-}
-
-.pricing-preview-section .section-heading h2 {
-  max-width: 760px;
-  font-size: clamp(38px, 4.6vw, 80px);
-  font-weight: 800;
-  line-height: 0.98;
-}
-
-.pricing-preview-section .section-heading p {
-  max-width: 620px;
-  margin: 18px 0 0;
-  color: #8a8e94;
-  font-size: clamp(18px, 1.35vw, 24px);
-  font-weight: 300;
-  line-height: 1.42;
-}
-
-.section-heading {
-  display: grid;
-  grid-template-columns: minmax(0, 0.78fr) minmax(260px, 0.32fr);
-  gap: clamp(24px, 5vw, 70px);
-  align-items: end;
-  margin: 0 0 42px;
+  margin: 0 0 clamp(36px, 5vw, 62px);
 }
 
 .section-eyebrow {
@@ -2217,11 +2193,27 @@ textarea {
   text-transform: uppercase;
 }
 
-.section-heading h2,
+.section-heading h2 {
+  max-width: 760px;
+  margin: 0;
+  font-size: clamp(38px, 4.6vw, 80px);
+  font-weight: 800;
+  line-height: 0.98;
+}
+
 .about-system h2 {
   margin: 0;
   font-size: clamp(46px, 6.6vw, 104px);
   line-height: 0.92;
+}
+
+.section-heading p {
+  max-width: 620px;
+  margin: 18px 0 0;
+  color: #8a8e94;
+  font-size: clamp(18px, 1.35vw, 24px);
+  font-weight: 300;
+  line-height: 1.42;
 }
 
 .section-heading p,
@@ -2717,8 +2709,8 @@ textarea {
   overflow: hidden;
   display: grid;
   align-content: start;
-  gap: clamp(14px, 1.2vw, 18px);
-  min-height: clamp(700px, 55vw, 760px);
+  gap: clamp(16px, 1.3vw, 20px);
+  min-height: clamp(720px, 56vw, 780px);
   padding: clamp(22px, 2.4vw, 30px);
   border-radius: 8px;
   background: var(--surface);
@@ -2784,7 +2776,9 @@ textarea {
 .pricing-preview-card.is-featured p,
 .pricing-preview-card.is-featured .pricing-preview-card__meta > span,
 .pricing-preview-card.is-featured .pricing-preview-card__lead,
-.pricing-preview-card.is-featured li {
+.pricing-preview-card.is-featured li,
+.pricing-preview-card.is-featured .pricing-benefit-list span,
+.pricing-preview-card.is-featured .pricing-inclusion-group > span {
   color: #111111;
 }
 
@@ -2813,7 +2807,7 @@ textarea {
 
 .pricing-preview-card__head {
   display: grid;
-  gap: clamp(12px, 1.4vw, 18px);
+  gap: clamp(18px, 1.7vw, 24px);
   padding-right: 0;
 }
 
@@ -2824,8 +2818,24 @@ textarea {
 .pricing-preview-card h3 {
   margin: 0;
   font-size: clamp(26px, 2vw, 36px);
-  font-weight: 600;
+  font-weight: 800;
   line-height: 1;
+}
+
+.pricing-preview-card__summary {
+  max-width: 340px !important;
+  margin-top: 10px !important;
+  color: var(--foreground) !important;
+  font-size: clamp(17px, 1.22vw, 20px) !important;
+  font-weight: 400 !important;
+  line-height: 1.25 !important;
+}
+
+.pricing-preview-card__price-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  align-items: start;
 }
 
 .pricing-preview-card__price {
@@ -2903,6 +2913,38 @@ textarea {
   line-height: 1.35;
 }
 
+.pricing-benefit-list {
+  display: grid;
+  gap: 8px;
+}
+
+.pricing-benefit-list span {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  min-height: 42px;
+  padding: 11px 12px;
+  border: 1px solid rgba(17, 17, 17, 0.08);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.58);
+  color: #272727;
+  font-size: clamp(14px, 1vw, 16px);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.pricing-benefit-list svg {
+  flex: 0 0 auto;
+  margin-top: 1px;
+  color: var(--orange);
+  stroke-width: 2.6;
+}
+
+.pricing-preview-card.is-featured .pricing-benefit-list span {
+  border-color: rgba(17, 17, 17, 0.1);
+  background: rgba(255, 255, 255, 0.42);
+}
+
 .pricing-preview-card__lead {
   max-width: none !important;
   margin-top: -2px !important;
@@ -2920,7 +2962,7 @@ textarea {
 
 .pricing-preview-card ul {
   display: grid;
-  gap: 10px;
+  gap: 8px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -2928,14 +2970,47 @@ textarea {
 
 .pricing-preview-card li {
   display: flex;
-  gap: 9px;
+  gap: 8px;
   align-items: flex-start;
+  color: rgba(17, 17, 17, 0.72);
+  font-size: clamp(14px, 1vw, 16px);
   line-height: 1.35;
+}
+
+.pricing-preview-card li svg {
+  flex: 0 0 auto;
+  margin-top: 2px;
+  color: var(--foreground);
+  stroke-width: 2.4;
 }
 
 .pricing-preview-card .premium-button {
   justify-self: start;
-  margin-top: clamp(6px, 1vw, 10px);
+  min-height: 42px;
+  margin-top: 0;
+  padding: 0 15px;
+  border-radius: 14px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.pricing-inclusion-groups {
+  display: grid;
+  gap: 14px;
+}
+
+.pricing-inclusion-group {
+  display: grid;
+  gap: 9px;
+}
+
+.pricing-inclusion-group > span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
 }
 
 .pricing-proof-strip {
