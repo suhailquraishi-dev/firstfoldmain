@@ -219,7 +219,6 @@ export function HomePage() {
       <Hero />
       <HowWeWorkSection />
       <AudienceFitSection />
-      <PricingPreview />
       <ToolRail />
       <ProcessTeaser />
       <FounderNote />
@@ -390,10 +389,10 @@ function Hero() {
                 alt={trustedLogo.name}
                 width={180}
                 height={46}
-                initial={reduced ? false : { opacity: 0, x: -16 }}
+                initial={reduced ? false : { opacity: 0, x: -22, filter: "blur(6px)" }}
                 animate={reduced ? { opacity: 0.88, x: 0 } : { opacity: 0.88, x: 0 }}
-                exit={reduced ? { opacity: 0 } : { opacity: 0, x: 16 }}
-                transition={{ duration: 0.46, ease: [0.16, 1, 0.3, 1] }}
+                exit={reduced ? { opacity: 0 } : { opacity: 0, x: 22, filter: "blur(6px)" }}
+                transition={{ duration: 0.72, ease: [0.16, 1, 0.3, 1] }}
               />
             </AnimatePresence>
           </div>
@@ -472,6 +471,12 @@ function HowWeWorkSection() {
           </a>
         ))}
       </div>
+      <Link href="/work" className="showcase-more-link">
+        More Options
+        <span className="cta-arrow" aria-hidden="true">
+          <img src="/right-arrow.svg" alt="" width={18} height={18} />
+        </span>
+      </Link>
     </section>
   );
 }
@@ -496,20 +501,9 @@ function AudienceFitSection() {
   );
 }
 
-function PricingPreview() {
+function PricingCards({ showProofStrip = false }: { showProofStrip?: boolean }) {
   return (
-    <SectionFrame
-      title={
-        <>
-          We can build it.
-          <br />
-          Or stick around.
-        </>
-      }
-      copy="Choose the support you need—from getting your first website live to having us around for everything that comes next."
-      accent="yellow"
-      className="pricing-preview-section"
-    >
+    <>
       <div className="pricing-preview" aria-label="Website sprint pricing preview">
         {pricingTiers.map((tier, index) => {
           const isFeatured = index === 1;
@@ -576,15 +570,17 @@ function PricingPreview() {
           );
         })}
       </div>
-      <div className="pricing-proof-strip" aria-label="Every sprint includes">
-        {["Signal / Orbit / Zero / Mono", "Strategy included", "Design + build", "Launch QA"].map((item) => (
-          <span key={item}>
-            <Check size={15} aria-hidden="true" />
-            {item}
-          </span>
-        ))}
-      </div>
-    </SectionFrame>
+      {showProofStrip ? (
+        <div className="pricing-proof-strip" aria-label="Every sprint includes">
+          {["Signal / Orbit / Zero / Mono", "Strategy included", "Design + build", "Launch QA"].map((item) => (
+            <span key={item}>
+              <Check size={15} aria-hidden="true" />
+              {item}
+            </span>
+          ))}
+        </div>
+      ) : null}
+    </>
   );
 }
 
@@ -796,27 +792,7 @@ export function PricingPage() {
   return (
     <main className="page-shell">
       <PageHero title="Transparent website tiers. Custom paths for bigger systems." copy="At minimum, every site sprint includes strategy, design, implementation, responsive QA, and a clear launch handoff." />
-      <div className="pricing-grid">
-        {pricingTiers.map((tier, index) => (
-          <article className={index === 1 ? "pricing-card is-featured" : "pricing-card"} key={tier.name}>
-            <span>{tier.timeline}</span>
-            <h2>{tier.name}</h2>
-            <strong>{tier.price}</strong>
-            <p>{tier.summary}</p>
-            <ul>
-              {tier.includes.map((item) => (
-                <li key={item}>
-                  <Check size={15} aria-hidden="true" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <PremiumButton href="/contact" secondary={index !== 1}>
-              {tier.cta}
-            </PremiumButton>
-          </article>
-        ))}
-      </div>
+      <PricingCards showProofStrip />
     </main>
   );
 }

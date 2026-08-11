@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const navItems = [
-  { label: "Websites", href: "/services", badge: "60% Off" },
+  { label: "Websites", href: "/services" },
   { label: "How it Works", href: "/process" },
   { label: "Plans", href: "/pricing" },
 ];
@@ -76,7 +76,6 @@ export function LivingNav() {
             <a key={item.href} href={item.href} className={active ? "nav-link is-active" : "nav-link"}>
               <span className="nav-link__body">
                 <span>{item.label}</span>
-                {"badge" in item ? <span className="nav-link__badge">{item.badge}</span> : null}
               </span>
             </a>
           );
@@ -112,7 +111,6 @@ export function LivingNav() {
           <a key={item.href} href={item.href} className={isActive(item.href) ? "is-active" : ""} onClick={() => setOpen(false)}>
             <span className="nav-link__body">
               <span>{item.label}</span>
-              {"badge" in item ? <span className="nav-link__badge">{item.badge}</span> : null}
             </span>
             <span className="cta-arrow" aria-hidden="true">
               <img src="/right-arrow.svg" alt="" width={16} height={16} />

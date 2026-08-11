@@ -2055,6 +2055,27 @@ textarea {
   color: #2d3033;
 }
 
+.showcase-more-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  width: max-content;
+  margin-top: clamp(28px, 3.4vw, 46px);
+  color: #111111;
+  font-size: clamp(18px, 1.28vw, 22px);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.showcase-more-link .cta-arrow {
+  width: 18px;
+  height: 18px;
+}
+
+.showcase-more-link:hover .cta-arrow img {
+  animation: cta-arrow-return-left 520ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 .showcase-card__preview {
   position: relative;
   overflow: hidden;
@@ -2088,7 +2109,7 @@ textarea {
   margin: 0;
   color: #979da3;
   font-size: clamp(18px, 1.2vw, 24px);
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.2;
 }
 
