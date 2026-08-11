@@ -2,21 +2,12 @@
 
 /* eslint-disable @next/next/no-img-element */
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { ArrowUpRight, BriefcaseBusiness, Check, ChevronDown, Clock, Columns2, Diamond, Globe2, Grid2X2, Mail, PanelTop, Shapes, Smartphone } from "lucide-react";
+import { Check, ChevronDown, Clock, Diamond, Globe2, Mail } from "lucide-react";
 import Link from "next/link";
 import { type CSSProperties, FormEvent, useEffect, useState } from "react";
 import { clientLogos, faqs, logoRail, metrics, pricingTiers, principles, processSteps, projects, projectTypes, services } from "@/lib/content";
 
 type Project = (typeof projects)[number];
-
-const showcaseFilters = [
-  { label: "All", icon: Grid2X2, active: true },
-  { label: "Landing Pages", icon: PanelTop },
-  { label: "Advanced Apps", icon: Columns2 },
-  { label: "Business Tools", icon: BriefcaseBusiness },
-  { label: "Personal Tools", icon: Shapes },
-  { label: "Mobile Apps", icon: Smartphone },
-];
 
 const showcaseTemplates = [
   {
@@ -57,7 +48,44 @@ const showcaseTemplates = [
   },
 ];
 
-const audienceRows = ["Founders", "AI products", "SaaS teams", "Creator-led brands", "Enterprise GTM", "Productized services"];
+const audienceRows = [
+  {
+    title: "Founders",
+    summary: "From idea to something people can actually use.",
+    description:
+      "Launching a new business or testing an idea? We help you get the essentials live — from your first website and brand presence to the assets you need to start selling, sharing, and validating.",
+  },
+  {
+    title: "AI products",
+    summary: "Make the product feel as good as the technology behind it.",
+    description:
+      "We help AI products launch with clear positioning, polished websites, product visuals, demos, and launch assets — without spending months building a full brand system.",
+  },
+  {
+    title: "SaaS teams",
+    summary: "Everything you need to ship the next version.",
+    description:
+      "Whether you're launching your V1, a new feature, or repositioning the product, we build the website, launch pages, visuals, and supporting assets needed to get it out quickly.",
+  },
+  {
+    title: "Creator-led brands",
+    summary: "Turn an audience into a brand.",
+    description:
+      "For creators launching products, communities, courses, or businesses. We build the digital presence around the launch — from landing pages and social assets to the visual system tying everything together.",
+  },
+  {
+    title: "Enterprise GTM",
+    summary: "Move faster without waiting on another internal cycle.",
+    description:
+      "We support GTM teams with campaign pages, launch assets, sales visuals, event creatives, and other execution-heavy work — built quickly and within your existing brand.",
+  },
+  {
+    title: "Productized services",
+    summary: "Package what you do. Make it easier to buy.",
+    description:
+      "For agencies, consultants, studios, and service businesses turning expertise into a repeatable offer. We help structure, position, and launch it with the right website and supporting assets.",
+  },
+];
 
 const principleIcons = ["/icons/brain-circuit.svg", "/icons/focus.svg", "/icons/badge-check.svg", "/icons/workflow.svg"];
 const credsDeckSlides = [
@@ -407,33 +435,20 @@ function ToolRail() {
 
   return (
     <section className="tool-rail-section" aria-label="Tools FirstFold builds with">
-      <div className="tool-ui-card">
-        <div className="tool-ui-visual" aria-hidden="true">
-          <div className="tool-ui-orbit tool-ui-orbit--outer" />
-          <div className="tool-ui-orbit tool-ui-orbit--inner" />
-          <div className="tool-ui-hub">
-            <FoldGlyph small />
-            <span>Our Stack</span>
-          </div>
-          {featuredTools.map((logo, index) => (
-            <span className={`tool-ui-node tool-ui-node--${index}`} key={logo.name}>
-              <img src={logo.src} alt="" width={42} height={42} loading="lazy" />
-            </span>
-          ))}
-        </div>
-        <div className="tool-ui-copy">
-          <p>Tools we build with</p>
-          <h2>One sharp stack.</h2>
-          <span>AI, design, code, and deployment tools connected around the sprint.</span>
-        </div>
+      <div className="tool-ui-visual" aria-hidden="true">
+        <div className="tool-ui-orbit tool-ui-orbit--outer" />
+        <div className="tool-ui-orbit tool-ui-orbit--inner" />
+        {featuredTools.map((logo, index) => (
+          <span className={`tool-ui-node tool-ui-node--${index}`} key={logo.name}>
+            <img src={logo.src} alt="" width={42} height={42} loading="lazy" />
+          </span>
+        ))}
       </div>
     </section>
   );
 }
 
 function HowWeWorkSection() {
-  const [selectedCategory, setSelectedCategory] = useState("All");
-
   return (
     <section className="showcase-section" aria-labelledby="showcase-title">
       <div className="showcase-heading">
@@ -441,23 +456,6 @@ function HowWeWorkSection() {
           <h2 id="showcase-title">Need to launch soon? Explore these.</h2>
           <p>Select from best library, specially curated for you.</p>
         </div>
-      </div>
-
-      <div className="showcase-filters" aria-label="Template categories">
-        {showcaseFilters.map(({ label, icon: Icon }) => (
-          <button
-            type="button"
-            className={selectedCategory === label ? "is-active" : undefined}
-            key={label}
-            onClick={() => setSelectedCategory(label)}
-          >
-            {selectedCategory === label ? (
-              <motion.span className="showcase-filter-active" layoutId="showcase-filter-active" transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }} />
-            ) : null}
-            <Icon size={18} aria-hidden="true" />
-            <span>{label}</span>
-          </button>
-        ))}
       </div>
 
       <div className="showcase-grid" aria-label="Template library">
@@ -482,19 +480,42 @@ function HowWeWorkSection() {
 }
 
 function AudienceFitSection() {
+  const [openAudienceIndex, setOpenAudienceIndex] = useState<number | null>(null);
+
   return (
     <section className="audience-fit-section" aria-labelledby="audience-fit-title">
       <div className="audience-fit-copy">
         <h2 id="audience-fit-title">Start with what actually matters.</h2>
-        <p>Launch with what you need today. Build the rest when you need it.</p>
+        <p>Made for people starting something.</p>
       </div>
       <div className="audience-fit-list" aria-label="Who FirstFold websites are for">
         {audienceRows.map((item, index) => (
-          <a href="/services" className="audience-fit-row" key={item}>
-            <span>{String(index + 1).padStart(2, "0")}</span>
-            <strong>{item}</strong>
-            <ArrowUpRight size={24} aria-hidden="true" />
-          </a>
+          <div className={openAudienceIndex === index ? "audience-fit-row is-open" : "audience-fit-row"} key={item.title}>
+            <button
+              type="button"
+              aria-expanded={openAudienceIndex === index}
+              aria-controls={`audience-panel-${index}`}
+              id={`audience-trigger-${index}`}
+              onClick={() => setOpenAudienceIndex((current) => (current === index ? null : index))}
+            >
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <strong>{item.title}</strong>
+              <span className="audience-fit-row__icon" aria-hidden="true" />
+            </button>
+            <div
+              id={`audience-panel-${index}`}
+              role="region"
+              aria-labelledby={`audience-trigger-${index}`}
+              className="audience-fit-row__panel"
+            >
+              <div>
+                <p>
+                  <strong>{item.summary}</strong>
+                  <span>{item.description}</span>
+                </p>
+              </div>
+            </div>
+          </div>
         ))}
       </div>
     </section>
