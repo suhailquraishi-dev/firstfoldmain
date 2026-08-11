@@ -84,7 +84,10 @@ export function LivingNav() {
       </nav>
 
       <a href="/contact" className="nav-cta">
-        <span>Book a call</span>
+        <span className="meeting-icons" aria-hidden="true">
+          <img src="/icons/google-meet-2026.webp" alt="" width={24} height={24} />
+        </span>
+        <span>30 Mins. Call</span>
         <span className="cta-arrow" aria-hidden="true">
           <img src="/right-arrow.svg" alt="" width={16} height={16} />
         </span>

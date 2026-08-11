@@ -222,7 +222,6 @@ export function HomePage() {
       <PricingPreview />
       <ToolRail />
       <ProcessTeaser />
-      <FullBleedMoment />
       <FounderNote />
       <FAQAccordion />
       <CredsDeck />
@@ -500,22 +499,26 @@ function AudienceFitSection() {
 function PricingPreview() {
   return (
     <SectionFrame
-      title="Pick the sprint that matches the stage."
-      copy="Keep the $4.8k-$8.5k anchor visible, then choose the fold direction: Signal, Orbit, Zero, or Mono."
+      title={
+        <>
+          We can build it.
+          <br />
+          Or stick around.
+        </>
+      }
+      copy="Choose the support you need—from getting your first website live to having us around for everything that comes next."
       accent="yellow"
       className="pricing-preview-section"
     >
       <div className="pricing-preview" aria-label="Website sprint pricing preview">
         {pricingTiers.map((tier, index) => {
           const isFeatured = index === 1;
-          const isCustom = tier.price === "Talk to us";
 
           return (
             <article
               className={[
                 "pricing-preview-card",
                 isFeatured ? "is-featured" : "",
-                isCustom ? "is-custom" : "",
               ]
                 .filter(Boolean)
                 .join(" ")}
@@ -524,25 +527,26 @@ function PricingPreview() {
               {isFeatured ? (
                 <span className="pricing-preview-card__popular">
                   <Diamond size={13} aria-hidden="true" />
-                  Popular
+                  MOST POPULAR
                 </span>
               ) : null}
               <div className="pricing-preview-card__head">
                 <h3>{tier.name}</h3>
                 <div className="pricing-preview-card__price">
-                  <strong>{isCustom ? "Custom" : tier.price}</strong>
+                  <strong>{tier.price}</strong>
                   <div className="pricing-preview-card__meta">
                     <span>{tier.timeline}</span>
                   </div>
                 </div>
               </div>
               <p>{tier.summary}</p>
-              <PremiumButton href="/contact" secondary={!isFeatured} meeting={isCustom}>
-                {isCustom ? "Book custom call" : "Start here"}
+              <PremiumButton href="/contact" secondary={!isFeatured}>
+                {tier.cta}
               </PremiumButton>
               <div className="pricing-preview-card__rule" aria-hidden="true" />
+              {"lead" in tier ? <p className="pricing-preview-card__lead">{tier.lead}</p> : null}
               <ul>
-                {tier.includes.slice(0, 5).map((item) => (
+                {tier.includes.map((item) => (
                   <li key={item}>
                     <Check size={15} aria-hidden="true" />
                     {item}
@@ -624,61 +628,29 @@ function ProcessTeaser() {
   );
 }
 
-function FullBleedMoment() {
-  const landingPages = [...projects, ...projects].slice(0, 6);
-
+function FounderNote() {
   return (
-    <section className="full-bleed-moment">
-      <div className="full-bleed-moment__inner">
-        <div className="full-bleed-moment__copy">
-          <h2>
-            Sharp is easy.
-            <br />
-            The fold has to work.
-          </h2>
-          <p>AI can make a hundred options. FirstFold helps ship the one that matters.</p>
-        </div>
-        <div className="fold-page-stack" aria-hidden="true">
-          {landingPages.map((project, index) => (
-            <span
-              className="fold-page-stack__card"
-              key={`${project.slug}-${index}`}
-              style={
-                {
-                  "--page-index": index,
-                  "--image-x": project.imageX,
-                  "--image-y": project.imageY,
-                } as CSSProperties
-              }
-            >
-              <img src={project.image} alt="" width={1280} height={720} loading="lazy" />
+    <section className="founder-proof-section" aria-labelledby="founder-proof-title">
+      <div className="founder-proof-copy">
+        <span>Studio principle</span>
+        <h2 id="founder-proof-title">Human taste. AI speed.</h2>
+        <p>AI can multiply options. FirstFold keeps the decision sharp, useful, and launch-ready.</p>
+      </div>
+      <div className="founder-proof-panel">
+        <figure>
+          <blockquote>AI should make the work feel more alive, not less personal.</blockquote>
+          <figcaption>FirstFold Studio philosophy</figcaption>
+        </figure>
+        <div className="principle-row principle-row--minimal">
+          {principles.map((principle, index) => (
+            <span key={principle}>
+              <img src={principleIcons[index]} alt="" width={28} height={28} loading="lazy" />
+              {principle}
             </span>
           ))}
         </div>
       </div>
     </section>
-  );
-}
-
-function FounderNote() {
-  return (
-    <SectionFrame title="The site is the first proof." accent="brown" compact>
-      <div className="founder-band">
-        <img src="/human-team.png" alt="AI-generated fictional studio team arranging launch materials" width={1792} height={1024} loading="lazy" />
-        <figure>
-          <blockquote>AI should make the work feel more alive, not less personal.</blockquote>
-          <figcaption>FirstFold Studio philosophy</figcaption>
-        </figure>
-      </div>
-      <div className="principle-row">
-        {principles.map((principle, index) => (
-          <span key={principle}>
-            <img src={principleIcons[index]} alt="" width={28} height={28} loading="lazy" />
-            {principle}
-          </span>
-        ))}
-      </div>
-    </SectionFrame>
   );
 }
 
@@ -821,7 +793,7 @@ export function PricingPage() {
               ))}
             </ul>
             <PremiumButton href="/contact" secondary={index !== 1}>
-              Start here
+              {tier.cta}
             </PremiumButton>
           </article>
         ))}
