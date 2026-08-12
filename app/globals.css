@@ -298,7 +298,7 @@ textarea {
   top: 0;
   right: auto;
   left: 50%;
-  --nav-width: min(calc(100vw - max(88px, calc((100vw - 1440px) + 96px))), 1344px);
+  --nav-width: calc(100vw - (clamp(44px, 4vw, 88px) * 2));
   max-width: none;
   min-height: 74px;
   padding: 10px clamp(24px, 2.4vw, 38px);
@@ -344,8 +344,8 @@ textarea {
 .brand-mark img,
 .footer-logo {
   display: block;
-  width: 25px;
-  height: 25px;
+  width: 29px;
+  height: 29px;
   object-fit: contain;
 }
 
@@ -923,6 +923,8 @@ textarea {
   display: grid;
   align-content: stretch;
   min-height: 100svh;
+  padding-right: clamp(44px, 4vw, 88px);
+  padding-left: clamp(44px, 4vw, 88px);
   padding-top: clamp(104px, 8vw, 132px);
   padding-bottom: clamp(42px, 5vw, 72px);
   background:
@@ -988,13 +990,13 @@ textarea {
 .hero-lines span:nth-child(2) {
   top: 0;
   bottom: 0;
-  left: max(44px, calc((100vw - 1440px) / 2 + 48px));
+  left: clamp(44px, 4vw, 88px);
   width: 1px;
 }
 
 .hero-lines span:nth-child(3) {
   top: 0;
-  right: max(44px, calc((100vw - 1440px) / 2 + 48px));
+  right: clamp(44px, 4vw, 88px);
   bottom: 0;
   width: 1px;
 }
@@ -1007,13 +1009,13 @@ textarea {
   position: relative;
   z-index: 2;
   display: grid;
-  grid-template-columns: minmax(0, 0.66fr) minmax(260px, 0.34fr);
+  grid-template-columns: minmax(0, 1fr) minmax(180px, 220px);
   grid-template-rows: 1fr auto;
   gap: clamp(22px, 3vw, 44px);
   align-items: end;
   min-height: calc(100svh - clamp(104px, 8vw, 132px) - clamp(42px, 5vw, 72px));
-  padding-right: clamp(18px, 2.2vw, 34px);
-  padding-left: clamp(18px, 2.2vw, 34px);
+  padding-right: clamp(12px, 1.35vw, 26px);
+  padding-left: clamp(12px, 1.35vw, 26px);
 }
 
 .hero-copy {
@@ -1023,7 +1025,7 @@ textarea {
   grid-column: 1;
   grid-row: 2;
   align-self: end;
-  max-width: 790px;
+  max-width: min(100%, 1060px);
   padding: 0;
   min-width: 0;
   text-align: left;
@@ -1116,13 +1118,13 @@ textarea {
 }
 
 .hero-copy h1 {
-  max-width: 780px;
+  max-width: 1040px;
   margin: 0;
   margin-left: 0;
   color: #ffffff;
-  font-size: clamp(56px, 5.95vw, 98px);
+  font-size: clamp(64px, 5vw, 92px);
   font-weight: 600;
-  line-height: 0.95;
+  line-height: 0.94;
   font-kerning: normal;
   font-feature-settings: "kern" 1, "liga" 1;
   text-rendering: optimizeLegibility;
@@ -1428,7 +1430,7 @@ textarea {
   justify-self: end;
   align-self: end;
   gap: 9px;
-  width: min(100%, 220px);
+  width: min(100%, 210px);
   color: #ffffff;
   overflow: hidden;
 }
