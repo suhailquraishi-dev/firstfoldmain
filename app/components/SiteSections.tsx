@@ -486,7 +486,10 @@ function HomepageBanner() {
   return (
     <section className="homepage-banner-section" aria-label="Curated website plans">
       <Link href="/pricing" className="homepage-banner-link">
-        <img src="/images/homepage-banner.webp" alt="Looking for something more curated? Personalised design, priced for founders. Check Our Plans." width={1200} height={400} loading="lazy" />
+        <picture>
+          <source srcSet="/images/homepage-banner-mobile.webp" media="(max-width: 700px)" width={236} height={324} />
+          <img src="/images/homepage-banner.webp" alt="Looking for something more curated? Personalised design, priced for founders. Check Our Plans." width={1200} height={400} loading="lazy" />
+        </picture>
       </Link>
     </section>
   );
