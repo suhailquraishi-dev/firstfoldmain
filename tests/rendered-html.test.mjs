@@ -65,6 +65,8 @@ test("server-renders the FirstFold Studio homepage", async () => {
   assert.match(html, /images\/showcase\/daytona\.png/);
   assert.match(html, /images\/showcase\/holo\.png/);
   assert.match(html, /More Options/);
+  assert.match(html, /images\/homepage-banner\.webp/);
+  assert.match(html, /Looking for something more curated/);
   assert.doesNotMatch(html, /Pre-built website systems/);
   assert.doesNotMatch(html, /Landing Pages/);
   assert.doesNotMatch(html, /Advanced Apps/);
@@ -82,8 +84,8 @@ test("server-renders the FirstFold Studio homepage", async () => {
   assert.match(html, /Productized services/);
   assert.match(html, /Package what you do\. Make it easier to buy/);
   assert.match(html, /Trusted by/);
-  assert.match(html, /Proof, packaged/);
-  assert.match(html, /images\/creds\/s1\.jpg/);
+  assert.doesNotMatch(html, /Proof, packaged/);
+  assert.doesNotMatch(html, /images\/creds\/s1\.jpg/);
   assert.doesNotMatch(html, /Tools we build with/);
   assert.doesNotMatch(html, /One sharp stack/);
   assert.match(html, /FirstFold Studio/);
@@ -102,7 +104,7 @@ test("server-renders the FirstFold Studio homepage", async () => {
   assert.doesNotMatch(html, /Design \+ build/);
   assert.doesNotMatch(html, /Three products\. One calm operating system/);
   assert.doesNotMatch(html, /One sharp stack/);
-  assert.doesNotMatch(html, /Our Stack/);
+  assert.match(html, /Our Stack/);
   assert.match(html, /10-21d/);
   assert.match(html, /favicon\.png/);
   assert.doesNotMatch(html, /human-team\.png/);
@@ -139,8 +141,10 @@ test("renders the planned routes and removes the starter shell", async () => {
   assert.match(work, /Case studies with the work doing the talking/);
   assert.match(work, /Creator Pack/);
   assert.match(services, /AI-native websites lead/);
-  assert.match(process, /Less manual work\. More intelligent execution/);
-  assert.match(process, /AI handles volume/);
+  assert.match(process, /Two tracks\. One clear way in/);
+  assert.match(process, /Track A \/ Assets/);
+  assert.match(process, /Track B \/ Calls &amp; Plans/);
+  assert.match(process, /What you get once you book/);
   assert.match(pricing, /Transparent website tiers/);
   assert.match(pricing, /Pro/);
   assert.match(pricing, /Plus/);

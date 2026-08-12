@@ -246,12 +246,12 @@ export function HomePage() {
       <HomeLoader />
       <Hero />
       <HowWeWorkSection />
+      <HomepageBanner />
       <AudienceFitSection />
       <ToolRail />
       <ProcessTeaser />
       <FounderNote />
       <FAQAccordion />
-      <CredsDeck />
       <HomeBookingSection />
     </main>
   );
@@ -280,10 +280,7 @@ function BookingPreview() {
     <section className="booking-panel" aria-label="Book a call">
       <div className="booking-card">
         <div className="booking-card__brand">
-          <span className="booking-card__logo">
-            <img src="/favicon.png" alt="" width={28} height={28} />
-          </span>
-          <strong>FirstFold Studio</strong>
+          <span className="booking-card__full-logo" aria-label="FirstFold Studio" />
         </div>
         <h2>Intro with FirstFold</h2>
         <p>A focused chat about your launch, timeline, and the first-fold job.</p>
@@ -339,13 +336,18 @@ function BookingPreview() {
 function HomeBookingSection() {
   return (
     <section className="home-booking-section">
-      <PageHero title="Book a call." copy="Pick the sprint shape. We will reply with the cleanest next step." />
-      <BookingPreview />
+      <div className="home-booking-layout">
+        <div className="home-booking-copy">
+          <h2>Book a call.</h2>
+          <p>Pick the sprint shape. We will reply with the cleanest next step.</p>
+        </div>
+        <BookingPreview />
+      </div>
     </section>
   );
 }
 
-function CredsDeck() {
+export function CredsDeck() {
   return (
     <section className="creds-deck-section" aria-label="FirstFold creds deck preview">
       <div className="creds-deck__copy">
@@ -417,9 +419,9 @@ function Hero() {
                 alt={trustedLogo.name}
                 width={180}
                 height={46}
-                initial={reduced ? false : { opacity: 0, x: -22, filter: "blur(6px)" }}
-                animate={reduced ? { opacity: 0.88, x: 0 } : { opacity: 0.88, x: 0 }}
-                exit={reduced ? { opacity: 0 } : { opacity: 0, x: 22, filter: "blur(6px)" }}
+                initial={reduced ? false : { opacity: 0, x: -22, filter: "brightness(0) invert(1) blur(6px)" }}
+                animate={reduced ? { opacity: 0.88, x: 0, filter: "brightness(0) invert(1) blur(0px)" } : { opacity: 0.88, x: 0, filter: "brightness(0) invert(1) blur(0px)" }}
+                exit={reduced ? { opacity: 0 } : { opacity: 0, x: 22, filter: "brightness(0) invert(1) blur(6px)" }}
                 transition={{ duration: 0.72, ease: [0.16, 1, 0.3, 1] }}
               />
             </AnimatePresence>
@@ -438,6 +440,7 @@ function ToolRail() {
       <div className="tool-ui-visual" aria-hidden="true">
         <div className="tool-ui-orbit tool-ui-orbit--outer" />
         <div className="tool-ui-orbit tool-ui-orbit--inner" />
+        <div className="tool-ui-center">Our Stack</div>
         {featuredTools.map((logo, index) => (
           <span className={`tool-ui-node tool-ui-node--${index}`} key={logo.name}>
             <img src={logo.src} alt="" width={42} height={42} loading="lazy" />
@@ -474,6 +477,16 @@ function HowWeWorkSection() {
         <span className="cta-arrow" aria-hidden="true">
           <img src="/right-arrow.svg" alt="" width={18} height={18} />
         </span>
+      </Link>
+    </section>
+  );
+}
+
+function HomepageBanner() {
+  return (
+    <section className="homepage-banner-section" aria-label="Curated website plans">
+      <Link href="/pricing" className="homepage-banner-link">
+        <img src="/images/homepage-banner.webp" alt="Looking for something more curated? Personalised design, priced for founders. Check Our Plans." width={1200} height={400} loading="lazy" />
       </Link>
     </section>
   );
@@ -527,7 +540,7 @@ function PricingCards({ showProofStrip = false }: { showProofStrip?: boolean }) 
     <>
       <div className="pricing-preview" aria-label="Website sprint pricing preview">
         {pricingTiers.map((tier, index) => {
-          const isFeatured = index === 1;
+          const isFeatured = index === 0;
 
           return (
             <article
@@ -750,7 +763,7 @@ export function ServicesPage() {
       <PageHero title="AI-native websites lead. Creator and enterprise packs extend the system." copy="Each product shows what is included, who it is for, starting price, turnaround, and how AI and human judgment divide the work." />
         <div className="service-detail-grid">
         {services.map((service, index) => (
-          <article className={index === 0 ? `service-detail service-detail--primary ${service.color}` : `service-detail ${service.color}`} key={service.name}>
+          <article id={service.slug} className={index === 0 ? `service-detail service-detail--primary ${service.color}` : `service-detail ${service.color}`} key={service.name}>
             <span>{service.eyebrow}</span>
             <h2>{service.name}</h2>
             <p>{service.summary}</p>
@@ -784,7 +797,75 @@ export function ServicesPage() {
 export function ProcessPage() {
   return (
     <main className="page-shell">
-      <PageHero title="Less manual work. More intelligent execution." copy="A five-step path from discovery to launch, with real timing and clear AI/human responsibility." />
+      <section className="page-hero process-page-hero">
+        <h1>Two tracks. One clear way in.</h1>
+        <span>Browse the asset you need, then choose how much support you want around the launch.</span>
+      </section>
+      <section className="track-system" aria-label="FirstFold tracks">
+        <article>
+          <span className="track-system__tag">Track A / Assets</span>
+          <h2>Products you can understand before the call.</h2>
+          <p>Websites, creator packs, and enterprise systems are framed as deliverables: what they are, what is inside, who they are for, and where pricing starts.</p>
+          <ul className="track-link-list">
+            <li>
+              <a href="/services#ai-native-websites">
+                <span>AI-Native Websites</span>
+                <strong>from $4.8k</strong>
+              </a>
+            </li>
+            <li>
+              <a href="/services#creator-packs">
+                <span>Creator Packs</span>
+                <strong>from $1.6k</strong>
+              </a>
+            </li>
+            <li>
+              <a href="/services#enterprise-packs">
+                <span>Enterprise Systems</span>
+                <strong>custom</strong>
+              </a>
+            </li>
+          </ul>
+          <PremiumButton href="/services">
+            Browse the Folds
+          </PremiumButton>
+        </article>
+        <article>
+          <span className="track-system__tag">Track B / Calls & Plans</span>
+          <h2>What you get once you book.</h2>
+          <p>Discovery calls and Pro, Plus, Master plans explain how much of us you get: sprint duration, revision depth, post-launch support, and access.</p>
+          <ul className="track-link-list">
+            <li>
+              <a href="/contact">
+                <span className="track-link-list__call">
+                  <img src="/icons/google-meet-2026.webp" alt="" width={18} height={18} />
+                  Discovery Call
+                </span>
+                <strong>30 min</strong>
+              </a>
+            </li>
+            <li>
+              <a href="/pricing">
+                <span>Pro, Plus, Master</span>
+                <strong>plans</strong>
+              </a>
+            </li>
+            <li>
+              <a href="/process">
+                <span>How it Works</span>
+                <strong>after booking</strong>
+              </a>
+            </li>
+          </ul>
+          <PremiumButton href="/contact" meeting>
+            Book a Discovery Call
+          </PremiumButton>
+        </article>
+      </section>
+      <section className="process-heading">
+        <h2>What happens after you book.</h2>
+        <p>The sprint mechanics stay simple: discovery, AI-assisted structure, human design judgment, review, and launch.</p>
+      </section>
       <div className="process-list">
         {processSteps.map((step) => (
           <article className="process-row" key={step.label}>
@@ -795,16 +876,6 @@ export function ProcessPage() {
           </article>
         ))}
       </div>
-      <section className="split-panel">
-        <div>
-          <h2>AI handles volume.</h2>
-          <p>Research scans, structure options, copy variants, production checklists, and quality passes.</p>
-        </div>
-        <div>
-          <h2>Humans handle meaning.</h2>
-          <p>Positioning, visual taste, story, approvals, edge cases, and final decisions before launch.</p>
-        </div>
-      </section>
     </main>
   );
 }
@@ -812,7 +883,10 @@ export function ProcessPage() {
 export function PricingPage() {
   return (
     <main className="page-shell">
-      <PageHero title="Transparent website tiers. Custom paths for bigger systems." copy="At minimum, every site sprint includes strategy, design, implementation, responsive QA, and a clear launch handoff." />
+      <section className="page-hero pricing-page-hero">
+        <h1>Transparent website tiers. Custom paths for bigger systems.</h1>
+        <span>At minimum, every site sprint includes strategy, design, implementation, responsive QA, and a clear launch handoff.</span>
+      </section>
       <PricingCards showProofStrip />
     </main>
   );
