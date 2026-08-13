@@ -182,7 +182,7 @@ export const processSteps = [
 export const pricingTiers = [
   {
     name: "Pro",
-    price: "$120",
+    price: "$99",
     timeline: "5–7 days",
     summary: "A sharp first version, ready to launch.",
     benefits: ["Launch-ready, not just designed", "Responsive from day one", "Clean QA before handoff"],
@@ -196,11 +196,11 @@ export const pricingTiers = [
   },
   {
     name: "Plus",
-    price: "$200",
+    price: "$199",
     timeline: "7–10 days",
     summary: "Your website, with a little more support behind it.",
     benefits: ["More room for the story", "Analytics ready at launch", "30 days of backup"],
-    lead: "Everything in Pro, plus:",
+    lead: "Everything in Pro, &",
     cta: "Choose Plus",
     includes: ["Up to 5 pages", "Custom interactions", "Analytics setup", "2 revision rounds", "30-day post-launch support", "Direct access to us", "Website & launch guidance"],
     groups: [
@@ -211,11 +211,11 @@ export const pricingTiers = [
   },
   {
     name: "Master",
-    price: "$450",
+    price: "$499",
     timeline: "10–14 days",
     summary: "More hands-on help, before and after launch.",
     benefits: ["Priority help when it matters", "Launch strategy included", "Updates after the site goes live"],
-    lead: "Everything in Plus, plus:",
+    lead: "Everything in Plus, &",
     cta: "Go Master",
     includes: ["Up to 8 pages", "Advanced interactions", "Priority revisions", "60-day post-launch support", "Priority direct access", "Launch strategy session", "Website updates & fixes", "Starter social launch assets", "Priority support for new requirements"],
     groups: [

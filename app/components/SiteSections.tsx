@@ -2,10 +2,10 @@
 
 /* eslint-disable @next/next/no-img-element */
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { Check, ChevronDown, Clock, Diamond, Globe2, Mail } from "lucide-react";
+import { Check, ChevronDown, Clock, Globe2, Mail } from "lucide-react";
 import Link from "next/link";
 import { type CSSProperties, FormEvent, useEffect, useState } from "react";
-import { clientLogos, faqs, logoRail, metrics, pricingTiers, principles, processSteps, projects, projectTypes, services } from "@/lib/content";
+import { clientLogos, faqs, logoRail, metrics, pricingTiers, processSteps, projects, projectTypes, services } from "@/lib/content";
 
 type Project = (typeof projects)[number];
 
@@ -87,13 +87,53 @@ const audienceRows = [
   },
 ];
 
-const principleIcons = ["/icons/brain-circuit.svg", "/icons/focus.svg", "/icons/badge-check.svg", "/icons/workflow.svg"];
+const capabilityColumns = [
+  {
+    title: "Product",
+    icon: "product",
+    items: ["Offer clarity", "V1 positioning", "Launch pages", "Product visuals", "Demo structure", "Feature stories"],
+  },
+  {
+    title: "Brand",
+    icon: "brand",
+    items: ["Founder voice", "Visual direction", "Proof language", "Content angles", "Social assets", "Launch narrative"],
+  },
+  {
+    title: "Website",
+    icon: "website",
+    items: ["Homepage", "Core pages", "Responsive build", "SEO basics", "Animations", "Launch QA"],
+  },
+  {
+    title: "Systems",
+    icon: "systems",
+    items: ["Reusable sections", "Analytics setup", "Handoff notes", "Iteration map", "Updates", "Post-launch support"],
+  },
+];
+const teamMembers = [
+  {
+    name: "Suhail Quraishi",
+    role: "CEO & Founder",
+    image: "/images/team/orange-profile.png",
+  },
+  {
+    name: "Kanak Priya Raj",
+    role: "Chief Marketing Officer & Sales",
+    image: "/images/team/orange-profile.png",
+  },
+];
 const credsDeckSlides = [
   { title: "Creds slide 1", src: "/images/creds/s1.jpg" },
   { title: "Creds slide 2", src: "/images/creds/s2.jpg" },
   { title: "Creds slide 3", src: "/images/creds/s3.jpg" },
   { title: "Creds slide 4", src: "/images/creds/s4.jpg" },
   { title: "Creds slide 5", src: "/images/creds/s5.jpg" },
+];
+const processStepImages = [
+  "/images/process/discovery-call.webp",
+  "/images/process/ai-assisted-draft.webp",
+  "/images/process/human-design-pass.webp",
+  "/images/process/review-round.webp",
+  "/images/process/launch.webp",
 ];
 const bookingCalendarDays = [
   null,
@@ -201,7 +241,9 @@ export function SectionFrame({
   const heading = (
     <>
       {eyebrow ? <span className="section-eyebrow">{eyebrow}</span> : null}
-      <h2>{title}</h2>
+      <h2>
+        <MotionText>{title}</MotionText>
+      </h2>
       {copy ? <p>{copy}</p> : null}
     </>
   );
@@ -229,14 +271,15 @@ export function SectionFrame({
 export function MotionText({ children }: { children: React.ReactNode }) {
   const reduced = useReducedMotion();
   return (
-    <motion.div
-      initial={reduced ? false : { opacity: 0.2, y: 16 }}
-      whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-12%" }}
-      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+    <motion.span
+      className="motion-headline"
+      initial={reduced ? false : { opacity: 0, y: 8, filter: "blur(4px)" }}
+      whileInView={reduced ? undefined : { opacity: 1, y: 0, filter: "blur(0px)" }}
+      viewport={{ once: true, margin: "-12% 0px -12% 0px" }}
+      transition={{ duration: 0.72, ease: [0.16, 1, 0.3, 1] }}
     >
       {children}
-    </motion.div>
+    </motion.span>
   );
 }
 
@@ -251,6 +294,7 @@ export function HomePage() {
       <ToolRail />
       <ProcessTeaser />
       <FounderNote />
+      <TeamSection />
       <FAQAccordion />
       <HomeBookingSection />
     </main>
@@ -456,7 +500,9 @@ function HowWeWorkSection() {
     <section className="showcase-section" aria-labelledby="showcase-title">
       <div className="showcase-heading">
         <div>
-          <h2 id="showcase-title">Need to launch soon? Explore these.</h2>
+          <h2 id="showcase-title">
+            <MotionText>Need to launch soon? Explore these.</MotionText>
+          </h2>
           <p>Select from best library, specially curated for you.</p>
         </div>
       </div>
@@ -466,6 +512,14 @@ function HowWeWorkSection() {
           <a href={item.href} className="showcase-card" key={item.title} target="_blank" rel="noreferrer">
             <div className="showcase-card__preview">
               <img src={item.image} alt={`${item.title} landing page screenshot`} width={1440} height={900} loading="lazy" />
+              <span className="showcase-card__overlay" aria-hidden="true">
+                <span>
+                  Create Yours
+                  <span className="cta-arrow">
+                    <img src="/right-arrow.svg" alt="" width={18} height={18} />
+                  </span>
+                </span>
+              </span>
             </div>
             <h3>{item.title}</h3>
             <p>{item.category}</p>
@@ -501,7 +555,9 @@ function AudienceFitSection() {
   return (
     <section className="audience-fit-section" aria-labelledby="audience-fit-title">
       <div className="audience-fit-copy">
-        <h2 id="audience-fit-title">Start with what actually matters.</h2>
+        <h2 id="audience-fit-title">
+          <MotionText>Start with what actually matters.</MotionText>
+        </h2>
         <p>Made for people starting something.</p>
       </div>
       <div className="audience-fit-list" aria-label="Who FirstFold websites are for">
@@ -557,8 +613,8 @@ function PricingCards({ showProofStrip = false }: { showProofStrip?: boolean }) 
             >
               {isFeatured ? (
                 <span className="pricing-preview-card__popular">
-                  <Diamond size={13} aria-hidden="true" />
-                  MOST POPULAR
+                  <span aria-hidden="true">★</span>
+                  Most Popular
                 </span>
               ) : null}
               <div className="pricing-preview-card__head">
@@ -682,25 +738,43 @@ function ProcessTeaser() {
 
 function FounderNote() {
   return (
-    <section className="founder-proof-section" aria-labelledby="founder-proof-title">
-      <div className="founder-proof-copy">
-        <span>Studio principle</span>
-        <h2 id="founder-proof-title">Human taste. AI speed.</h2>
-        <p>AI can multiply options. FirstFold keeps the decision sharp, useful, and launch-ready.</p>
+    <section className="capabilities-section" aria-label="FirstFold capabilities">
+      <div className="capabilities-grid">
+        {capabilityColumns.map((column) => (
+          <article className="capability-column" key={column.title}>
+            <span className={`capability-icon capability-icon--${column.icon}`} aria-hidden="true" />
+            <h2>{column.title}</h2>
+            <ul>
+              {column.items.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </article>
+        ))}
       </div>
-      <div className="founder-proof-panel">
-        <figure>
-          <blockquote>AI should make the work feel more alive, not less personal.</blockquote>
-          <figcaption>FirstFold Studio philosophy</figcaption>
-        </figure>
-        <div className="principle-row principle-row--minimal">
-          {principles.map((principle, index) => (
-            <span key={principle}>
-              <img src={principleIcons[index]} alt="" width={28} height={28} loading="lazy" />
-              {principle}
-            </span>
-          ))}
-        </div>
+    </section>
+  );
+}
+
+function TeamSection() {
+  return (
+    <section className="team-section" aria-labelledby="team-title">
+      <div className="team-section__copy">
+        <h2 id="team-title">
+          <MotionText>Meet the team</MotionText>
+        </h2>
+        <p>People on the other side of the screen, ready to help you launch cleaner.</p>
+      </div>
+      <div className="team-list" aria-label="FirstFold team">
+        {teamMembers.map((member) => (
+          <article className="team-member" key={member.name}>
+            <img src={member.image} alt="" width={192} height={192} loading="lazy" />
+            <div>
+              <h3>{member.name}</h3>
+              <p>{member.role}</p>
+            </div>
+          </article>
+        ))}
       </div>
     </section>
   );
@@ -801,13 +875,17 @@ export function ProcessPage() {
   return (
     <main className="page-shell">
       <section className="page-hero process-page-hero">
-        <h1>Two tracks. One clear way in.</h1>
+        <h1>
+          <MotionText>Two tracks. One clear way in.</MotionText>
+        </h1>
         <span>Browse the asset you need, then choose how much support you want around the launch.</span>
       </section>
       <section className="track-system" aria-label="FirstFold tracks">
         <article>
           <span className="track-system__tag">Track A / Assets</span>
-          <h2>Products you can understand before the call.</h2>
+          <h2>
+            <MotionText>Products you can understand before the call.</MotionText>
+          </h2>
           <p>Websites, creator packs, and enterprise systems are framed as deliverables: what they are, what is inside, who they are for, and where pricing starts.</p>
           <ul className="track-link-list">
             <li>
@@ -835,7 +913,9 @@ export function ProcessPage() {
         </article>
         <article>
           <span className="track-system__tag">Track B / Calls & Plans</span>
-          <h2>What you get once you book.</h2>
+          <h2>
+            <MotionText>What you get once you book.</MotionText>
+          </h2>
           <p>Discovery calls and Pro, Plus, Master plans explain how much of us you get: sprint duration, revision depth, post-launch support, and access.</p>
           <ul className="track-link-list">
             <li>
@@ -855,7 +935,7 @@ export function ProcessPage() {
             </li>
             <li>
               <a href="/process">
-                <span>How it Works</span>
+                <span>Process</span>
                 <strong>after booking</strong>
               </a>
             </li>
@@ -866,16 +946,23 @@ export function ProcessPage() {
         </article>
       </section>
       <section className="process-heading">
-        <h2>What happens after you book.</h2>
+        <h2>
+          <MotionText>What happens after you book.</MotionText>
+        </h2>
         <p>The sprint mechanics stay simple: discovery, AI-assisted structure, human design judgment, review, and launch.</p>
       </section>
       <div className="process-list">
-        {processSteps.map((step) => (
+        {processSteps.map((step, index) => (
           <article className="process-row" key={step.label}>
-            <span>{step.meta}</span>
-            <h2>{step.label}</h2>
-            <p>{step.copy}</p>
-            <strong>{step.time}</strong>
+            <div className="process-row__visual">
+              <img src={processStepImages[index]} alt="" width={384} height={819} loading="lazy" />
+              <span className="process-row__meta">{step.meta}</span>
+              <strong>{step.time}</strong>
+            </div>
+            <div className="process-row__body">
+              <h2>{step.label}</h2>
+              <p>{step.copy}</p>
+            </div>
           </article>
         ))}
       </div>
@@ -887,10 +974,12 @@ export function PricingPage() {
   return (
     <main className="page-shell">
       <section className="page-hero pricing-page-hero">
-        <h1>Transparent website tiers. Custom paths for bigger systems.</h1>
-        <span>At minimum, every site sprint includes strategy, design, implementation, responsive QA, and a clear launch handoff.</span>
+        <h1>
+          <MotionText>Simple pricing. Clear paths.</MotionText>
+        </h1>
+        <span>Pick the support level. We bring the site live.</span>
       </section>
-      <PricingCards showProofStrip />
+      <PricingCards />
     </main>
   );
 }
@@ -1072,7 +1161,9 @@ export function FAQAccordion() {
 export function PageHero({ title, copy }: { title: string; copy: string }) {
   return (
     <section className="page-hero">
-      <h1>{title}</h1>
+      <h1>
+        <MotionText>{title}</MotionText>
+      </h1>
       <span>{copy}</span>
     </section>
   );
