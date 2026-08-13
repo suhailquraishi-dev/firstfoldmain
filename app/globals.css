@@ -74,6 +74,7 @@
   --orange: #ff3300;
   --nav-panel: #fff7d7;
   --nav-panel-solid: #fff9e4;
+  --landing-rail-gap: clamp(44px, 4vw, 88px);
   --season-sans: "Season Sans", -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
@@ -296,9 +297,9 @@ textarea {
 
 .site-nav--home-rail {
   top: 0;
-  right: auto;
-  left: 50%;
-  --nav-width: calc(100vw - (clamp(44px, 4vw, 88px) * 2));
+  right: var(--landing-rail-gap);
+  left: var(--landing-rail-gap);
+  --nav-width: auto;
   max-width: none;
   min-height: 74px;
   padding: 10px clamp(24px, 2.4vw, 38px);
@@ -307,7 +308,7 @@ textarea {
   border-radius: 0;
   background: #ffffff;
   box-shadow: none;
-  transform: translateX(-50%);
+  transform: none;
 }
 
 .site-nav--home-rail .nav-links {
@@ -923,8 +924,8 @@ textarea {
   display: grid;
   align-content: stretch;
   min-height: 100svh;
-  padding-right: clamp(44px, 4vw, 88px);
-  padding-left: clamp(44px, 4vw, 88px);
+  padding-right: var(--landing-rail-gap);
+  padding-left: var(--landing-rail-gap);
   padding-top: clamp(104px, 8vw, 132px);
   padding-bottom: clamp(42px, 5vw, 72px);
   background:
@@ -990,13 +991,13 @@ textarea {
 .hero-lines span:nth-child(2) {
   top: 0;
   bottom: 0;
-  left: clamp(44px, 4vw, 88px);
+  left: var(--landing-rail-gap);
   width: 1px;
 }
 
 .hero-lines span:nth-child(3) {
   top: 0;
-  right: clamp(44px, 4vw, 88px);
+  right: var(--landing-rail-gap);
   bottom: 0;
   width: 1px;
 }
@@ -1576,7 +1577,7 @@ textarea {
   width: 52%;
   height: 52%;
   object-fit: contain;
-  filter: none;
+  filter: brightness(0) saturate(0) opacity(0.74);
   opacity: 1;
 }
 
