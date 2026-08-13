@@ -128,13 +128,6 @@ const credsDeckSlides = [
   { title: "Creds slide 4", src: "/images/creds/s4.jpg" },
   { title: "Creds slide 5", src: "/images/creds/s5.jpg" },
 ];
-const processStepImages = [
-  "/images/process/discovery-call.webp",
-  "/images/process/ai-assisted-draft.webp",
-  "/images/process/human-design-pass.webp",
-  "/images/process/review-round.webp",
-  "/images/process/launch.webp",
-];
 const bookingCalendarDays = [
   null,
   null,
@@ -951,17 +944,28 @@ export function ProcessPage() {
         </h2>
         <p>The sprint mechanics stay simple: discovery, AI-assisted structure, human design judgment, review, and launch.</p>
       </section>
+      <div className="process-metrics" aria-label="Sprint facts">
+        <article>
+          <span>Launch window</span>
+          <strong>10-21d</strong>
+        </article>
+        <article>
+          <span>Core offers</span>
+          <strong>3</strong>
+        </article>
+        <article>
+          <span>Clear story per screen</span>
+          <strong>1</strong>
+        </article>
+      </div>
       <div className="process-list">
-        {processSteps.map((step, index) => (
+        {processSteps.map((step) => (
           <article className="process-row" key={step.label}>
-            <div className="process-row__visual">
-              <img src={processStepImages[index]} alt="" width={384} height={819} loading="lazy" />
-              <span className="process-row__meta">{step.meta}</span>
-              <strong>{step.time}</strong>
-            </div>
+            <span className="process-row__meta">{step.meta}</span>
             <div className="process-row__body">
               <h2>{step.label}</h2>
               <p>{step.copy}</p>
+              <strong>{step.time}</strong>
             </div>
           </article>
         ))}
