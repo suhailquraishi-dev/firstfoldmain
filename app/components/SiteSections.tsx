@@ -442,7 +442,7 @@ function ToolRail() {
         <div className="tool-ui-orbit tool-ui-orbit--inner" />
         <div className="tool-ui-center">Our Stack</div>
         {featuredTools.map((logo, index) => (
-          <span className={`tool-ui-node tool-ui-node--${index}`} key={logo.name}>
+          <span className={`tool-ui-node ${index < 8 ? "tool-ui-node--outer" : "tool-ui-node--inner"} tool-ui-node--${index}`} key={logo.name}>
             <img src={logo.src} alt="" width={42} height={42} loading="lazy" />
           </span>
         ))}

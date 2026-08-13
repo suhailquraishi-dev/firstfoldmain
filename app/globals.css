@@ -1517,12 +1517,12 @@ textarea {
 }
 
 .tool-ui-orbit--outer {
-  width: min(92%, 820px);
+  width: 92%;
   height: 56%;
 }
 
 .tool-ui-orbit--inner {
-  width: min(61%, 540px);
+  width: 61%;
   height: 34%;
 }
 
@@ -1560,10 +1560,27 @@ textarea {
 .tool-ui-node {
   width: clamp(54px, 5vw, 72px);
   height: clamp(54px, 5vw, 72px);
-  left: calc(50% + var(--node-x));
-  top: calc(50% + var(--node-y));
+  left: calc(50% + (var(--orbit-rx) * cos(var(--orbit-angle))));
+  top: calc(50% + (var(--orbit-ry) * sin(var(--orbit-angle))));
   transform: translate(-50%, -50%);
-  animation: tool-node-float 8s ease-in-out infinite;
+  animation: tool-node-orbit var(--orbit-duration) linear infinite;
+  will-change: left, top;
+}
+
+.tool-ui-node--outer {
+  --orbit-rx: 46%;
+  --orbit-ry: 28%;
+  --orbit-duration: 38s;
+}
+
+.tool-ui-node--inner {
+  z-index: 3;
+  width: clamp(48px, 4.4vw, 64px);
+  height: clamp(48px, 4.4vw, 64px);
+  --orbit-rx: 30.5%;
+  --orbit-ry: 17%;
+  --orbit-duration: 26s;
+  animation-direction: reverse;
 }
 
 .tool-ui-node img {
@@ -1575,73 +1592,64 @@ textarea {
 }
 
 .tool-ui-node--0 {
-  --node-x: -41%;
-  --node-y: 0%;
-  animation-delay: -0.2s;
+  --orbit-angle: 180deg;
+  --orbit-start-angle: 180deg;
 }
 
 .tool-ui-node--1 {
-  --node-x: -31%;
-  --node-y: -24%;
-  animation-delay: -1s;
+  --orbit-angle: 225deg;
+  --orbit-start-angle: 225deg;
 }
 
 .tool-ui-node--2 {
-  --node-x: 0%;
-  --node-y: -28%;
-  animation-delay: -2.2s;
+  --orbit-angle: 270deg;
+  --orbit-start-angle: 270deg;
 }
 
 .tool-ui-node--3 {
-  --node-x: 31%;
-  --node-y: -24%;
-  animation-delay: -3.1s;
+  --orbit-angle: 315deg;
+  --orbit-start-angle: 315deg;
 }
 
 .tool-ui-node--4 {
-  --node-x: 41%;
-  --node-y: 0%;
-  animation-delay: -4.1s;
+  --orbit-angle: 0deg;
+  --orbit-start-angle: 0deg;
 }
 
 .tool-ui-node--5 {
-  --node-x: 31%;
-  --node-y: 24%;
-  animation-delay: -5s;
+  --orbit-angle: 45deg;
+  --orbit-start-angle: 45deg;
 }
 
 .tool-ui-node--6 {
-  --node-x: 0%;
-  --node-y: 28%;
-  animation-delay: -5.8s;
+  --orbit-angle: 90deg;
+  --orbit-start-angle: 90deg;
 }
 
 .tool-ui-node--7 {
-  --node-x: -31%;
-  --node-y: 24%;
-  animation-delay: -6.4s;
+  --orbit-angle: 135deg;
+  --orbit-start-angle: 135deg;
 }
 
 .tool-ui-node--8 {
-  --node-x: 24%;
-  --node-y: -14%;
-  animation-delay: -3.8s;
+  --orbit-angle: 315deg;
+  --orbit-start-angle: 315deg;
 }
 
 .tool-ui-node--9 {
-  --node-x: -24%;
-  --node-y: 0%;
-  animation-delay: -4.8s;
+  --orbit-angle: 180deg;
+  --orbit-start-angle: 180deg;
 }
 
-@keyframes tool-node-float {
-  0%,
-  100% {
-    transform: translate(-50%, -50%) translate3d(0, 0, 0);
-  }
+@property --orbit-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
 
-  50% {
-    transform: translate(-50%, -50%) translate3d(0, -5px, 0);
+@keyframes tool-node-orbit {
+  to {
+    --orbit-angle: calc(var(--orbit-start-angle) + 360deg);
   }
 }
 
