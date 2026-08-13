@@ -307,7 +307,6 @@ function HomeLoader() {
         <span className="home-loader__line home-loader__line--inner-left" />
         <span className="home-loader__line home-loader__line--inner-right" />
       </div>
-      <img className="home-loader__logo" src="/firstfold-logo.svg" alt="" width={2044} height={380} />
     </div>
   );
 }
@@ -320,7 +319,7 @@ function BookingPreview() {
           <span className="booking-card__full-logo" aria-label="FirstFold Studio" />
         </div>
         <h2>Intro with FirstFold</h2>
-        <p>A focused chat about your launch, timeline, and the first-fold job.</p>
+        <p>Tell us what you are building. We will help map the next move.</p>
         <div className="booking-card__meta">
           <span>
             <Clock size={18} aria-hidden="true" />
@@ -961,11 +960,13 @@ export function ProcessPage() {
       <div className="process-list">
         {processSteps.map((step) => (
           <article className="process-row" key={step.label}>
-            <span className="process-row__meta">{step.meta}</span>
+            <div className="process-row__visual" aria-hidden="true">
+              <strong>{step.time}</strong>
+            </div>
             <div className="process-row__body">
+              <span className="process-row__meta">{step.meta}</span>
               <h2>{step.label}</h2>
               <p>{step.copy}</p>
-              <strong>{step.time}</strong>
             </div>
           </article>
         ))}
