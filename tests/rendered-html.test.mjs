@@ -36,7 +36,8 @@ test("server-renders the FirstFold Studio homepage", async () => {
 
   const html = await response.text();
   assert.match(html, /<title>FirstFold Studio \| AI-Native Websites<\/title>/i);
-  assert.doesNotMatch(html, /home-loader__logo/);
+  assert.match(html, /home-loader__logo/);
+  assert.match(html, /home-scroll-surface/);
   assert.match(html, /Don&#x27;t build like you&#x27;re Series A/);
   assert.match(html, /Launch-ready websites for your first version, built in 5–7 days/);
   assert.doesNotMatch(html, /Everything you need to take your idea/);
@@ -100,6 +101,7 @@ test("server-renders the FirstFold Studio homepage", async () => {
   assert.doesNotMatch(html, /Go Master/);
   assert.match(html, /Intro with FirstFold/);
   assert.match(html, /Tell us what you are building/);
+  assert.doesNotMatch(html, /booking-card__full-logo/);
   assert.match(html, /Next open: 14:30/);
   assert.doesNotMatch(html, /Strategy included/);
   assert.doesNotMatch(html, /Design \+ build/);

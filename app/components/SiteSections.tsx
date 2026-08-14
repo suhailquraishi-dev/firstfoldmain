@@ -278,18 +278,20 @@ export function MotionText({ children }: { children: React.ReactNode }) {
 
 export function HomePage() {
   return (
-    <main>
+    <main className="home-main">
       <HomeLoader />
       <Hero />
-      <HowWeWorkSection />
-      <HomepageBanner />
-      <AudienceFitSection />
-      <ToolRail />
-      <ProcessTeaser />
-      <FounderNote />
-      <TeamSection />
-      <FAQAccordion />
-      <HomeBookingSection />
+      <div className="home-scroll-surface">
+        <HowWeWorkSection />
+        <HomepageBanner />
+        <AudienceFitSection />
+        <ToolRail />
+        <ProcessTeaser />
+        <FounderNote />
+        <TeamSection />
+        <FAQAccordion />
+        <HomeBookingSection />
+      </div>
     </main>
   );
 }
@@ -307,6 +309,7 @@ function HomeLoader() {
         <span className="home-loader__line home-loader__line--inner-left" />
         <span className="home-loader__line home-loader__line--inner-right" />
       </div>
+      <img className="home-loader__logo" src="/firstfold-logo.svg" alt="" width={2044} height={380} />
     </div>
   );
 }
@@ -315,9 +318,6 @@ function BookingPreview() {
   return (
     <section className="booking-panel" aria-label="Book a call">
       <div className="booking-card">
-        <div className="booking-card__brand">
-          <span className="booking-card__full-logo" aria-label="FirstFold Studio" />
-        </div>
         <h2>Intro with FirstFold</h2>
         <p>Tell us what you are building. We will help map the next move.</p>
         <div className="booking-card__meta">
