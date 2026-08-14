@@ -81,8 +81,8 @@ export function LivingNav() {
         <CtaArrow size={16} />
       </a>
 
-      <a href="/contact" className="nav-mobile-call" aria-label="Book a call">
-        <span>Call</span>
+      <a href="/contact" className="nav-mobile-call" aria-label="Book a 30 minute call">
+        <span>30 Mins.</span>
       </a>
 
       <button

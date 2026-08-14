@@ -1,0 +1,626 @@
+{
+  "colors": [
+    {
+      "token": "--color-page",
+      "role": "Page background"
+    },
+    {
+      "token": "--color-ink",
+      "role": "Primary text"
+    },
+    {
+      "token": "--color-ink-muted",
+      "role": "Muted supporting copy"
+    },
+    {
+      "token": "--color-surface",
+      "role": "White cards, rails, and controls"
+    },
+    {
+      "token": "--color-surface-soft",
+      "role": "Quiet section and module fills"
+    },
+    {
+      "token": "--color-line",
+      "role": "Default structural rules"
+    },
+    {
+      "token": "--color-action",
+      "role": "Primary CTA and orange emphasis"
+    },
+    {
+      "token": "--color-highlight",
+      "role": "Yellow proof, price, and highlight moments"
+    },
+    {
+      "token": "--color-info",
+      "role": "Blue secondary accent"
+    },
+    {
+      "token": "--color-dark",
+      "role": "Dark footer and booking surfaces"
+    }
+  ],
+  "typeScale": [
+    {
+      "token": "--type-hero-title",
+      "role": "Homepage hero headline"
+    },
+    {
+      "token": "--type-page-title",
+      "role": "Top-level page title"
+    },
+    {
+      "token": "--type-section-title",
+      "role": "Major section headline"
+    },
+    {
+      "token": "--type-card-title",
+      "role": "Card and module title"
+    },
+    {
+      "token": "--type-body-lg",
+      "role": "Large intro paragraph"
+    },
+    {
+      "token": "--type-body",
+      "role": "Default paragraph"
+    },
+    {
+      "token": "--type-body-sm",
+      "role": "Compact paragraph and control text"
+    },
+    {
+      "token": "--type-label",
+      "role": "Button, nav, and small labels"
+    },
+    {
+      "token": "--type-caption",
+      "role": "Captions and metadata"
+    },
+    {
+      "token": "--type-eyebrow",
+      "role": "Eyebrow and overline text"
+    },
+    {
+      "token": "--type-fluid-caption-01",
+      "role": "caption responsive type slot",
+      "value": "clamp(12px, 0.86vw, 14px)"
+    },
+    {
+      "token": "--type-fluid-caption-02",
+      "role": "caption responsive type slot",
+      "value": "clamp(12px, 0.94vw, 15px)"
+    },
+    {
+      "token": "--type-fluid-caption-03",
+      "role": "caption responsive type slot",
+      "value": "clamp(13px, 1vw, 15px)"
+    },
+    {
+      "token": "--type-fluid-label-01",
+      "role": "label responsive type slot",
+      "value": "clamp(14px, 0.96vw, 16px)"
+    },
+    {
+      "token": "--type-fluid-label-02",
+      "role": "label responsive type slot",
+      "value": "clamp(14px, 1vw, 16px)"
+    },
+    {
+      "token": "--type-fluid-label-03",
+      "role": "label responsive type slot",
+      "value": "clamp(14px, 1vw, 17px)"
+    },
+    {
+      "token": "--type-fluid-label-04",
+      "role": "label responsive type slot",
+      "value": "clamp(14px, 1.03vw, 17px)"
+    },
+    {
+      "token": "--type-fluid-label-05",
+      "role": "label responsive type slot",
+      "value": "clamp(15px, 1.04vw, 17px)"
+    },
+    {
+      "token": "--type-fluid-body-01",
+      "role": "body responsive type slot",
+      "value": "clamp(15px, 1.2vw, 18px)"
+    },
+    {
+      "token": "--type-fluid-body-02",
+      "role": "body responsive type slot",
+      "value": "clamp(16px, 1.08vw, 19px)"
+    },
+    {
+      "token": "--type-fluid-body-03",
+      "role": "body responsive type slot",
+      "value": "clamp(16px, 1.1vw, 19px)"
+    },
+    {
+      "token": "--type-fluid-body-04",
+      "role": "body responsive type slot",
+      "value": "clamp(16px, 1.12vw, 19px)"
+    },
+    {
+      "token": "--type-fluid-body-05",
+      "role": "body responsive type slot",
+      "value": "clamp(16px, 1.2vw, 19px)"
+    },
+    {
+      "token": "--type-fluid-body-06",
+      "role": "body responsive type slot",
+      "value": "clamp(16px, 1.1vw, 20px)"
+    },
+    {
+      "token": "--type-fluid-body-07",
+      "role": "body responsive type slot",
+      "value": "clamp(16px, 1.2vw, 20px)"
+    },
+    {
+      "token": "--type-fluid-body-08",
+      "role": "body responsive type slot",
+      "value": "clamp(17px, 1.22vw, 20px)"
+    },
+    {
+      "token": "--type-fluid-body-09",
+      "role": "body responsive type slot",
+      "value": "clamp(17px, 1.4vw, 20px)"
+    },
+    {
+      "token": "--type-fluid-body-lg-01",
+      "role": "body-lg responsive type slot",
+      "value": "clamp(17px, 1.25vw, 21px)"
+    },
+    {
+      "token": "--type-fluid-body-lg-02",
+      "role": "body-lg responsive type slot",
+      "value": "clamp(17px, 1.4vw, 21px)"
+    },
+    {
+      "token": "--type-fluid-body-lg-03",
+      "role": "body-lg responsive type slot",
+      "value": "clamp(17px, 1.9vw, 21px)"
+    },
+    {
+      "token": "--type-fluid-body-lg-04",
+      "role": "body-lg responsive type slot",
+      "value": "clamp(16px, 1.35vw, 22px)"
+    },
+    {
+      "token": "--type-fluid-body-lg-05",
+      "role": "body-lg responsive type slot",
+      "value": "clamp(16px, 1.6vw, 22px)"
+    },
+    {
+      "token": "--type-fluid-body-lg-06",
+      "role": "body-lg responsive type slot",
+      "value": "clamp(17px, 1.28vw, 22px)"
+    },
+    {
+      "token": "--type-fluid-body-lg-07",
+      "role": "body-lg responsive type slot",
+      "value": "clamp(17px, 1.35vw, 22px)"
+    },
+    {
+      "token": "--type-fluid-body-lg-08",
+      "role": "body-lg responsive type slot",
+      "value": "clamp(17px, 1.4vw, 22px)"
+    },
+    {
+      "token": "--type-fluid-body-lg-09",
+      "role": "body-lg responsive type slot",
+      "value": "clamp(17px, 1.5vw, 22px)"
+    },
+    {
+      "token": "--type-fluid-body-lg-10",
+      "role": "body-lg responsive type slot",
+      "value": "clamp(18px, 1.28vw, 22px)"
+    },
+    {
+      "token": "--type-fluid-body-lg-11",
+      "role": "body-lg responsive type slot",
+      "value": "clamp(18px, 1.6vw, 23px)"
+    },
+    {
+      "token": "--type-fluid-body-lg-12",
+      "role": "body-lg responsive type slot",
+      "value": "clamp(18px, 1.7vw, 23px)"
+    },
+    {
+      "token": "--type-fluid-body-lg-13",
+      "role": "body-lg responsive type slot",
+      "value": "clamp(18px, 1.8vw, 23px)"
+    },
+    {
+      "token": "--type-fluid-body-lg-14",
+      "role": "body-lg responsive type slot",
+      "value": "clamp(18px, 1.2vw, 24px)"
+    },
+    {
+      "token": "--type-fluid-body-lg-15",
+      "role": "body-lg responsive type slot",
+      "value": "clamp(18px, 1.35vw, 24px)"
+    },
+    {
+      "token": "--type-fluid-body-lg-16",
+      "role": "body-lg responsive type slot",
+      "value": "clamp(18px, 1.42vw, 24px)"
+    },
+    {
+      "token": "--type-fluid-body-lg-17",
+      "role": "body-lg responsive type slot",
+      "value": "clamp(18px, 1.7vw, 24px)"
+    },
+    {
+      "token": "--type-fluid-body-lg-18",
+      "role": "body-lg responsive type slot",
+      "value": "clamp(18px, 1.5vw, 25px)"
+    },
+    {
+      "token": "--type-fluid-subhead-01",
+      "role": "subhead responsive type slot",
+      "value": "clamp(20px, 1.5vw, 28px)"
+    },
+    {
+      "token": "--type-fluid-subhead-02",
+      "role": "subhead responsive type slot",
+      "value": "clamp(20px, 2vw, 28px)"
+    },
+    {
+      "token": "--type-fluid-subhead-03",
+      "role": "subhead responsive type slot",
+      "value": "clamp(21px, 1.5vw, 28px)"
+    },
+    {
+      "token": "--type-fluid-subhead-04",
+      "role": "subhead responsive type slot",
+      "value": "clamp(22px, 6.5vw, 28px)"
+    },
+    {
+      "token": "--type-fluid-subhead-05",
+      "role": "subhead responsive type slot",
+      "value": "clamp(24px, 7vw, 30px)"
+    },
+    {
+      "token": "--type-fluid-subhead-06",
+      "role": "subhead responsive type slot",
+      "value": "clamp(24px, 2vw, 34px)"
+    },
+    {
+      "token": "--type-fluid-subhead-07",
+      "role": "subhead responsive type slot",
+      "value": "clamp(24px, 2.4vw, 34px)"
+    },
+    {
+      "token": "--type-fluid-subhead-08",
+      "role": "subhead responsive type slot",
+      "value": "clamp(26px, 2.1vw, 34px)"
+    },
+    {
+      "token": "--type-fluid-subhead-09",
+      "role": "subhead responsive type slot",
+      "value": "clamp(23px, 2.5vw, 36px)"
+    },
+    {
+      "token": "--type-fluid-subhead-10",
+      "role": "subhead responsive type slot",
+      "value": "clamp(25px, 2.2vw, 36px)"
+    },
+    {
+      "token": "--type-fluid-subhead-11",
+      "role": "subhead responsive type slot",
+      "value": "clamp(26px, 2vw, 36px)"
+    },
+    {
+      "token": "--type-fluid-title-01",
+      "role": "title responsive type slot",
+      "value": "clamp(26px, 2.5vw, 42px)"
+    },
+    {
+      "token": "--type-fluid-title-02",
+      "role": "title responsive type slot",
+      "value": "clamp(34px, 10.5vw, 42px)"
+    },
+    {
+      "token": "--type-fluid-title-03",
+      "role": "title responsive type slot",
+      "value": "clamp(28px, 3vw, 44px)"
+    },
+    {
+      "token": "--type-fluid-title-04",
+      "role": "title responsive type slot",
+      "value": "clamp(30px, 2.6vw, 44px)"
+    },
+    {
+      "token": "--type-fluid-title-05",
+      "role": "title responsive type slot",
+      "value": "clamp(30px, 9vw, 44px)"
+    },
+    {
+      "token": "--type-fluid-title-06",
+      "role": "title responsive type slot",
+      "value": "clamp(36px, 2.7vw, 46px)"
+    },
+    {
+      "token": "--type-fluid-title-07",
+      "role": "title responsive type slot",
+      "value": "clamp(34px, 10.8vw, 48px)"
+    },
+    {
+      "token": "--type-fluid-title-08",
+      "role": "title responsive type slot",
+      "value": "clamp(28px, 3.2vw, 52px)"
+    },
+    {
+      "token": "--type-fluid-title-09",
+      "role": "title responsive type slot",
+      "value": "clamp(34px, 3.2vw, 52px)"
+    },
+    {
+      "token": "--type-fluid-title-10",
+      "role": "title responsive type slot",
+      "value": "clamp(40px, 12.7vw, 52px)"
+    },
+    {
+      "token": "--type-fluid-title-11",
+      "role": "title responsive type slot",
+      "value": "clamp(40px, 12vw, 54px)"
+    },
+    {
+      "token": "--type-fluid-title-12",
+      "role": "title responsive type slot",
+      "value": "clamp(34px, 3.8vw, 58px)"
+    },
+    {
+      "token": "--type-fluid-title-13",
+      "role": "title responsive type slot",
+      "value": "clamp(36px, 3.7vw, 58px)"
+    },
+    {
+      "token": "--type-fluid-title-xl-01",
+      "role": "title-xl responsive type slot",
+      "value": "clamp(34px, 4vw, 62px)"
+    },
+    {
+      "token": "--type-fluid-title-xl-02",
+      "role": "title-xl responsive type slot",
+      "value": "clamp(38px, 4.2vw, 62px)"
+    },
+    {
+      "token": "--type-fluid-display-01",
+      "role": "display responsive type slot",
+      "value": "clamp(42px, 13vw, 62px)"
+    },
+    {
+      "token": "--type-fluid-title-xl-03",
+      "role": "title-xl responsive type slot",
+      "value": "clamp(34px, 4vw, 64px)"
+    },
+    {
+      "token": "--type-fluid-display-02",
+      "role": "display responsive type slot",
+      "value": "clamp(44px, 5.8vw, 64px)"
+    },
+    {
+      "token": "--type-fluid-title-xl-04",
+      "role": "title-xl responsive type slot",
+      "value": "clamp(36px, 4.2vw, 66px)"
+    },
+    {
+      "token": "--type-fluid-display-03",
+      "role": "display responsive type slot",
+      "value": "clamp(42px, 5vw, 72px)"
+    },
+    {
+      "token": "--type-fluid-display-04",
+      "role": "display responsive type slot",
+      "value": "clamp(48px, 5vw, 72px)"
+    },
+    {
+      "token": "--type-fluid-title-xl-05",
+      "role": "title-xl responsive type slot",
+      "value": "clamp(38px, 4.8vw, 76px)"
+    },
+    {
+      "token": "--type-fluid-display-05",
+      "role": "display responsive type slot",
+      "value": "clamp(42px, 4.8vw, 76px)"
+    },
+    {
+      "token": "--type-fluid-display-06",
+      "role": "display responsive type slot",
+      "value": "clamp(42px, 5vw, 78px)"
+    },
+    {
+      "token": "--type-fluid-title-xl-06",
+      "role": "title-xl responsive type slot",
+      "value": "clamp(36px, 5vw, 80px)"
+    },
+    {
+      "token": "--type-fluid-title-xl-07",
+      "role": "title-xl responsive type slot",
+      "value": "clamp(38px, 4.6vw, 80px)"
+    },
+    {
+      "token": "--type-fluid-display-07",
+      "role": "display responsive type slot",
+      "value": "clamp(44px, 5vw, 82px)"
+    },
+    {
+      "token": "--type-fluid-display-08",
+      "role": "display responsive type slot",
+      "value": "clamp(42px, 5.2vw, 84px)"
+    },
+    {
+      "token": "--type-fluid-display-09",
+      "role": "display responsive type slot",
+      "value": "clamp(46px, 5.4vw, 84px)"
+    },
+    {
+      "token": "--type-fluid-display-10",
+      "role": "display responsive type slot",
+      "value": "clamp(48px, 5.2vw, 84px)"
+    },
+    {
+      "token": "--type-fluid-display-11",
+      "role": "display responsive type slot",
+      "value": "clamp(48px, 6vw, 86px)"
+    },
+    {
+      "token": "--type-fluid-display-12",
+      "role": "display responsive type slot",
+      "value": "clamp(48px, 5.6vw, 88px)"
+    },
+    {
+      "token": "--type-fluid-hero-01",
+      "role": "hero responsive type slot",
+      "value": "clamp(64px, 5vw, 92px)"
+    },
+    {
+      "token": "--type-fluid-hero-02",
+      "role": "hero responsive type slot",
+      "value": "clamp(54px, 6.2vw, 96px)"
+    },
+    {
+      "token": "--type-fluid-hero-03",
+      "role": "hero responsive type slot",
+      "value": "clamp(46px, 6.6vw, 104px)"
+    },
+    {
+      "token": "--type-fluid-hero-04",
+      "role": "hero responsive type slot",
+      "value": "clamp(62px, 7.6vw, 108px)"
+    },
+    {
+      "token": "--type-fluid-hero-05",
+      "role": "hero responsive type slot",
+      "value": "clamp(62px, 7.4vw, 118px)"
+    },
+    {
+      "token": "--type-fluid-hero-06",
+      "role": "hero responsive type slot",
+      "value": "clamp(76px, 9vw, 142px)"
+    }
+  ],
+  "weights": [
+    {
+      "token": "--weight-light",
+      "role": "Editorial display"
+    },
+    {
+      "token": "--weight-regular",
+      "role": "Standard reading text"
+    },
+    {
+      "token": "--weight-medium",
+      "role": "Navigation and medium emphasis"
+    },
+    {
+      "token": "--weight-semibold",
+      "role": "Section emphasis"
+    },
+    {
+      "token": "--weight-bold",
+      "role": "Strong CTA and headline emphasis"
+    }
+  ],
+  "icons": [
+    {
+      "primitive": "CtaArrow",
+      "asset": "/right-arrow.svg",
+      "role": "All CTA arrows",
+      "tokens": [
+        "--icon-sm",
+        "--icon-filter-on-dark",
+        "--icon-filter-action",
+        "--icon-filter-yellow"
+      ]
+    },
+    {
+      "primitive": "MeetingIcons",
+      "asset": "/icons/google-meet-2026.webp",
+      "role": "Meeting and booking CTA",
+      "tokens": [
+        "--icon-md"
+      ]
+    },
+    {
+      "primitive": "FoldGlyph",
+      "role": "FirstFold system glyph",
+      "tokens": [
+        "--icon-lg",
+        "--icon-xl"
+      ]
+    },
+    {
+      "role": "Neutral icon states",
+      "tokens": [
+        "--icon-filter-none",
+        "--icon-filter-black",
+        "--icon-filter-muted",
+        "--icon-filter-muted-strong"
+      ]
+    }
+  ],
+  "components": [
+    {
+      "primitive": "PremiumButton",
+      "selectors": [
+        ".premium-button",
+        ".premium-button--secondary"
+      ],
+      "role": "Primary and secondary pill CTAs"
+    },
+    {
+      "primitive": "TextCta",
+      "selectors": [
+        ".text-cta"
+      ],
+      "role": "Inline text CTA"
+    },
+    {
+      "primitive": "StatusBadge",
+      "selectors": [
+        ".status-badge"
+      ],
+      "role": "Badges, labels, and popularity markers"
+    },
+    {
+      "primitive": "SectionFrame",
+      "selectors": [
+        ".section-frame",
+        ".section-heading"
+      ],
+      "role": "Shared section wrapper with heading rhythm"
+    },
+    {
+      "primitive": "MotionText",
+      "selectors": [
+        ".motion-headline"
+      ],
+      "role": "Headline blur reveal"
+    },
+    {
+      "primitive": "CtaArrow",
+      "selectors": [
+        ".cta-arrow"
+      ],
+      "role": "Arrow animation wrapper"
+    },
+    {
+      "primitive": "MeetingIcons",
+      "selectors": [
+        ".meeting-icons"
+      ],
+      "role": "Google Meet icon wrapper"
+    },
+    {
+      "primitive": "FoldGlyph",
+      "selectors": [
+        ".fold-glyph"
+      ],
+      "role": "CSS-drawn fold mark"
+    }
+  ]
+}

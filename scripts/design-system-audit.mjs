@@ -5,6 +5,7 @@ const root = process.cwd();
 const sourceDirs = ["app", "lib", "tests"];
 const allowedDirectArrowFiles = new Set(["app/components/UIPrimitives.tsx"]);
 const allowedRawColorFiles = new Set(["app/globals.css"]);
+const designSystem = JSON.parse(readFileSync(join(root, "lib/design-system.json"), "utf8"));
 const requiredPrimitives = ["CtaArrow", "MeetingIcons", "FoldGlyph", "MotionText", "PremiumButton", "TextCta", "StatusBadge", "SectionFrame"];
 const requiredTokens = [
   "--color-page",
@@ -77,6 +78,13 @@ const requiredTokens = [
   "--icon-md",
   "--icon-lg",
   "--icon-xl",
+  "--icon-filter-none",
+  "--icon-filter-black",
+  "--icon-filter-muted",
+  "--icon-filter-muted-strong",
+  "--icon-filter-on-dark",
+  "--icon-filter-action",
+  "--icon-filter-yellow",
 ];
 
 function walk(dir) {
@@ -105,15 +113,55 @@ const report = {
 const primitivesSource = readFileSync(join(root, "app/components/UIPrimitives.tsx"), "utf8");
 const globalsSource = readFileSync(join(root, "app/globals.css"), "utf8");
 
+function manifestItems(key) {
+  const items = designSystem[key];
+  if (!Array.isArray(items)) {
+    violations.push(`lib/design-system.json missing ${key} array`);
+    return [];
+  }
+  return items;
+}
+
 for (const primitive of requiredPrimitives) {
   if (!primitivesSource.includes(`export function ${primitive}`)) {
     violations.push(`app/components/UIPrimitives.tsx missing ${primitive} primitive`);
   }
 }
 
-for (const token of requiredTokens) {
+const manifestTokens = [
+  ...manifestItems("colors").map((item) => item.token),
+  ...manifestItems("typeScale").map((item) => item.token),
+  ...manifestItems("weights").map((item) => item.token),
+  ...manifestItems("icons").flatMap((item) => item.tokens ?? []),
+].filter(Boolean);
+
+for (const token of new Set([...requiredTokens, ...manifestTokens])) {
   if (!globalsSource.includes(`${token}:`)) {
     violations.push(`app/globals.css missing ${token} token`);
+  }
+}
+
+for (const item of manifestItems("icons")) {
+  if (item.primitive && !primitivesSource.includes(`export function ${item.primitive}`)) {
+    violations.push(`lib/design-system.json references missing icon primitive ${item.primitive}`);
+  }
+  if (item.asset && !primitivesSource.includes(item.asset)) {
+    violations.push(`lib/design-system.json icon asset ${item.asset} is not used by UIPrimitives`);
+  }
+}
+
+for (const item of manifestItems("components")) {
+  if (item.primitive && !primitivesSource.includes(`export function ${item.primitive}`)) {
+    violations.push(`lib/design-system.json references missing component primitive ${item.primitive}`);
+  }
+  if (!Array.isArray(item.selectors) || item.selectors.length === 0) {
+    violations.push(`lib/design-system.json component ${item.primitive ?? "unknown"} has no selectors`);
+    continue;
+  }
+  for (const selector of item.selectors) {
+    if (!globalsSource.includes(selector)) {
+      violations.push(`lib/design-system.json selector ${selector} is missing from app/globals.css`);
+    }
   }
 }
 
@@ -163,12 +211,19 @@ for (const file of files) {
       if (rel === "app/globals.css" && lineNo > 150 && /font-size:\s*[0-9]+px/.test(line)) {
         violations.push(`${rel}:${lineNo} uses raw fixed font-size outside type tokens`);
       }
+      if (rel === "app/globals.css" && lineNo > 150 && /font-size:\s*clamp\(/.test(line)) {
+        violations.push(`${rel}:${lineNo} uses raw responsive font-size outside type tokens`);
+      }
     }
     if (line.includes("font-weight:")) {
       report.fontWeights.push(`${rel}:${lineNo}`);
       if (rel === "app/globals.css" && lineNo > 150 && /font-weight:\s*[0-9]+/.test(line)) {
         violations.push(`${rel}:${lineNo} uses raw font-weight outside font registration`);
       }
+    }
+
+    if (rel === "app/globals.css" && lineNo > 150 && /filter:\s*(invert\(|brightness\(0)/.test(line)) {
+      violations.push(`${rel}:${lineNo} uses raw icon filter outside icon tokens`);
     }
   });
 }
