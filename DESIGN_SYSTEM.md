@@ -22,15 +22,16 @@ Page composition stays in `app/components/SiteSections.tsx`. New reusable UI sho
 Core color tokens are defined in `app/globals.css` under `:root`.
 
 - Page base: `--color-page`
-- Primary text: `--color-ink`
-- Secondary text: `--color-ink-muted`, `--color-ink-subtle`, `--color-ink-faint`
+- Primary text: `--color-ink`, `--color-ink-soft`, `--color-ink-strong`, `--color-ink-warm`
+- Secondary text: `--color-ink-muted`, `--color-ink-subtle`, `--color-ink-cool`, `--color-ink-faint`
 - Surfaces: `--color-surface`, `--color-surface-soft`, `--color-surface-warm`
 - Lines: `--color-line`, `--color-line-soft`, `--color-line-strong`
-- Dark panels: `--color-dark`, `--color-dark-panel`, `--color-on-dark`, `--color-on-dark-muted`
+- Dark panels: `--color-dark`, `--color-dark-panel`, `--color-on-dark`, `--color-on-dark-muted`, `--color-on-dark-soft`, `--color-on-dark-subtle`, `--color-on-dark-faint`
 - Action orange: `--color-action`, `--color-action-soft`
-- Accent fills: `--color-highlight`, `--color-highlight-soft`, `--color-info`, `--color-info-soft`
+- Accent fills: `--color-highlight`, `--color-highlight-soft`, `--color-highlight-wash`, `--color-highlight-chip`, `--color-info`, `--color-info-soft`, `--color-info-wash`, `--color-peach-soft`
+- Process/support fills: `--color-process-blue`, `--color-process-neutral`, `--color-neutral-soft`, `--color-neutral-line`, `--color-neutral-hover`, `--color-neutral-chip`
 
-Use raw hex values only for one-off asset filters, brand images, or gradients that cannot be represented by semantic tokens.
+Raw hex values should stay in the `:root` token block. New component styles should use semantic tokens.
 
 ## Type Hierarchy
 
@@ -76,6 +77,6 @@ Before shipping a visual change:
 - Keep raw colors rare and intentional.
 - Confirm mobile does not overflow horizontally.
 - Respect `prefers-reduced-motion`.
-- Run `pnpm run design:audit` to catch direct asset usage and raw color drift.
+- Run `pnpm run design:audit` to catch direct asset usage, missing foundation tokens, and raw color drift outside the token root.
 - Run `pnpm run lint`, `pnpm test`, and `pnpm run build`.
 - Check the local preview at `http://localhost:3000`.
