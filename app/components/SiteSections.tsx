@@ -262,6 +262,21 @@ function BookingPreview() {
   );
 }
 
+function TrackLink({ href, label, meta, meeting = false }: { href: string; label: string; meta: string; meeting?: boolean }) {
+  return (
+    <li>
+      <a href={href}>
+        <span className={meeting ? "track-link-list__call" : undefined}>
+          {meeting ? <MeetingIcons size={18} /> : null}
+          {label}
+        </span>
+        <strong>{meta}</strong>
+        <CtaArrow size={16} />
+      </a>
+    </li>
+  );
+}
+
 function HomeBookingSection() {
   return (
     <section className="home-booking-section">
@@ -766,24 +781,9 @@ export function ProcessPage() {
           </h2>
           <p>Websites, creator packs, and enterprise systems are framed as deliverables: what they are, what is inside, who they are for, and where pricing starts.</p>
           <ul className="track-link-list">
-            <li>
-              <a href="/services#ai-native-websites">
-                <span>AI-Native Websites</span>
-                <strong>from $4.8k</strong>
-              </a>
-            </li>
-            <li>
-              <a href="/services#creator-packs">
-                <span>Creator Packs</span>
-                <strong>from $1.6k</strong>
-              </a>
-            </li>
-            <li>
-              <a href="/services#enterprise-packs">
-                <span>Enterprise Systems</span>
-                <strong>custom</strong>
-              </a>
-            </li>
+            <TrackLink href="/services#ai-native-websites" label="AI-Native Websites" meta="from $4.8k" />
+            <TrackLink href="/services#creator-packs" label="Creator Packs" meta="from $1.6k" />
+            <TrackLink href="/services#enterprise-packs" label="Enterprise Systems" meta="custom" />
           </ul>
           <PremiumButton href="/services">
             Browse the Folds
@@ -796,27 +796,9 @@ export function ProcessPage() {
           </h2>
           <p>Discovery calls and Pro, Plus, Master plans explain how much of us you get: sprint duration, revision depth, post-launch support, and access.</p>
           <ul className="track-link-list">
-            <li>
-              <a href="/contact">
-                <span className="track-link-list__call">
-                  <MeetingIcons size={18} />
-                  Discovery Call
-                </span>
-                <strong>30 min</strong>
-              </a>
-            </li>
-            <li>
-              <a href="/pricing">
-                <span>Pro, Plus, Master</span>
-                <strong>plans</strong>
-              </a>
-            </li>
-            <li>
-              <a href="/process">
-                <span>Process</span>
-                <strong>after booking</strong>
-              </a>
-            </li>
+            <TrackLink href="/contact" label="Discovery Call" meta="30 min" meeting />
+            <TrackLink href="/pricing" label="Pro, Plus, Master" meta="plans" />
+            <TrackLink href="/process" label="Process" meta="after booking" />
           </ul>
           <PremiumButton href="/contact" meeting>
             Book a Discovery Call

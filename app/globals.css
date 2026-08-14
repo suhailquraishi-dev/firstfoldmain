@@ -260,7 +260,7 @@ textarea {
   z-index: 100;
   width: 36px;
   height: 36px;
-  border: 1px solid rgba(17, 17, 17, 0.35);
+  border: 1px solid color-mix(in srgb, var(--color-ink) 35%, transparent);
   border-radius: 50%;
   pointer-events: none;
   opacity: 0;
@@ -270,7 +270,7 @@ textarea {
 .cursor-orbit--active {
   width: 54px;
   height: 54px;
-  background: rgba(255, 210, 30, 0.34);
+  background: color-mix(in srgb, var(--color-highlight) 34%, transparent);
 }
 
 .fold-glyph {
@@ -280,7 +280,7 @@ textarea {
   width: 42px;
   height: 42px;
   border: 1.5px solid currentColor;
-  background: rgba(255, 255, 255, 0.35);
+  background: color-mix(in srgb, var(--color-on-dark) 35%, transparent);
 }
 
 .fold-glyph::before,
@@ -674,7 +674,7 @@ textarea {
   width: 24px;
   height: 24px;
   object-fit: contain;
-  filter: drop-shadow(0 1px 1px rgba(17, 17, 17, 0.12));
+  filter: drop-shadow(0 1px 1px color-mix(in srgb, var(--color-ink) 12%, transparent));
 }
 
 .premium-button--secondary {
@@ -809,7 +809,7 @@ textarea {
   width: min(34vw, 360px);
   aspect-ratio: 5.6 / 1;
   border-radius: 999px;
-  background: radial-gradient(ellipse at center, var(--color-dark) 0%, var(--color-dark) 58%, rgba(5, 5, 5, 0) 74%);
+  background: radial-gradient(ellipse at center, var(--color-dark) 0%, var(--color-dark) 58%, transparent 74%);
   content: "";
   transform: translate(-50%, -50%);
 }
@@ -817,7 +817,7 @@ textarea {
 .home-loader__line {
   position: absolute;
   display: block;
-  background: rgba(255, 255, 255, 0.18);
+  background: color-mix(in srgb, var(--color-on-dark) 18%, transparent);
   transform-origin: center;
   will-change: opacity, transform;
 }
@@ -854,7 +854,7 @@ textarea {
   right: max(44px, calc((100vw - 1440px) / 2 + 48px));
   left: max(44px, calc((100vw - 1440px) / 2 + 48px));
   height: 1px;
-  background: rgba(255, 255, 255, 0.1);
+  background: color-mix(in srgb, var(--color-on-dark) 10%, transparent);
   transform: scaleX(0);
   animation: home-loader-temp-x 1240ms cubic-bezier(0.65, 0, 0.35, 1) forwards;
 }
@@ -875,7 +875,7 @@ textarea {
   top: 74px;
   bottom: clamp(42px, 5vw, 72px);
   width: 1px;
-  background: rgba(255, 255, 255, 0.1);
+  background: color-mix(in srgb, var(--color-on-dark) 10%, transparent);
   transform: scaleY(0);
   animation: home-loader-temp-y 1240ms cubic-bezier(0.65, 0, 0.35, 1) forwards;
 }
@@ -903,7 +903,7 @@ textarea {
   width: min(20vw, 220px);
   height: auto;
   opacity: 0;
-  filter: drop-shadow(0 0 24px rgba(255, 255, 255, 0.08));
+  filter: drop-shadow(0 0 24px color-mix(in srgb, var(--color-on-dark) 8%, transparent));
   transform: translate(-50%, calc(-50% + 10px)) scale(0.98);
   animation:
     home-loader-logo 620ms cubic-bezier(0.22, 1, 0.36, 1) 760ms forwards,
@@ -1028,7 +1028,7 @@ textarea {
   padding-top: clamp(104px, 8vw, 132px);
   padding-bottom: clamp(42px, 5vw, 72px);
   background:
-    linear-gradient(180deg, rgba(7, 22, 39, 0.03) 0%, rgba(7, 22, 39, 0.16) 45%, rgba(4, 8, 6, 0.74) 100%),
+    linear-gradient(180deg, color-mix(in srgb, var(--hero-bg-fallback) 3%, transparent) 0%, color-mix(in srgb, var(--hero-bg-fallback) 16%, transparent) 45%, color-mix(in srgb, var(--color-dark) 74%, transparent) 100%),
     var(--hero-bg) center / cover no-repeat,
     var(--hero-bg-fallback);
   color: var(--color-on-dark);
@@ -1050,13 +1050,13 @@ textarea {
   z-index: 0;
   height: 54%;
   background:
-    linear-gradient(to bottom, rgba(5, 11, 8, 0), rgba(4, 7, 5, 0.62) 58%, rgba(4, 6, 4, 0.95)),
+    linear-gradient(to bottom, transparent, color-mix(in srgb, var(--color-dark) 62%, transparent) 58%, color-mix(in srgb, var(--color-dark) 95%, transparent)),
     var(--hero-bg) center / cover no-repeat;
   filter: blur(14px);
   opacity: 0.92;
   transform: scale(1.035);
-  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.56) 20%, rgb(0 0 0) 48%, rgb(0 0 0) 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.56) 20%, rgb(0 0 0) 48%, rgb(0 0 0) 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, color-mix(in srgb, var(--color-dark) 56%, transparent) 20%, var(--color-dark) 48%, var(--color-dark) 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, color-mix(in srgb, var(--color-dark) 56%, transparent) 20%, var(--color-dark) 48%, var(--color-dark) 100%);
 }
 
 .hero-shell--landing::after {
@@ -1065,7 +1065,7 @@ textarea {
   left: 0;
   z-index: 0;
   height: 100%;
-  background: linear-gradient(to right, rgba(0, 0, 0, 0.26), rgba(0, 0, 0, 0.03) 48%, rgba(0, 0, 0, 0.3));
+  background: linear-gradient(to right, color-mix(in srgb, var(--color-dark) 26%, transparent), color-mix(in srgb, var(--color-dark) 3%, transparent) 48%, color-mix(in srgb, var(--color-dark) 30%, transparent));
 }
 
 .hero-lines {
@@ -1077,7 +1077,7 @@ textarea {
 
 .hero-lines span {
   position: absolute;
-  background: rgba(255, 255, 255, 0.16);
+  background: color-mix(in srgb, var(--color-on-dark) 16%, transparent);
 }
 
 .hero-lines span:nth-child(1) {
@@ -1140,10 +1140,10 @@ textarea {
   max-width: 100%;
   min-height: 28px;
   padding: 8px 10px;
-  border: 1px solid rgba(255, 255, 255, 0.22);
+  border: 1px solid color-mix(in srgb, var(--color-on-dark) 22%, transparent);
   border-radius: 999px;
-  background: rgba(5, 9, 8, 0.26);
-  color: rgba(255, 255, 255, 0.82);
+  background: color-mix(in srgb, var(--color-dark) 26%, transparent);
+  color: color-mix(in srgb, var(--color-on-dark) 82%, transparent);
   font-size: clamp(12px, 0.86vw, 14px);
   font-weight: var(--weight-semibold);
   line-height: 1;
@@ -1155,7 +1155,7 @@ textarea {
   border: 0;
   border-radius: 999px;
   background: var(--color-on-dark);
-  box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.14);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--color-on-dark) 14%, transparent);
   content: "";
   animation: availability-dot 2.2s ease-in-out infinite;
 }
@@ -1164,12 +1164,12 @@ textarea {
   0%,
   100% {
     transform: scale(1);
-    box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.14);
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--color-on-dark) 14%, transparent);
   }
 
   50% {
     transform: scale(0.86);
-    box-shadow: 0 0 0 10px rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 0 10px color-mix(in srgb, var(--color-on-dark) 8%, transparent);
   }
 }
 
@@ -1260,7 +1260,7 @@ textarea {
 .hero-subtitle {
   max-width: 670px;
   margin: 0;
-  color: rgba(255, 255, 255, 0.86);
+  color: color-mix(in srgb, var(--color-on-dark) 86%, transparent);
   font-size: clamp(16px, 1.1vw, 20px);
   font-weight: var(--weight-regular);
   line-height: 1.38;
@@ -1311,9 +1311,9 @@ textarea {
 }
 
 .hero-actions .premium-button--secondary {
-  border-color: rgba(255, 255, 255, 0.28);
+  border-color: color-mix(in srgb, var(--color-on-dark) 28%, transparent);
   color: var(--color-on-dark);
-  background: rgba(255, 255, 255, 0.12);
+  background: color-mix(in srgb, var(--color-on-dark) 12%, transparent);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
 }
@@ -1338,7 +1338,7 @@ textarea {
   position: absolute;
   content: "";
   pointer-events: none;
-  background: rgba(17, 17, 17, 0.14);
+  background: color-mix(in srgb, var(--color-ink) 14%, transparent);
 }
 
 .hero-reel::before {
@@ -1374,7 +1374,7 @@ textarea {
   gap: 10px;
   padding: 14px;
   border-bottom: 1px solid var(--line);
-  background: rgba(255, 254, 250, 0.92);
+  background: color-mix(in srgb, var(--color-surface-warm) 92%, transparent);
   font-size: var(--type-caption);
 }
 
@@ -1388,7 +1388,7 @@ textarea {
   overflow: hidden;
   aspect-ratio: 1672 / 941;
   margin: 0;
-  border: 1px solid rgba(17, 17, 17, 0.16);
+  border: 1px solid color-mix(in srgb, var(--color-ink) 16%, transparent);
   border-radius: 14px;
   background: var(--color-surface-soft);
 }
@@ -1414,7 +1414,7 @@ textarea {
   justify-content: space-between;
   gap: 18px;
   padding: 12px 14px;
-  border: 1px solid rgba(17, 17, 17, 0.12);
+  border: 1px solid color-mix(in srgb, var(--color-ink) 12%, transparent);
   border-radius: 14px;
   background: var(--color-surface-soft);
 }
@@ -1446,10 +1446,10 @@ textarea {
   width: min(100%, 620px);
   margin-top: clamp(8px, 1.8vw, 24px);
   padding: 10px 10px 10px 16px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  border: 1px solid color-mix(in srgb, var(--color-on-dark) 16%, transparent);
   border-radius: 14px;
-  background: rgba(5, 8, 6, 0.42);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  background: color-mix(in srgb, var(--color-dark) 42%, transparent);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--color-on-dark) 8%, transparent);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
 }
@@ -1460,7 +1460,7 @@ textarea {
   top: 50%;
   width: clamp(24px, 3vw, 44px);
   height: 1px;
-  background: rgba(255, 255, 255, 0.28);
+  background: color-mix(in srgb, var(--color-on-dark) 28%, transparent);
   content: "";
 }
 
@@ -1479,7 +1479,7 @@ textarea {
 
 .hero-schedule p {
   margin-top: 5px;
-  color: rgba(255, 255, 255, 0.76);
+  color: color-mix(in srgb, var(--color-on-dark) 76%, transparent);
   font-size: var(--type-label);
   line-height: 1.35;
 }
@@ -1512,7 +1512,7 @@ textarea {
   grid-column: 1 / -1;
   align-items: center;
   gap: 8px;
-  color: rgba(255, 255, 255, 0.68);
+  color: color-mix(in srgb, var(--color-on-dark) 68%, transparent);
   font-size: var(--type-caption);
   line-height: 1;
 }
@@ -1537,7 +1537,7 @@ textarea {
 
 .hero-client-stack > span {
   justify-self: end;
-  color: rgba(255, 255, 255, 0.68);
+  color: color-mix(in srgb, var(--color-on-dark) 68%, transparent);
   font-size: var(--type-eyebrow);
   font-weight: var(--weight-medium);
   line-height: 1;
@@ -1601,7 +1601,7 @@ textarea {
   left: 50%;
   top: 50%;
   z-index: 1;
-  border: 1px solid rgba(17, 17, 17, 0.13);
+  border: 1px solid color-mix(in srgb, var(--color-ink) 13%, transparent);
   border-radius: 50%;
   transform: translate(-50%, -50%);
 }
@@ -1643,8 +1643,8 @@ textarea {
   display: grid;
   place-items: center;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.92);
-  box-shadow: 0 10px 26px rgba(17, 17, 17, 0.07);
+  background: color-mix(in srgb, var(--color-on-dark) 92%, transparent);
+  box-shadow: 0 10px 26px color-mix(in srgb, var(--color-ink) 7%, transparent);
 }
 
 .tool-ui-node {
@@ -1762,7 +1762,7 @@ textarea {
   padding: clamp(18px, 1.75vw, 24px) clamp(28px, 3.4vw, 52px);
   border-radius: 14px;
   background: var(--color-surface);
-  border: 1px solid rgba(17, 17, 17, 0.1);
+  border: 1px solid color-mix(in srgb, var(--color-ink) 10%, transparent);
   box-shadow: none;
   color: var(--foreground);
   overflow: hidden;
@@ -1797,8 +1797,8 @@ textarea {
   gap: 0;
   padding-right: 0;
   padding-left: 0;
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgb(0 0 0) 8%, rgb(0 0 0) 92%, transparent 100%);
-  mask-image: linear-gradient(to right, transparent 0%, rgb(0 0 0) 8%, rgb(0 0 0) 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, var(--color-dark) 8%, var(--color-dark) 92%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, var(--color-dark) 8%, var(--color-dark) 92%, transparent 100%);
 }
 
 .logo-marquee::before,
@@ -1896,7 +1896,7 @@ textarea {
 .client-logo-strip .logo-strip__divider {
   display: block;
   height: 52px;
-  background: rgba(17, 17, 17, 0.55);
+  background: color-mix(in srgb, var(--color-ink) 55%, transparent);
 }
 
 .logo-strip__item em {
@@ -1954,7 +1954,7 @@ textarea {
 .creds-deck__copy p {
   max-width: 430px;
   margin: 0;
-  color: rgba(17, 17, 17, 0.68);
+  color: color-mix(in srgb, var(--color-ink) 68%, transparent);
   font-size: clamp(17px, 1.5vw, 22px);
   font-weight: var(--weight-light);
   line-height: 1.42;
@@ -2155,7 +2155,7 @@ textarea {
   border: 1px solid var(--color-line-strong);
   border-radius: 14px;
   background: var(--color-surface);
-  box-shadow: 0 1px 2px rgba(18, 24, 31, 0.04);
+  box-shadow: 0 1px 2px color-mix(in srgb, var(--color-ink-soft) 4%, transparent);
   transform: translateZ(0);
 }
 
@@ -2214,7 +2214,7 @@ textarea {
   gap: clamp(42px, 7vw, 104px);
   align-items: start;
   padding: clamp(72px, 8vw, 124px) max(22px, calc((100vw - 1440px) / 2 + 48px));
-  border-top: 1px solid rgba(17, 17, 17, 0.1);
+  border-top: 1px solid color-mix(in srgb, var(--color-ink) 10%, transparent);
   background: var(--color-page);
   color: var(--color-ink-soft);
 }
@@ -2227,7 +2227,7 @@ textarea {
 .audience-fit-copy p {
   max-width: 420px;
   margin: 12px 0 0;
-  color: rgba(17, 17, 17, 0.48);
+  color: color-mix(in srgb, var(--color-ink) 48%, transparent);
   font-family: var(--season-sans);
   font-size: clamp(17px, 1.25vw, 21px);
   font-weight: var(--weight-regular);
@@ -2248,11 +2248,11 @@ textarea {
 }
 
 .audience-fit-list {
-  border-top: 1px solid rgba(17, 17, 17, 0.16);
+  border-top: 1px solid color-mix(in srgb, var(--color-ink) 16%, transparent);
 }
 
 .audience-fit-row {
-  border-bottom: 1px solid rgba(17, 17, 17, 0.11);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-ink) 11%, transparent);
   color: var(--color-ink-soft);
 }
 
@@ -2343,7 +2343,7 @@ textarea {
 .audience-fit-row__panel p {
   max-width: 620px;
   margin: 0 28px clamp(22px, 2vw, 30px) calc(46px + clamp(16px, 2.5vw, 34px));
-  color: rgba(17, 17, 17, 0.48);
+  color: color-mix(in srgb, var(--color-ink) 48%, transparent);
   font-family: var(--season-sans);
   font-size: clamp(14px, 1vw, 17px);
   font-weight: var(--weight-regular);
@@ -2724,7 +2724,7 @@ textarea {
   min-height: 360px;
   padding: clamp(32px, 3.4vw, 48px);
   border-radius: 24px;
-  border: 1px solid rgba(17, 17, 17, 0.06);
+  border: 1px solid color-mix(in srgb, var(--color-ink) 6%, transparent);
   color: var(--foreground);
   overflow: hidden;
   cursor: pointer;
@@ -2733,7 +2733,7 @@ textarea {
 }
 
 .launch-option:hover {
-  box-shadow: 0 22px 44px rgba(17, 17, 17, 0.12);
+  box-shadow: 0 22px 44px color-mix(in srgb, var(--color-ink) 12%, transparent);
   transform: scale(1.01);
 }
 
@@ -2796,7 +2796,7 @@ textarea {
 .launch-option p {
   max-width: 85%;
   margin: 0;
-  color: rgba(17, 17, 17, 0.68);
+  color: color-mix(in srgb, var(--color-ink) 68%, transparent);
   font-size: clamp(16px, 1.08vw, 19px);
   font-weight: var(--weight-light);
   line-height: 1.5;
@@ -2805,8 +2805,8 @@ textarea {
 .launch-option strong {
   display: block;
   padding-top: 16px;
-  border-top: 1px solid rgba(17, 17, 17, 0.15);
-  color: rgba(17, 17, 17, 0.7);
+  border-top: 1px solid color-mix(in srgb, var(--color-ink) 15%, transparent);
+  color: color-mix(in srgb, var(--color-ink) 70%, transparent);
   font-family: var(--season-sans);
   font-size: var(--type-eyebrow);
   font-weight: var(--weight-bold);
@@ -2943,10 +2943,10 @@ textarea {
   pointer-events: none;
   opacity: 0;
   background:
-    radial-gradient(circle at 16% 22%, rgba(255, 236, 120, 0.62), transparent 28%),
-    radial-gradient(circle at 82% 18%, rgba(255, 51, 0, 0.16), transparent 29%),
-    radial-gradient(circle at 58% 84%, rgba(255, 245, 178, 0.42), transparent 38%),
-    radial-gradient(circle at 30% 68%, rgba(255, 51, 0, 0.1), transparent 26%);
+    radial-gradient(circle at 16% 22%, color-mix(in srgb, var(--color-highlight-soft) 62%, transparent), transparent 28%),
+    radial-gradient(circle at 82% 18%, color-mix(in srgb, var(--color-action) 16%, transparent), transparent 29%),
+    radial-gradient(circle at 58% 84%, color-mix(in srgb, var(--color-highlight-wash) 42%, transparent), transparent 38%),
+    radial-gradient(circle at 30% 68%, color-mix(in srgb, var(--color-action) 10%, transparent), transparent 26%);
   background-size: 180% 180%;
   filter: blur(24px);
   transition: opacity 420ms ease;
@@ -2979,10 +2979,10 @@ textarea {
 }
 
 .pricing-preview-card.is-featured {
-  border: 1px solid rgba(255, 51, 0, 0.42);
+  border: 1px solid color-mix(in srgb, var(--color-action) 42%, transparent);
   background: var(--surface);
   color: var(--foreground);
-  box-shadow: 0 0 0 1px rgba(255, 51, 0, 0.08), 0 18px 58px rgba(255, 51, 0, 0.11);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-action) 8%, transparent), 0 18px 58px color-mix(in srgb, var(--color-action) 11%, transparent);
 }
 
 .pricing-preview-card.is-featured::before {
@@ -2990,7 +2990,7 @@ textarea {
   z-index: 0;
   border-radius: inherit;
   opacity: 1;
-  background: conic-gradient(from var(--glow-angle, 0deg), transparent 0deg, transparent 58deg, rgba(255, 51, 0, 0.96) 86deg, rgba(255, 210, 35, 0.72) 112deg, transparent 144deg, transparent 360deg);
+  background: conic-gradient(from var(--glow-angle, 0deg), transparent 0deg, transparent 58deg, color-mix(in srgb, var(--color-action) 96%, transparent) 86deg, color-mix(in srgb, var(--color-highlight) 72%, transparent) 112deg, transparent 144deg, transparent 360deg);
   filter: blur(10px);
   animation: pricing-glow-spin 3.4s linear infinite;
 }
@@ -3164,9 +3164,9 @@ textarea {
   gap: 9px;
   min-height: 42px;
   padding: 11px 12px;
-  border: 1px solid rgba(17, 17, 17, 0.08);
+  border: 1px solid color-mix(in srgb, var(--color-ink) 8%, transparent);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.58);
+  background: color-mix(in srgb, var(--color-on-dark) 58%, transparent);
   color: var(--color-ink-strong);
   font-size: clamp(14px, 1vw, 16px);
   font-weight: var(--weight-semibold);
@@ -3181,8 +3181,8 @@ textarea {
 }
 
 .pricing-preview-card.is-featured .pricing-benefit-list span {
-  border-color: rgba(255, 51, 0, 0.12);
-  background: rgba(255, 255, 255, 0.72);
+  border-color: color-mix(in srgb, var(--color-action) 12%, transparent);
+  background: color-mix(in srgb, var(--color-on-dark) 72%, transparent);
 }
 
 .pricing-preview-card__lead {
@@ -3212,7 +3212,7 @@ textarea {
   display: flex;
   gap: 8px;
   align-items: flex-start;
-  color: rgba(17, 17, 17, 0.72);
+  color: color-mix(in srgb, var(--color-ink) 72%, transparent);
   font-size: clamp(14px, 1vw, 16px);
   line-height: 1.35;
 }
@@ -3402,7 +3402,7 @@ textarea {
 .full-bleed-moment p {
   max-width: 540px;
   margin: 40px 0 0;
-  color: rgba(17, 17, 17, 0.76);
+  color: color-mix(in srgb, var(--color-ink) 76%, transparent);
   font-size: clamp(20px, 2vw, 28px);
   line-height: 1.24;
 }
@@ -3549,7 +3549,7 @@ textarea {
   gap: clamp(24px, 5vw, 72px);
   align-items: start;
   padding: clamp(72px, 8vw, 118px) max(22px, calc((100vw - 1440px) / 2 + 48px));
-  border-top: 1px solid rgba(17, 17, 17, 0.1);
+  border-top: 1px solid color-mix(in srgb, var(--color-ink) 10%, transparent);
   background: var(--background);
 }
 
@@ -3581,7 +3581,7 @@ textarea {
 .founder-proof-copy > span {
   justify-self: start;
   padding: 7px 10px;
-  border: 1px solid rgba(255, 51, 0, 0.2);
+  border: 1px solid color-mix(in srgb, var(--color-action) 20%, transparent);
   border-radius: 999px;
   color: var(--orange);
   background: var(--color-action-soft);
@@ -3887,7 +3887,7 @@ textarea {
 .track-system__tag {
   justify-self: start;
   padding: 7px 10px;
-  border: 1px solid rgba(255, 51, 0, 0.2);
+  border: 1px solid color-mix(in srgb, var(--color-action) 20%, transparent);
   border-radius: 999px;
   color: var(--orange);
   background: var(--color-action-soft);
@@ -3935,9 +3935,9 @@ textarea {
   align-items: center;
   min-height: 48px;
   padding: 0 13px;
-  border: 1px solid rgba(17, 17, 17, 0.08);
+  border: 1px solid color-mix(in srgb, var(--color-ink) 8%, transparent);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.62);
+  background: color-mix(in srgb, var(--color-on-dark) 62%, transparent);
   color: var(--color-ink-soft);
   font-size: clamp(15px, 1.04vw, 17px);
   font-weight: var(--weight-strong);
@@ -3945,24 +3945,18 @@ textarea {
   transition: border-color 180ms ease, background 180ms ease, color 180ms ease;
 }
 
-.track-link-list a::after {
-  width: 16px;
-  height: 16px;
-  background: var(--orange);
-  content: "";
-  mask: url("/right-arrow.svg") center / contain no-repeat;
-  -webkit-mask: url("/right-arrow.svg") center / contain no-repeat;
-  transition: transform 180ms ease;
+.track-link-list .cta-arrow img {
+  filter: var(--icon-filter-action);
 }
 
 .track-link-list a:hover,
 .track-link-list a:focus-visible {
-  border-color: rgba(255, 51, 0, 0.24);
+  border-color: color-mix(in srgb, var(--color-action) 24%, transparent);
   background: var(--color-surface);
 }
 
-.track-link-list a:hover::after,
-.track-link-list a:focus-visible::after {
+.track-link-list a:hover .cta-arrow,
+.track-link-list a:focus-visible .cta-arrow {
   transform: translateX(3px);
 }
 
@@ -4305,7 +4299,7 @@ textarea {
   justify-content: space-between;
   gap: 18px;
   padding-bottom: 18px;
-  border-bottom: 1px solid rgb(255 255 255 / 14%);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-on-dark) 14%, transparent);
 }
 
 .calendar-embed__header strong {
@@ -4528,7 +4522,7 @@ textarea {
   padding: 16px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: rgba(255, 254, 250, 0.92);
+  background: color-mix(in srgb, var(--color-surface-warm) 92%, transparent);
 }
 
 .case-metric strong {
@@ -4619,7 +4613,7 @@ textarea {
 .footer-directory a,
 .footer-statement p,
 .footer-brand-row {
-  color: rgba(17, 17, 17, 0.78);
+  color: color-mix(in srgb, var(--color-ink) 78%, transparent);
   font-size: clamp(16px, 1.1vw, 20px);
   font-weight: var(--weight-regular);
   line-height: 1.2;
@@ -4691,7 +4685,7 @@ textarea {
     min-height: 50px;
     max-height: none;
     padding: 5px;
-    border: 1px solid rgba(17, 17, 17, 0.07);
+    border: 1px solid color-mix(in srgb, var(--color-ink) 7%, transparent);
     border-radius: 999px;
     transform: translateX(-50%);
     overflow: visible;
@@ -4705,7 +4699,7 @@ textarea {
     max-width: calc(100% - 24px);
     min-height: 50px;
     padding: 5px;
-    border: 1px solid rgba(17, 17, 17, 0.07);
+    border: 1px solid color-mix(in srgb, var(--color-ink) 7%, transparent);
     border-radius: 999px;
     box-shadow: none;
     transform: translateX(-50%);
@@ -4757,7 +4751,7 @@ textarea {
     width: 100%;
     min-width: 260px;
     padding: 6px;
-    border: 1px solid rgba(17, 17, 17, 0.08);
+    border: 1px solid color-mix(in srgb, var(--color-ink) 8%, transparent);
     border-radius: 22px;
     background: var(--color-surface);
     box-shadow: none;
@@ -4982,8 +4976,8 @@ textarea {
   display: grid;
   place-items: center;
   background:
-    radial-gradient(circle at 50% 45%, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0) 36%),
-    rgba(255, 51, 0, 0.92);
+    radial-gradient(circle at 50% 45%, color-mix(in srgb, var(--color-on-dark) 16%, transparent), transparent 36%),
+    color-mix(in srgb, var(--color-action) 92%, transparent);
   opacity: 0;
   pointer-events: none;
   transform: scale(1.025);
@@ -4998,9 +4992,9 @@ textarea {
   gap: 10px;
   min-height: 46px;
   padding: 0 18px;
-  border: 1px solid rgba(255, 255, 255, 0.36);
+  border: 1px solid color-mix(in srgb, var(--color-on-dark) 36%, transparent);
   border-radius: var(--radius-pill);
-  background: rgba(255, 255, 255, 0.14);
+  background: color-mix(in srgb, var(--color-on-dark) 14%, transparent);
   color: var(--color-on-dark);
   font-size: var(--type-body-sm);
   font-weight: var(--weight-bold);
@@ -5151,7 +5145,7 @@ textarea {
 
 .pricing-preview-card.is-featured::before {
   inset: -5px;
-  background: conic-gradient(from var(--glow-angle, 0deg), transparent 0deg, transparent 64deg, rgba(255, 51, 0, 0.98) 82deg, rgba(255, 236, 92, 0.82) 102deg, rgba(255, 51, 0, 0.98) 122deg, transparent 146deg, transparent 360deg);
+  background: conic-gradient(from var(--glow-angle, 0deg), transparent 0deg, transparent 64deg, color-mix(in srgb, var(--color-action) 98%, transparent) 82deg, color-mix(in srgb, var(--color-highlight-soft) 82%, transparent) 102deg, color-mix(in srgb, var(--color-action) 98%, transparent) 122deg, transparent 146deg, transparent 360deg);
   filter: blur(12px);
 }
 
@@ -5192,7 +5186,7 @@ textarea {
   align-content: start;
   min-height: clamp(106px, 8vw, 150px);
   padding: clamp(16px, 2vw, 26px);
-  border-right: 1px solid rgba(255, 255, 255, 0.82);
+  border-right: 1px solid color-mix(in srgb, var(--color-on-dark) 82%, transparent);
 }
 
 .process-metrics article:first-child {
@@ -5240,7 +5234,7 @@ textarea {
   border: 1px solid var(--color-neutral-line);
   border-radius: 30px;
   background: var(--color-surface);
-  box-shadow: 18px 12px 38px rgba(0, 0, 0, 0.04), -10px -26px 46px rgba(255, 51, 0, 0.08);
+  box-shadow: 18px 12px 38px color-mix(in srgb, var(--color-dark) 4%, transparent), -10px -26px 46px color-mix(in srgb, var(--color-action) 8%, transparent);
 }
 
 .process-row__visual {
@@ -5352,7 +5346,7 @@ textarea {
 .team-section__copy p {
   max-width: 380px;
   margin: 0;
-  color: rgba(255, 255, 255, 0.62);
+  color: color-mix(in srgb, var(--color-on-dark) 62%, transparent);
   font-size: clamp(18px, 1.42vw, 24px);
   font-weight: var(--weight-regular);
   line-height: 1.38;
@@ -5379,7 +5373,7 @@ textarea {
   height: clamp(84px, 7vw, 112px);
   border-radius: 999px;
   object-fit: cover;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12), 0 20px 54px rgba(255, 51, 0, 0.22);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-on-dark) 12%, transparent), 0 20px 54px color-mix(in srgb, var(--color-action) 22%, transparent);
 }
 
 .team-member h3 {
@@ -5393,7 +5387,7 @@ textarea {
 .team-member p {
   max-width: 420px;
   margin: 10px 0 0;
-  color: rgba(255, 255, 255, 0.62);
+  color: color-mix(in srgb, var(--color-on-dark) 62%, transparent);
   font-size: clamp(16px, 1.2vw, 20px);
   font-weight: var(--weight-regular);
   line-height: 1.32;
@@ -5414,7 +5408,7 @@ textarea {
 
   .process-metrics article {
     border-right: 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.82);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-on-dark) 82%, transparent);
   }
 
   .process-metrics article:last-child {
@@ -5444,7 +5438,7 @@ textarea {
   .capability-column {
     gap: 20px;
     padding-bottom: 32px;
-    border-bottom: 1px solid rgba(17, 17, 17, 0.1);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-ink) 10%, transparent);
   }
 
   .capability-column:last-child {

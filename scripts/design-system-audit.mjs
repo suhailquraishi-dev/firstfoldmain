@@ -97,6 +97,7 @@ const violations = [];
 const report = {
   rawColors: [],
   rawColorsOutsideRoot: [],
+  rawAlphaColorsOutsideRoot: [],
   fontSizes: [],
   fontWeights: [],
 };
@@ -133,6 +134,10 @@ for (const file of files) {
       violations.push(`${rel}:${lineNo} uses direct CTA arrow markup instead of CtaArrow`);
     }
 
+    if (rel === "app/globals.css" && line.includes("right-arrow.svg")) {
+      violations.push(`${rel}:${lineNo} uses direct CTA arrow asset in CSS instead of CtaArrow markup`);
+    }
+
     if (isComponentCode && !allowedDirectArrowFiles.has(rel) && line.includes("google-meet-2026.webp")) {
       violations.push(`${rel}:${lineNo} uses direct Meet icon markup instead of MeetingIcons`);
     }
@@ -146,6 +151,11 @@ for (const file of files) {
       if (rel === "app/globals.css" && lineNo > 150) {
         report.rawColorsOutsideRoot.push(`${rel}:${lineNo} ${colorMatches.join(", ")}`);
       }
+    }
+
+    const alphaColorMatches = line.match(/\brgba?\([^)]*\)/g) ?? [];
+    if (alphaColorMatches.length && rel === "app/globals.css" && lineNo > 150) {
+      report.rawAlphaColorsOutsideRoot.push(`${rel}:${lineNo} ${alphaColorMatches.join(", ")}`);
     }
 
     if (line.includes("font-size:")) {
@@ -167,6 +177,7 @@ console.log("Design system audit");
 console.log(`- files scanned: ${files.length}`);
 console.log(`- raw color lines: ${report.rawColors.length}`);
 console.log(`- raw color lines outside token root: ${report.rawColorsOutsideRoot.length}`);
+console.log(`- raw rgb/rgba lines outside token root: ${report.rawAlphaColorsOutsideRoot.length}`);
 console.log(`- font-size declarations: ${report.fontSizes.length}`);
 console.log(`- font-weight declarations: ${report.fontWeights.length}`);
 console.log(`- required primitives: ${requiredPrimitives.length}`);
@@ -181,6 +192,12 @@ if (report.rawColorsOutsideRoot.length) {
   console.log("- raw colors outside token root sample:");
   report.rawColorsOutsideRoot.slice(0, 12).forEach((entry) => console.log(`  ${entry}`));
   violations.push(`app/globals.css has ${report.rawColorsOutsideRoot.length} raw color line(s) outside the token root`);
+}
+
+if (report.rawAlphaColorsOutsideRoot.length) {
+  console.log("- raw rgb/rgba colors outside token root sample:");
+  report.rawAlphaColorsOutsideRoot.slice(0, 12).forEach((entry) => console.log(`  ${entry}`));
+  violations.push(`app/globals.css has ${report.rawAlphaColorsOutsideRoot.length} raw rgb/rgba color line(s) outside the token root`);
 }
 
 if (violations.length) {

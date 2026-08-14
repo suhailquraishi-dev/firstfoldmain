@@ -31,7 +31,7 @@ Core color tokens are defined in `app/globals.css` under `:root`.
 - Accent fills: `--color-highlight`, `--color-highlight-soft`, `--color-highlight-wash`, `--color-highlight-chip`, `--color-info`, `--color-info-soft`, `--color-info-wash`, `--color-peach-soft`
 - Process/support fills: `--color-process-blue`, `--color-process-neutral`, `--color-neutral-soft`, `--color-neutral-line`, `--color-neutral-hover`, `--color-neutral-chip`
 
-Raw hex values should stay in the `:root` token block. New component styles should use semantic tokens.
+Raw hex and `rgb()`/`rgba()` values should stay in the `:root` token block. New component styles should use semantic tokens or token-based `color-mix(...)` expressions.
 
 ## Type Hierarchy
 
@@ -81,7 +81,7 @@ Before shipping a visual change:
 - Keep raw colors rare and intentional.
 - Confirm mobile does not overflow horizontally.
 - Respect `prefers-reduced-motion`.
-- Run `pnpm run design:audit` to catch direct asset usage, missing foundation tokens, raw color drift outside the token root, and hard-coded fixed font sizes.
+- Run `pnpm run design:audit` to catch direct asset usage, missing foundation tokens, raw color or alpha-color drift outside the token root, and hard-coded fixed font sizes.
 - Keep raw numeric `font-weight` declarations limited to font-face registration; component styles should use weight tokens.
 - Run `pnpm run lint`, `pnpm test`, and `pnpm run build`.
 - Check the local preview at `http://localhost:3000`.
