@@ -4721,12 +4721,21 @@ textarea {
     display: none;
   }
 
+  .site-nav--show-cta .nav-cta {
+    display: inline-flex;
+    max-width: 190px;
+    min-height: 40px;
+    padding: 0 16px;
+    font-size: var(--type-label);
+    font-weight: var(--weight-bold);
+  }
+
   .site-nav--home-rail .nav-cta {
     display: none;
   }
 
   .nav-mobile-call {
-    display: inline-flex;
+    display: none;
     min-height: 40px;
     padding: 0 16px;
     font-weight: var(--weight-bold);

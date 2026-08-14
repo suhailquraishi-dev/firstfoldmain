@@ -39,18 +39,10 @@ export function LivingNav() {
 
   useEffect(() => {
     const onScroll = () => {
-      const clients = document.querySelector<HTMLElement>(".hero-client-fade");
-      const landing = document.querySelector<HTMLElement>(".hero-shell--landing");
-      const threshold = clients
-        ? clients.offsetTop + clients.offsetHeight - 80
-        : landing
-          ? landing.offsetTop + landing.offsetHeight - 96
-          : window.innerHeight * 0.85;
-
       setScrolled(window.scrollY > 24);
       const isHomeTop = pathname === "/" && window.scrollY < window.innerHeight - 84;
       setHeroTopNav(isHomeTop);
-      setShowBookCall(!isHomeTop && (pathname !== "/" || window.scrollY >= threshold));
+      setShowBookCall(!isHomeTop);
     };
 
     onScroll();
