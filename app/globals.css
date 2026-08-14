@@ -1995,7 +1995,7 @@ textarea {
 
 .showcase-section {
   padding: clamp(58px, 7vw, 104px) var(--space-page-x) clamp(72px, 8vw, 120px);
-  background: var(--color-surface);
+  background: var(--color-page);
 }
 
 .showcase-heading {
@@ -2098,7 +2098,7 @@ textarea {
   gap: 9px;
   width: max-content;
   margin: clamp(28px, 3.4vw, 46px) auto 0;
-  color: #111111;
+  color: var(--color-ink);
   font-size: clamp(18px, 1.28vw, 22px);
   font-weight: 700;
   line-height: 1;
@@ -2121,9 +2121,9 @@ textarea {
   position: relative;
   overflow: hidden;
   aspect-ratio: 16 / 9.35;
-  border: 1px solid #e0e4e8;
+  border: 1px solid var(--color-line-strong);
   border-radius: 14px;
-  background: #ffffff;
+  background: var(--color-surface);
   box-shadow: 0 1px 2px rgba(18, 24, 31, 0.04);
   transform: translateZ(0);
 }
@@ -2138,7 +2138,7 @@ textarea {
 
 .showcase-card h3 {
   margin: 18px 0 4px;
-  color: #2f3337;
+  color: var(--color-ink-soft);
   font-family: var(--season-sans);
   font-size: clamp(21px, 1.5vw, 28px);
   font-weight: 650;
@@ -2148,7 +2148,7 @@ textarea {
 
 .showcase-card p {
   margin: 0;
-  color: #979da3;
+  color: var(--color-ink-subtle);
   font-size: clamp(18px, 1.2vw, 24px);
   font-weight: 400;
   line-height: 1.2;
@@ -2352,6 +2352,14 @@ textarea {
   letter-spacing: 0.08em;
   line-height: 1;
   text-transform: uppercase;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  width: max-content;
+  font-family: var(--season-sans);
+  line-height: 1;
 }
 
 .section-heading h2 {

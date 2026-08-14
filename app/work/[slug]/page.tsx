@@ -1,8 +1,7 @@
-/* eslint-disable @next/next/no-img-element */
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getProject, projects } from "@/lib/content";
-import { FoldGlyph, PremiumButton } from "@/app/components/SiteSections";
+import { CtaArrow, FoldGlyph, PremiumButton } from "@/app/components/UIPrimitives";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -95,9 +94,7 @@ export default async function Page({ params }: PageProps) {
 
       <a className="next-project" href={`/work/${nextProject.slug}`}>
         <span>Next project: {nextProject.title}</span>
-        <span className="cta-arrow" aria-hidden="true">
-          <img src="/right-arrow.svg" alt="" width={18} height={18} />
-        </span>
+        <CtaArrow />
       </a>
       <PremiumButton href="/contact">Book a similar sprint</PremiumButton>
     </main>

@@ -6,7 +6,7 @@ import { Check, ChevronDown, Clock, Globe2, Mail } from "lucide-react";
 import Link from "next/link";
 import { type CSSProperties, FormEvent, useEffect, useState } from "react";
 import { clientLogos, faqs, logoRail, metrics, pricingTiers, processSteps, projects, projectTypes, services } from "@/lib/content";
-import { CtaArrow, MeetingIcons } from "./UIPrimitives";
+import { CtaArrow, FoldGlyph, MeetingIcons, MotionText, PremiumButton, SectionFrame, StatusBadge, TextCta } from "./UIPrimitives";
 
 type Project = (typeof projects)[number];
 
@@ -169,102 +169,6 @@ const bookingCalendarDays = [
 ];
 const bookingAvailableDays = new Set([6, 7, 8, 10, 11, 12, 13, 14, 15]);
 
-export function FoldGlyph({ small = false }: { small?: boolean }) {
-  return (
-    <span className={small ? "fold-glyph fold-glyph--small" : "fold-glyph"} aria-hidden="true">
-      <span />
-    </span>
-  );
-}
-
-export function PremiumButton({
-  href,
-  children,
-  secondary = false,
-  meeting = false,
-  hideArrow = false,
-}: {
-  href: string;
-  children: React.ReactNode;
-  secondary?: boolean;
-  meeting?: boolean;
-  hideArrow?: boolean;
-}) {
-  return (
-    <a href={href} className={secondary ? "premium-button premium-button--secondary" : "premium-button"}>
-      {meeting ? <MeetingIcons /> : null}
-      <span>{children}</span>
-      {hideArrow ? null : <CtaArrow size={20} />}
-    </a>
-  );
-}
-
-export function SectionFrame({
-  eyebrow,
-  title,
-  copy,
-  children,
-  accent = "yellow",
-  compact = false,
-  className,
-  replayMotion = false,
-}: {
-  eyebrow?: string;
-  title: React.ReactNode;
-  copy?: string;
-  children: React.ReactNode;
-  accent?: "yellow" | "blue" | "brown" | "orange";
-  compact?: boolean;
-  className?: string;
-  replayMotion?: boolean;
-}) {
-  const reduced = useReducedMotion();
-  const classes = ["section-frame", compact ? "section-frame--compact" : "", `theme-${accent}`, className ?? ""].filter(Boolean).join(" ");
-  const heading = (
-    <>
-      {eyebrow ? <span className="section-eyebrow">{eyebrow}</span> : null}
-      <h2>
-        <MotionText>{title}</MotionText>
-      </h2>
-      {copy ? <p>{copy}</p> : null}
-    </>
-  );
-
-  return (
-    <section className={classes}>
-      {replayMotion ? (
-        <motion.div
-          className="section-heading"
-          initial={reduced ? false : { opacity: 0.25, y: 72 }}
-          whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-          viewport={{ once: false, margin: "-18% 0px -18% 0px" }}
-          transition={{ duration: 0.78, ease: [0.16, 1, 0.3, 1] }}
-        >
-          {heading}
-        </motion.div>
-      ) : (
-        <div className="section-heading">{heading}</div>
-      )}
-      {children}
-    </section>
-  );
-}
-
-export function MotionText({ children }: { children: React.ReactNode }) {
-  const reduced = useReducedMotion();
-  return (
-    <motion.span
-      className="motion-headline"
-      initial={reduced ? false : { opacity: 0, y: 8, filter: "blur(4px)" }}
-      whileInView={reduced ? undefined : { opacity: 1, y: 0, filter: "blur(0px)" }}
-      viewport={{ once: true, margin: "-12% 0px -12% 0px" }}
-      transition={{ duration: 0.72, ease: [0.16, 1, 0.3, 1] }}
-    >
-      {children}
-    </motion.span>
-  );
-}
-
 export function HomePage() {
   return (
     <main className="home-main">
@@ -315,7 +219,7 @@ function BookingPreview() {
             20m
           </span>
           <span>
-            <img src="/icons/google-meet-2026.webp" alt="" width={18} height={18} />
+            <MeetingIcons size={18} />
             Google Meet
           </span>
           <span>
@@ -589,10 +493,10 @@ function PricingCards({ showProofStrip = false }: { showProofStrip?: boolean }) 
               key={tier.name}
             >
               {isFeatured ? (
-                <span className="pricing-preview-card__popular">
+                <StatusBadge className="pricing-preview-card__popular">
                   <span aria-hidden="true">★</span>
                   Most Popular
-                </span>
+                </StatusBadge>
               ) : null}
               <div className="pricing-preview-card__head">
                 <div>
@@ -678,10 +582,9 @@ export function ServicePanel({ service, index, primary = false }: { service: (ty
           </li>
         ))}
       </ul>
-      <a href="/services" className="text-cta">
+      <TextCta href="/services">
         View service
-        <CtaArrow />
-      </a>
+      </TextCta>
     </motion.article>
   );
 }
@@ -896,7 +799,7 @@ export function ProcessPage() {
             <li>
               <a href="/contact">
                 <span className="track-link-list__call">
-                  <img src="/icons/google-meet-2026.webp" alt="" width={18} height={18} />
+                  <MeetingIcons size={18} />
                   Discovery Call
                 </span>
                 <strong>30 min</strong>
