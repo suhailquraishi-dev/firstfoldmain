@@ -45,6 +45,18 @@ const requiredTokens = [
   "--color-neutral-line",
   "--color-neutral-hover",
   "--color-neutral-chip",
+  "--type-micro",
+  "--type-eyebrow",
+  "--type-caption",
+  "--type-label",
+  "--type-body-compact",
+  "--type-body-fixed",
+  "--type-body-md",
+  "--type-body-xl",
+  "--type-subhead",
+  "--type-subhead-lg",
+  "--type-card-title-fixed",
+  "--type-mobile-title",
   "--type-nav",
   "--type-body-sm",
   "--type-body",
@@ -57,7 +69,10 @@ const requiredTokens = [
   "--weight-regular",
   "--weight-medium",
   "--weight-semibold",
+  "--weight-strong",
   "--weight-bold",
+  "--weight-extrabold",
+  "--weight-black",
   "--icon-sm",
   "--icon-md",
   "--icon-lg",
@@ -133,8 +148,18 @@ for (const file of files) {
       }
     }
 
-    if (line.includes("font-size:")) report.fontSizes.push(`${rel}:${lineNo}`);
-    if (line.includes("font-weight:")) report.fontWeights.push(`${rel}:${lineNo}`);
+    if (line.includes("font-size:")) {
+      report.fontSizes.push(`${rel}:${lineNo}`);
+      if (rel === "app/globals.css" && lineNo > 150 && /font-size:\s*[0-9]+px/.test(line)) {
+        violations.push(`${rel}:${lineNo} uses raw fixed font-size outside type tokens`);
+      }
+    }
+    if (line.includes("font-weight:")) {
+      report.fontWeights.push(`${rel}:${lineNo}`);
+      if (rel === "app/globals.css" && lineNo > 150 && /font-weight:\s*[0-9]+/.test(line)) {
+        violations.push(`${rel}:${lineNo} uses raw font-weight outside font registration`);
+      }
+    }
   });
 }
 

@@ -37,6 +37,7 @@ Raw hex values should stay in the `:root` token block. New component styles shou
 
 Type tokens are defined in `app/globals.css`.
 
+- Fixed utility scale: `--type-micro`, `--type-eyebrow`, `--type-caption`, `--type-label`, `--type-body-compact`, `--type-body-fixed`, `--type-body-md`, `--type-body-xl`, `--type-subhead`, `--type-subhead-lg`, `--type-card-title-fixed`, `--type-mobile-title`
 - Navigation: `--type-nav`
 - Small body: `--type-body-sm`
 - Body: `--type-body`
@@ -52,7 +53,10 @@ Weight tokens:
 - `--weight-regular`
 - `--weight-medium`
 - `--weight-semibold`
+- `--weight-strong`
 - `--weight-bold`
+- `--weight-extrabold`
+- `--weight-black`
 
 Use section-scale type only for true section headings. Cards, badges, buttons, and compact panels should use body or card-title scale.
 
@@ -77,6 +81,7 @@ Before shipping a visual change:
 - Keep raw colors rare and intentional.
 - Confirm mobile does not overflow horizontally.
 - Respect `prefers-reduced-motion`.
-- Run `pnpm run design:audit` to catch direct asset usage, missing foundation tokens, and raw color drift outside the token root.
+- Run `pnpm run design:audit` to catch direct asset usage, missing foundation tokens, raw color drift outside the token root, and hard-coded fixed font sizes.
+- Keep raw numeric `font-weight` declarations limited to font-face registration; component styles should use weight tokens.
 - Run `pnpm run lint`, `pnpm test`, and `pnpm run build`.
 - Check the local preview at `http://localhost:3000`.

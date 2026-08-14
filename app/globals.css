@@ -131,7 +131,18 @@
   --shadow-card: 18px 12px 38px rgba(0, 0, 0, 0.04), -10px -26px 46px rgba(255, 51, 0, 0.08);
   --shadow-glow-orange: 0 20px 54px rgba(255, 51, 0, 0.22);
 
+  --type-micro: 11px;
   --type-eyebrow: 12px;
+  --type-caption: 13px;
+  --type-label: 14px;
+  --type-body-compact: 15px;
+  --type-body-fixed: 16px;
+  --type-body-md: 17px;
+  --type-body-xl: 18px;
+  --type-subhead: 20px;
+  --type-subhead-lg: 22px;
+  --type-card-title-fixed: 26px;
+  --type-mobile-title: 34px;
   --type-nav: clamp(14px, 0.96vw, 16px);
   --type-body-sm: clamp(14px, 1vw, 16px);
   --type-body: clamp(16px, 1.2vw, 20px);
@@ -144,7 +155,10 @@
   --weight-regular: 400;
   --weight-medium: 500;
   --weight-semibold: 600;
-  --weight-bold: 800;
+  --weight-strong: 650;
+  --weight-bold: 700;
+  --weight-extrabold: 800;
+  --weight-black: 900;
 
   --icon-sm: 16px;
   --icon-md: 20px;
@@ -185,7 +199,7 @@ body {
   color: var(--foreground);
   cursor: default;
   font-family: var(--season-sans);
-  font-weight: 300;
+  font-weight: var(--weight-light);
   letter-spacing: 0;
 }
 
@@ -234,7 +248,7 @@ textarea {
 .case-hero p,
 .pill-cloud article > span {
   font-family: var(--season-sans);
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
   letter-spacing: 0;
   text-transform: uppercase;
 }
@@ -478,7 +492,7 @@ textarea {
   color: var(--color-action);
   background: transparent;
   font-size: inherit;
-  font-weight: 400;
+  font-weight: var(--weight-regular);
   line-height: 1;
   letter-spacing: 0;
 }
@@ -527,8 +541,8 @@ textarea {
   padding-left: 10px;
   margin: 0 0 2px;
   color: var(--color-ink-subtle);
-  font-size: 12px;
-  font-weight: 600;
+  font-size: var(--type-eyebrow);
+  font-weight: var(--weight-semibold);
   letter-spacing: 0.04em;
   line-height: 1;
   text-transform: uppercase;
@@ -544,7 +558,7 @@ textarea {
   border: 1px solid transparent;
   border-radius: 14px;
   color: var(--color-ink-muted);
-  font-size: 14px;
+  font-size: var(--type-label);
 }
 
 .nav-action-link > span:first-of-type {
@@ -639,7 +653,7 @@ textarea {
   margin-left: auto;
   padding: 0 17px;
   border-radius: 14px;
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   opacity: 1;
   pointer-events: auto;
   transform: translateX(0);
@@ -1131,7 +1145,7 @@ textarea {
   background: rgba(5, 9, 8, 0.26);
   color: rgba(255, 255, 255, 0.82);
   font-size: clamp(12px, 0.86vw, 14px);
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
   line-height: 1;
 }
 
@@ -1170,7 +1184,7 @@ textarea {
   gap: 9px;
   margin: 0;
   color: var(--foreground);
-  font-size: 13px;
+  font-size: var(--type-caption);
   line-height: 1;
 }
 
@@ -1184,12 +1198,12 @@ textarea {
 .founder-proof-panel blockquote,
 .founder-band blockquote {
   font-family: var(--season-sans);
-  font-weight: 400;
+  font-weight: var(--weight-regular);
   letter-spacing: 0;
 }
 
 .site-footer h2 {
-  font-weight: 400;
+  font-weight: var(--weight-regular);
   line-height: 0.96;
 }
 
@@ -1209,7 +1223,7 @@ textarea {
   margin-left: 0;
   color: var(--color-on-dark);
   font-size: clamp(64px, 5vw, 92px);
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
   line-height: 0.94;
   font-kerning: normal;
   font-feature-settings: "kern" 1, "liga" 1;
@@ -1248,7 +1262,7 @@ textarea {
   margin: 0;
   color: rgba(255, 255, 255, 0.86);
   font-size: clamp(16px, 1.1vw, 20px);
-  font-weight: 400;
+  font-weight: var(--weight-regular);
   line-height: 1.38;
 }
 
@@ -1274,8 +1288,8 @@ textarea {
   border: 1px solid var(--line);
   border-radius: 14px;
   background: var(--paper);
-  font-size: 13px;
-  font-weight: 500;
+  font-size: var(--type-caption);
+  font-weight: var(--weight-medium);
 }
 
 .hero-actions {
@@ -1289,7 +1303,7 @@ textarea {
   color: var(--color-on-dark);
   border-color: var(--orange);
   background: var(--orange);
-  font-weight: 700;
+  font-weight: var(--weight-bold);
 }
 
 .hero-actions .premium-button:not(.premium-button--secondary) .cta-arrow img {
@@ -1361,11 +1375,11 @@ textarea {
   padding: 14px;
   border-bottom: 1px solid var(--line);
   background: rgba(255, 254, 250, 0.92);
-  font-size: 13px;
+  font-size: var(--type-caption);
 }
 
 .hero-reel__top strong {
-  font-weight: 500;
+  font-weight: var(--weight-medium);
 }
 
 .hero-reel__stage {
@@ -1408,14 +1422,14 @@ textarea {
 .hero-reel__caption strong {
   flex: 0 0 auto;
   color: var(--orange);
-  font-size: 14px;
-  font-weight: 600;
+  font-size: var(--type-label);
+  font-weight: var(--weight-semibold);
   white-space: nowrap;
 }
 
 .hero-reel__caption span {
   color: var(--muted);
-  font-size: 14px;
+  font-size: var(--type-label);
   line-height: 1.35;
   text-align: right;
 }
@@ -1458,15 +1472,15 @@ textarea {
 .hero-schedule > div:first-child > span {
   display: block;
   color: var(--color-on-dark);
-  font-size: 15px;
-  font-weight: 600;
+  font-size: var(--type-body-compact);
+  font-weight: var(--weight-semibold);
   line-height: 1.1;
 }
 
 .hero-schedule p {
   margin-top: 5px;
   color: rgba(255, 255, 255, 0.76);
-  font-size: 14px;
+  font-size: var(--type-label);
   line-height: 1.35;
 }
 
@@ -1480,8 +1494,8 @@ textarea {
   border-radius: 999px;
   color: var(--color-on-dark);
   background: var(--orange);
-  font-size: 14px;
-  font-weight: 600;
+  font-size: var(--type-label);
+  font-weight: var(--weight-semibold);
   white-space: nowrap;
 }
 
@@ -1499,7 +1513,7 @@ textarea {
   align-items: center;
   gap: 8px;
   color: rgba(255, 255, 255, 0.68);
-  font-size: 13px;
+  font-size: var(--type-caption);
   line-height: 1;
 }
 
@@ -1524,8 +1538,8 @@ textarea {
 .hero-client-stack > span {
   justify-self: end;
   color: rgba(255, 255, 255, 0.68);
-  font-size: 12px;
-  font-weight: 500;
+  font-size: var(--type-eyebrow);
+  font-weight: var(--weight-medium);
   line-height: 1;
 }
 
@@ -1557,8 +1571,8 @@ textarea {
   gap: clamp(20px, 2.6vw, 34px);
   align-items: center;
   color: var(--color-ink-warm);
-  font-size: 16px;
-  font-weight: 400;
+  font-size: var(--type-body-fixed);
+  font-weight: var(--weight-regular);
 }
 
 .tool-rail-section {
@@ -1617,7 +1631,7 @@ textarea {
   background: var(--color-action);
   font-family: var(--season-sans);
   font-size: clamp(15px, 1.2vw, 18px);
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   letter-spacing: 0;
   line-height: 1;
   transform: translate(-50%, -50%);
@@ -1757,7 +1771,7 @@ textarea {
 .logo-strip strong {
   color: var(--foreground);
   font-size: clamp(16px, 1.35vw, 22px);
-  font-weight: 300;
+  font-weight: var(--weight-light);
   line-height: 1;
   white-space: nowrap;
 }
@@ -1889,7 +1903,7 @@ textarea {
   color: var(--color-ink-muted);
   font-style: normal;
   font-size: clamp(18px, 1.5vw, 25px);
-  font-weight: 500;
+  font-weight: var(--weight-medium);
   white-space: nowrap;
   opacity: 0.68;
 }
@@ -1933,7 +1947,7 @@ textarea {
   margin: 0;
   font-family: var(--season-sans);
   font-size: clamp(42px, 4.8vw, 76px);
-  font-weight: 400;
+  font-weight: var(--weight-regular);
   line-height: 0.95;
 }
 
@@ -1942,7 +1956,7 @@ textarea {
   margin: 0;
   color: rgba(17, 17, 17, 0.68);
   font-size: clamp(17px, 1.5vw, 22px);
-  font-weight: 300;
+  font-weight: var(--weight-light);
   line-height: 1.42;
 }
 
@@ -2117,7 +2131,7 @@ textarea {
   margin: clamp(28px, 3.4vw, 46px) auto 0;
   color: var(--color-ink);
   font-size: clamp(18px, 1.28vw, 22px);
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   line-height: 1;
 }
 
@@ -2158,7 +2172,7 @@ textarea {
   color: var(--color-ink-soft);
   font-family: var(--season-sans);
   font-size: clamp(21px, 1.5vw, 28px);
-  font-weight: 650;
+  font-weight: var(--weight-strong);
   line-height: 1.12;
   letter-spacing: 0;
 }
@@ -2167,7 +2181,7 @@ textarea {
   margin: 0;
   color: var(--color-ink-subtle);
   font-size: clamp(18px, 1.2vw, 24px);
-  font-weight: 400;
+  font-weight: var(--weight-regular);
   line-height: 1.2;
 }
 
@@ -2216,7 +2230,7 @@ textarea {
   color: rgba(17, 17, 17, 0.48);
   font-family: var(--season-sans);
   font-size: clamp(17px, 1.25vw, 21px);
-  font-weight: 400;
+  font-weight: var(--weight-regular);
   letter-spacing: 0;
   line-height: 1.35;
   text-transform: none;
@@ -2228,7 +2242,7 @@ textarea {
   color: var(--color-ink-soft);
   font-family: var(--season-sans);
   font-size: clamp(24px, 2vw, 34px);
-  font-weight: 800;
+  font-weight: var(--weight-extrabold);
   line-height: 1.08;
   letter-spacing: 0;
 }
@@ -2260,15 +2274,15 @@ textarea {
 .audience-fit-row button > span:first-child {
   color: var(--color-ink-strong);
   font-family: var(--season-sans);
-  font-size: 13px;
-  font-weight: 800;
+  font-size: var(--type-caption);
+  font-weight: var(--weight-extrabold);
   letter-spacing: 0.08em;
 }
 
 .audience-fit-row strong {
   font-family: var(--season-sans);
   font-size: clamp(26px, 2.5vw, 42px);
-  font-weight: 500;
+  font-weight: var(--weight-medium);
   line-height: 1;
   letter-spacing: 0;
 }
@@ -2332,7 +2346,7 @@ textarea {
   color: rgba(17, 17, 17, 0.48);
   font-family: var(--season-sans);
   font-size: clamp(14px, 1vw, 17px);
-  font-weight: 400;
+  font-weight: var(--weight-regular);
   letter-spacing: 0;
   line-height: 1.45;
 }
@@ -2342,7 +2356,7 @@ textarea {
   margin-bottom: 9px;
   color: var(--color-ink-soft);
   font-size: clamp(16px, 1.1vw, 19px);
-  font-weight: 650;
+  font-weight: var(--weight-strong);
   line-height: 1.25;
 }
 
@@ -2364,8 +2378,8 @@ textarea {
   grid-column: 1 / -1;
   color: var(--muted);
   font-family: var(--season-sans);
-  font-size: 12px;
-  font-weight: 700;
+  font-size: var(--type-eyebrow);
+  font-weight: var(--weight-bold);
   letter-spacing: 0.08em;
   line-height: 1;
   text-transform: uppercase;
@@ -2383,7 +2397,7 @@ textarea {
   max-width: 760px;
   margin: 0;
   font-size: clamp(38px, 4.6vw, 80px);
-  font-weight: 800;
+  font-weight: var(--weight-extrabold);
   line-height: 0.98;
 }
 
@@ -2398,7 +2412,7 @@ textarea {
   margin: 18px 0 0;
   color: var(--color-ink-subtle);
   font-size: clamp(18px, 1.35vw, 24px);
-  font-weight: 300;
+  font-weight: var(--weight-light);
   line-height: 1.42;
 }
 
@@ -2417,7 +2431,7 @@ textarea {
 .about-system p,
 .form-status {
   color: var(--muted);
-  font-weight: 300;
+  font-weight: var(--weight-light);
   line-height: 1.55;
 }
 
@@ -2535,7 +2549,7 @@ textarea {
   border-radius: 14px;
   background: var(--paper);
   font-style: normal;
-  font-size: 13px;
+  font-size: var(--type-caption);
 }
 
 .project-card h3,
@@ -2549,7 +2563,7 @@ textarea {
   margin: 10px 0 0;
   color: inherit;
   font-size: clamp(28px, 3vw, 44px);
-  font-weight: 300;
+  font-weight: var(--weight-light);
   line-height: 1;
 }
 
@@ -2558,7 +2572,7 @@ textarea {
 .service-detail > span {
   margin: 0;
   color: inherit;
-  font-size: 14px;
+  font-size: var(--type-label);
 }
 
 .project-card > div > span {
@@ -2641,7 +2655,7 @@ textarea {
   border-radius: 14px;
   background: var(--paper);
   font-family: "Season Serif", ui-serif, serif;
-  font-size: 18px;
+  font-size: var(--type-body-xl);
   line-height: 1;
 }
 
@@ -2670,7 +2684,7 @@ textarea {
   margin: 0;
   align-self: center;
   font-size: clamp(30px, 2.6vw, 44px);
-  font-weight: 400;
+  font-weight: var(--weight-regular);
   line-height: 0.98;
 }
 
@@ -2764,8 +2778,8 @@ textarea {
   border-radius: 999px;
   background: var(--color-surface);
   font-family: var(--season-sans);
-  font-size: 13px;
-  font-weight: 700;
+  font-size: var(--type-caption);
+  font-weight: var(--weight-bold);
   line-height: 1;
 }
 
@@ -2774,7 +2788,7 @@ textarea {
   align-self: end;
   font-family: var(--season-sans);
   font-size: clamp(34px, 3.2vw, 52px);
-  font-weight: 900;
+  font-weight: var(--weight-black);
   line-height: 0.95;
   letter-spacing: 0;
 }
@@ -2784,7 +2798,7 @@ textarea {
   margin: 0;
   color: rgba(17, 17, 17, 0.68);
   font-size: clamp(16px, 1.08vw, 19px);
-  font-weight: 300;
+  font-weight: var(--weight-light);
   line-height: 1.5;
 }
 
@@ -2794,8 +2808,8 @@ textarea {
   border-top: 1px solid rgba(17, 17, 17, 0.15);
   color: rgba(17, 17, 17, 0.7);
   font-family: var(--season-sans);
-  font-size: 12px;
-  font-weight: 700;
+  font-size: var(--type-eyebrow);
+  font-weight: var(--weight-bold);
   letter-spacing: 0.08em;
   line-height: 1.25;
   text-transform: uppercase;
@@ -2834,7 +2848,7 @@ textarea {
   padding: 8px 10px;
   border: 1px solid currentColor;
   border-radius: 14px;
-  font-weight: 400;
+  font-weight: var(--weight-regular);
 }
 
 .service-panel ul,
@@ -2862,7 +2876,7 @@ textarea {
   align-items: center;
   gap: 8px;
   margin-top: auto;
-  font-weight: 400;
+  font-weight: var(--weight-regular);
 }
 
 .text-cta {
@@ -3016,7 +3030,7 @@ textarea {
   border-radius: 14px;
   background: var(--nav-panel-solid);
   color: var(--foreground);
-  font-size: 14px;
+  font-size: var(--type-label);
 }
 
 .pricing-preview-card__head {
@@ -3032,7 +3046,7 @@ textarea {
 .pricing-preview-card h3 {
   margin: 0;
   font-size: clamp(26px, 2vw, 36px);
-  font-weight: 800;
+  font-weight: var(--weight-extrabold);
   line-height: 1;
 }
 
@@ -3041,7 +3055,7 @@ textarea {
   margin-top: 10px !important;
   color: var(--foreground) !important;
   font-size: clamp(17px, 1.22vw, 20px) !important;
-  font-weight: 400 !important;
+  font-weight: var(--weight-regular) !important;
   line-height: 1.25 !important;
 }
 
@@ -3063,7 +3077,7 @@ textarea {
 .pricing-preview-card__price strong {
   display: block;
   font-size: clamp(36px, 3.7vw, 58px);
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
   line-height: 0.92;
   letter-spacing: -0.02em;
 }
@@ -3078,7 +3092,7 @@ textarea {
   max-width: none;
   color: var(--muted);
   font-size: clamp(16px, 1.1vw, 19px);
-  font-weight: 300;
+  font-weight: var(--weight-light);
   line-height: 1.15;
 }
 
@@ -3096,8 +3110,8 @@ textarea {
   border-radius: 14px;
   background: var(--color-highlight-chip);
   color: var(--color-action) !important;
-  font-size: 11px !important;
-  font-weight: 600 !important;
+  font-size: var(--type-micro) !important;
+  font-weight: var(--weight-semibold) !important;
   letter-spacing: 0.04em;
   line-height: 1 !important;
 }
@@ -3135,7 +3149,7 @@ textarea {
   margin: 0;
   color: var(--muted);
   font-size: clamp(16px, 1.2vw, 19px);
-  font-weight: 300;
+  font-weight: var(--weight-light);
   line-height: 1.35;
 }
 
@@ -3155,7 +3169,7 @@ textarea {
   background: rgba(255, 255, 255, 0.58);
   color: var(--color-ink-strong);
   font-size: clamp(14px, 1vw, 16px);
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
   line-height: 1.2;
 }
 
@@ -3176,7 +3190,7 @@ textarea {
   margin-top: -2px !important;
   color: var(--foreground) !important;
   font-size: clamp(14px, 0.96vw, 16px) !important;
-  font-weight: 600 !important;
+  font-weight: var(--weight-semibold) !important;
 }
 
 .pricing-preview-card__rule {
@@ -3216,8 +3230,8 @@ textarea {
   margin-top: 0;
   padding: 0 15px;
   border-radius: 14px;
-  font-size: 14px;
-  font-weight: 700;
+  font-size: var(--type-label);
+  font-weight: var(--weight-bold);
 }
 
 .pricing-inclusion-groups {
@@ -3232,8 +3246,8 @@ textarea {
 
 .pricing-inclusion-group > span {
   color: var(--muted);
-  font-size: 12px;
-  font-weight: 800;
+  font-size: var(--type-eyebrow);
+  font-weight: var(--weight-extrabold);
   letter-spacing: 0.08em;
   line-height: 1;
   text-transform: uppercase;
@@ -3255,7 +3269,7 @@ textarea {
   padding: 0 16px;
   border-radius: 14px;
   background: var(--surface);
-  font-weight: 500;
+  font-weight: var(--weight-medium);
 }
 
 .metrics-grid {
@@ -3289,7 +3303,7 @@ textarea {
 
 .metric-card strong {
   font-size: clamp(42px, 5vw, 72px);
-  font-weight: 400;
+  font-weight: var(--weight-regular);
   line-height: 0.9;
   white-space: nowrap;
 }
@@ -3318,7 +3332,7 @@ textarea {
   border: 1px solid var(--line);
   border-radius: 14px;
   background: var(--yellow-soft);
-  font-size: 13px;
+  font-size: var(--type-caption);
 }
 
 .process-step h3 {
@@ -3337,7 +3351,7 @@ textarea {
 .process-step strong,
 .process-row strong {
   align-self: end;
-  font-weight: 400;
+  font-weight: var(--weight-regular);
 }
 
 .full-bleed-moment {
@@ -3381,7 +3395,7 @@ textarea {
   margin: 0;
   font-family: var(--season-sans);
   font-size: clamp(62px, 7.4vw, 118px);
-  font-weight: 400;
+  font-weight: var(--weight-regular);
   line-height: 0.94;
 }
 
@@ -3571,8 +3585,8 @@ textarea {
   border-radius: 999px;
   color: var(--orange);
   background: var(--color-action-soft);
-  font-size: 12px;
-  font-weight: 700;
+  font-size: var(--type-eyebrow);
+  font-weight: var(--weight-bold);
   letter-spacing: 0.06em;
   line-height: 1;
   text-transform: uppercase;
@@ -3582,7 +3596,7 @@ textarea {
   max-width: 520px;
   margin: 0;
   font-size: clamp(48px, 5.2vw, 84px);
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
   line-height: 0.94;
 }
 
@@ -3591,7 +3605,7 @@ textarea {
   margin: 0;
   color: var(--muted);
   font-size: clamp(17px, 1.35vw, 22px);
-  font-weight: 300;
+  font-weight: var(--weight-light);
   line-height: 1.28;
 }
 
@@ -3615,7 +3629,7 @@ textarea {
   margin: 0;
   color: var(--foreground);
   font-size: clamp(34px, 4vw, 64px);
-  font-weight: 400;
+  font-weight: var(--weight-regular);
   font-style: normal;
   line-height: 0.98;
 }
@@ -3623,8 +3637,8 @@ textarea {
 .founder-proof-panel figcaption {
   margin-top: 18px;
   color: var(--muted);
-  font-size: 14px;
-  font-weight: 400;
+  font-size: var(--type-label);
+  font-weight: var(--weight-regular);
 }
 
 .principle-row {
@@ -3643,7 +3657,7 @@ textarea {
   border: 0;
   border-radius: 8px;
   font-size: clamp(17px, 1.4vw, 22px);
-  font-weight: 400;
+  font-weight: var(--weight-regular);
   line-height: 1.12;
 }
 
@@ -3681,7 +3695,7 @@ textarea {
   border: 1px solid var(--border);
   background: var(--color-surface);
   font-size: clamp(17px, 1.25vw, 21px);
-  font-weight: 500;
+  font-weight: var(--weight-medium);
 }
 
 .principle-row--minimal span:nth-child(1) {
@@ -3726,7 +3740,7 @@ textarea {
   background: transparent;
   text-align: left;
   font-size: clamp(23px, 2.5vw, 36px);
-  font-weight: 300;
+  font-weight: var(--weight-light);
 }
 
 .faq-item p {
@@ -3760,7 +3774,7 @@ textarea {
   max-width: 900px;
   margin-top: 0;
   font-size: clamp(46px, 5.4vw, 84px);
-  font-weight: 800;
+  font-weight: var(--weight-extrabold);
   line-height: 0.98;
 }
 
@@ -3769,7 +3783,7 @@ textarea {
   margin-top: 18px;
   color: var(--color-ink-subtle);
   font-size: clamp(17px, 1.28vw, 22px);
-  font-weight: 400;
+  font-weight: var(--weight-regular);
   line-height: 1.42;
 }
 
@@ -3782,7 +3796,7 @@ textarea {
   max-width: 880px;
   margin-top: 0;
   font-size: clamp(46px, 5.4vw, 84px);
-  font-weight: 800;
+  font-weight: var(--weight-extrabold);
   line-height: 0.98;
 }
 
@@ -3791,7 +3805,7 @@ textarea {
   margin-top: 18px;
   color: var(--color-ink-subtle);
   font-size: clamp(17px, 1.28vw, 22px);
-  font-weight: 400;
+  font-weight: var(--weight-regular);
   line-height: 1.42;
 }
 
@@ -3837,8 +3851,8 @@ textarea {
 
 .service-detail h3 {
   margin: 0;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: var(--type-label);
+  font-weight: var(--weight-semibold);
   text-transform: uppercase;
 }
 
@@ -3877,8 +3891,8 @@ textarea {
   border-radius: 999px;
   color: var(--orange);
   background: var(--color-action-soft);
-  font-size: 12px;
-  font-weight: 700;
+  font-size: var(--type-eyebrow);
+  font-weight: var(--weight-bold);
   letter-spacing: 0.06em;
   line-height: 1;
   text-transform: uppercase;
@@ -3888,7 +3902,7 @@ textarea {
   max-width: 620px;
   margin: 0;
   font-size: clamp(28px, 3.2vw, 52px);
-  font-weight: 800;
+  font-weight: var(--weight-extrabold);
   line-height: 1;
 }
 
@@ -3897,7 +3911,7 @@ textarea {
   margin: 0;
   color: var(--color-ink-cool);
   font-size: clamp(16px, 1.2vw, 19px);
-  font-weight: 400;
+  font-weight: var(--weight-regular);
   line-height: 1.42;
 }
 
@@ -3926,7 +3940,7 @@ textarea {
   background: rgba(255, 255, 255, 0.62);
   color: var(--color-ink-soft);
   font-size: clamp(15px, 1.04vw, 17px);
-  font-weight: 650;
+  font-weight: var(--weight-strong);
   line-height: 1.25;
   transition: border-color 180ms ease, background 180ms ease, color 180ms ease;
 }
@@ -3954,7 +3968,7 @@ textarea {
 
 .track-link-list strong {
   color: var(--color-ink-subtle);
-  font-weight: 500;
+  font-weight: var(--weight-medium);
   white-space: nowrap;
 }
 
@@ -3988,7 +4002,7 @@ textarea {
   max-width: 720px;
   margin: 0;
   font-size: clamp(36px, 4.2vw, 66px);
-  font-weight: 800;
+  font-weight: var(--weight-extrabold);
   line-height: 0.98;
 }
 
@@ -3997,7 +4011,7 @@ textarea {
   margin: 0;
   color: var(--color-ink-subtle);
   font-size: clamp(16px, 1.2vw, 20px);
-  font-weight: 400;
+  font-weight: var(--weight-regular);
   line-height: 1.42;
 }
 
@@ -4032,7 +4046,7 @@ textarea {
 .split-panel h2 {
   margin: 0;
   font-size: clamp(34px, 4vw, 62px);
-  font-weight: 300;
+  font-weight: var(--weight-light);
   line-height: 0.98;
 }
 
@@ -4064,8 +4078,8 @@ textarea {
   border: 1px solid var(--line);
   border-radius: 14px;
   background: var(--paper);
-  font-size: 13px;
-  font-weight: 600;
+  font-size: var(--type-caption);
+  font-weight: var(--weight-semibold);
   text-transform: uppercase;
 }
 
@@ -4073,7 +4087,7 @@ textarea {
   margin: auto 0 0;
   max-width: 440px;
   font-size: clamp(38px, 4.8vw, 76px);
-  font-weight: 300;
+  font-weight: var(--weight-light);
   line-height: 0.94;
 }
 
@@ -4082,7 +4096,7 @@ textarea {
   margin: 0;
   color: var(--muted);
   font-size: clamp(17px, 1.4vw, 20px);
-  font-weight: 300;
+  font-weight: var(--weight-light);
   line-height: 1.46;
 }
 
@@ -4101,7 +4115,7 @@ textarea {
 .resource-cta h2 {
   margin: 0;
   font-size: clamp(36px, 5vw, 80px);
-  font-weight: 300;
+  font-weight: var(--weight-light);
   line-height: 0.94;
 }
 
@@ -4110,7 +4124,7 @@ textarea {
   margin: 16px 0 0;
   color: var(--muted);
   font-size: clamp(17px, 1.4vw, 21px);
-  font-weight: 300;
+  font-weight: var(--weight-light);
   line-height: 1.48;
 }
 
@@ -4127,7 +4141,7 @@ textarea {
 
 .pricing-card > strong {
   font-size: clamp(48px, 5vw, 72px);
-  font-weight: 300;
+  font-weight: var(--weight-light);
   line-height: 0.9;
 }
 
@@ -4184,7 +4198,7 @@ textarea {
   color: var(--color-ink);
   font-family: var(--season-sans);
   font-size: clamp(42px, 5.2vw, 84px);
-  font-weight: 800;
+  font-weight: var(--weight-extrabold);
   line-height: 0.98;
   letter-spacing: 0;
 }
@@ -4194,7 +4208,7 @@ textarea {
   margin: 18px 0 0;
   color: var(--color-ink-subtle);
   font-size: clamp(17px, 1.28vw, 22px);
-  font-weight: 400;
+  font-weight: var(--weight-regular);
   line-height: 1.42;
 }
 
@@ -4202,7 +4216,7 @@ textarea {
   margin: 22px 0 14px;
   font-family: var(--season-sans);
   font-size: clamp(38px, 4.2vw, 62px);
-  font-weight: 500;
+  font-weight: var(--weight-medium);
   line-height: 0.98;
 }
 
@@ -4210,7 +4224,7 @@ textarea {
   margin: 0;
   max-width: 520px;
   color: var(--color-on-dark-faint);
-  font-weight: 400;
+  font-weight: var(--weight-regular);
   line-height: 1.5;
 }
 
@@ -4261,7 +4275,7 @@ textarea {
   margin-top: auto;
   color: var(--color-on-dark-subtle);
   font-size: clamp(18px, 1.7vw, 24px);
-  font-weight: 500;
+  font-weight: var(--weight-medium);
 }
 
 .booking-card__meta span {
@@ -4297,13 +4311,13 @@ textarea {
 .calendar-embed__header strong {
   color: var(--color-on-dark-soft);
   font-size: clamp(24px, 2.4vw, 34px);
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
 }
 
 .calendar-embed__header strong span,
 .calendar-embed__slot {
   color: var(--color-on-dark-muted);
-  font-weight: 400;
+  font-weight: var(--weight-regular);
 }
 
 .calendar-embed__weekdays,
@@ -4315,8 +4329,8 @@ textarea {
 
 .calendar-embed__weekdays span {
   color: var(--color-on-dark-soft);
-  font-size: 13px;
-  font-weight: 600;
+  font-size: var(--type-caption);
+  font-weight: var(--weight-semibold);
   letter-spacing: 0.1em;
   text-align: center;
   text-transform: uppercase;
@@ -4334,7 +4348,7 @@ textarea {
   color: var(--color-on-dark-faint);
   font: inherit;
   font-size: clamp(16px, 1.6vw, 22px);
-  font-weight: 400;
+  font-weight: var(--weight-regular);
 }
 
 .calendar-embed__grid button {
@@ -4356,7 +4370,7 @@ textarea {
 .calendar-embed__grid button.is-active {
   background: var(--color-on-dark);
   color: var(--color-ink);
-  font-weight: 500;
+  font-weight: var(--weight-medium);
 }
 
 .calendar-embed__grid button:not(:disabled):hover,
@@ -4376,7 +4390,7 @@ textarea {
   display: grid;
   gap: 8px;
   color: var(--foreground);
-  font-size: 14px;
+  font-size: var(--type-label);
 }
 
 .contact-form__wide,
@@ -4496,7 +4510,7 @@ textarea {
   margin-top: 10px;
   font-family: var(--season-sans);
   font-size: clamp(48px, 6vw, 86px);
-  font-weight: 400;
+  font-weight: var(--weight-regular);
   line-height: 0.86;
 }
 
@@ -4519,7 +4533,7 @@ textarea {
 
 .case-metric strong {
   font-size: clamp(76px, 9vw, 142px);
-  font-weight: 300;
+  font-weight: var(--weight-light);
   line-height: 0.8;
 }
 
@@ -4598,7 +4612,7 @@ textarea {
 .footer-statement h2 {
   margin: 0 0 clamp(16px, 1.8vw, 26px);
   font-size: clamp(20px, 1.5vw, 28px);
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
   line-height: 1;
 }
 
@@ -4607,7 +4621,7 @@ textarea {
 .footer-brand-row {
   color: rgba(17, 17, 17, 0.78);
   font-size: clamp(16px, 1.1vw, 20px);
-  font-weight: 400;
+  font-weight: var(--weight-regular);
   line-height: 1.2;
 }
 
@@ -4721,7 +4735,7 @@ textarea {
     display: inline-flex;
     min-height: 40px;
     padding: 0 16px;
-    font-weight: 700;
+    font-weight: var(--weight-bold);
   }
 
   .nav-toggle {
@@ -4763,8 +4777,8 @@ textarea {
     padding: 0 12px;
     border-radius: 999px;
     color: var(--color-ink-muted);
-    font-size: 14px;
-    font-weight: 500;
+    font-size: var(--type-label);
+    font-weight: var(--weight-medium);
   }
 
   .mobile-panel a.is-active,
@@ -5152,15 +5166,15 @@ textarea {
   border-radius: 0;
   background: transparent;
   color: var(--orange) !important;
-  font-size: 13px !important;
-  font-weight: 600 !important;
+  font-size: var(--type-caption) !important;
+  font-weight: var(--weight-semibold) !important;
   letter-spacing: 0;
   text-transform: none;
 }
 
 .pricing-preview-card__popular span {
   color: var(--orange);
-  font-size: 14px;
+  font-size: var(--type-label);
   line-height: 1;
 }
 
@@ -5193,7 +5207,7 @@ textarea {
   max-width: 180px;
   color: var(--color-ink);
   font-size: clamp(12px, 0.94vw, 15px);
-  font-weight: 800;
+  font-weight: var(--weight-extrabold);
   line-height: 0.98;
   text-transform: uppercase;
 }
@@ -5202,7 +5216,7 @@ textarea {
   margin-top: clamp(14px, 1.5vw, 20px);
   color: var(--color-ink);
   font-size: clamp(54px, 6.2vw, 96px);
-  font-weight: 400;
+  font-weight: var(--weight-regular);
   line-height: 0.8;
   letter-spacing: -0.03em;
 }
@@ -5262,8 +5276,8 @@ textarea {
   border-radius: 11px;
   background: var(--color-surface);
   color: var(--color-ink);
-  font-size: 16px;
-  font-weight: 700;
+  font-size: var(--type-body-fixed);
+  font-weight: var(--weight-bold);
   line-height: 1;
 }
 
@@ -5284,7 +5298,7 @@ textarea {
   margin: 0;
   color: var(--color-ink);
   font-size: clamp(26px, 2.1vw, 34px);
-  font-weight: 650;
+  font-weight: var(--weight-strong);
   line-height: 1.02;
   letter-spacing: -0.02em;
 }
@@ -5293,7 +5307,7 @@ textarea {
   margin: 0;
   color: var(--color-ink-subtle);
   font-size: clamp(16px, 1.12vw, 19px);
-  font-weight: 500;
+  font-weight: var(--weight-medium);
   line-height: 1.2;
 }
 
@@ -5331,7 +5345,7 @@ textarea {
   max-width: 520px;
   margin: 0;
   font-size: clamp(48px, 5.6vw, 88px);
-  font-weight: 650;
+  font-weight: var(--weight-strong);
   line-height: 0.94;
 }
 
@@ -5340,7 +5354,7 @@ textarea {
   margin: 0;
   color: rgba(255, 255, 255, 0.62);
   font-size: clamp(18px, 1.42vw, 24px);
-  font-weight: 400;
+  font-weight: var(--weight-regular);
   line-height: 1.38;
 }
 
@@ -5372,7 +5386,7 @@ textarea {
   margin: 0;
   color: var(--color-on-dark);
   font-size: clamp(25px, 2.2vw, 36px);
-  font-weight: 650;
+  font-weight: var(--weight-strong);
   line-height: 1.05;
 }
 
@@ -5381,7 +5395,7 @@ textarea {
   margin: 10px 0 0;
   color: rgba(255, 255, 255, 0.62);
   font-size: clamp(16px, 1.2vw, 20px);
-  font-weight: 400;
+  font-weight: var(--weight-regular);
   line-height: 1.32;
 }
 
@@ -5453,7 +5467,7 @@ textarea {
     right: 16px;
     min-height: 36px;
     padding: 0 14px;
-    font-size: 15px;
+    font-size: var(--type-body-compact);
   }
 
   .process-row__body {
@@ -5585,7 +5599,7 @@ textarea {
   .showcase-heading p {
     max-width: 310px;
     margin-top: 12px;
-    font-size: 16px;
+    font-size: var(--type-body-fixed);
   }
 
   .showcase-grid {
@@ -5607,7 +5621,7 @@ textarea {
 
   .audience-fit-copy p {
     max-width: 320px;
-    font-size: 16px;
+    font-size: var(--type-body-fixed);
   }
 
   .audience-fit-row button {
@@ -5623,7 +5637,7 @@ textarea {
   .audience-fit-row__panel p {
     margin-right: 0;
     margin-left: calc(34px + 12px);
-    font-size: 15px;
+    font-size: var(--type-body-compact);
   }
 }
 
@@ -5672,7 +5686,7 @@ textarea {
   }
 
   .hero-subtitle {
-    font-size: 16px;
+    font-size: var(--type-body-fixed);
     line-height: 1.35;
   }
 
@@ -5683,7 +5697,7 @@ textarea {
   .hero-actions .premium-button {
     min-height: 42px;
     padding: 0 13px;
-    font-size: 13px;
+    font-size: var(--type-caption);
   }
 
   .hero-actions .premium-button--secondary {
@@ -5712,11 +5726,11 @@ textarea {
 
   .showcase-card h3 {
     margin-top: 14px;
-    font-size: 22px;
+    font-size: var(--type-subhead-lg);
   }
 
   .showcase-card p {
-    font-size: 17px;
+    font-size: var(--type-body-md);
   }
 
   .booking-panel {
@@ -5746,7 +5760,7 @@ textarea {
   .booking-card__meta {
     gap: 16px;
     margin-top: 30px;
-    font-size: 20px;
+    font-size: var(--type-subhead);
   }
 
   .calendar-embed {
@@ -5760,7 +5774,7 @@ textarea {
   }
 
   .calendar-embed__header strong {
-    font-size: 26px;
+    font-size: var(--type-card-title-fixed);
   }
 
   .calendar-embed__weekdays,
@@ -5769,14 +5783,14 @@ textarea {
   }
 
   .calendar-embed__weekdays span {
-    font-size: 11px;
+    font-size: var(--type-micro);
     letter-spacing: 0.08em;
   }
 
   .calendar-embed__grid button,
   .calendar-embed__grid span {
     border-radius: 12px;
-    font-size: 18px;
+    font-size: var(--type-body-xl);
   }
 
   .tool-ui-visual {
@@ -5797,7 +5811,7 @@ textarea {
   .page-hero span,
   .case-hero span {
     max-width: 100%;
-    font-size: 17px;
+    font-size: var(--type-body-md);
   }
 
   .section-heading h2,
@@ -5912,7 +5926,7 @@ textarea {
   }
 
   .pill-cloud h3 {
-    font-size: 34px;
+    font-size: var(--type-mobile-title);
   }
 
   .principle-row {
