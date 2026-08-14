@@ -6,6 +6,7 @@ import { Check, ChevronDown, Clock, Globe2, Mail } from "lucide-react";
 import Link from "next/link";
 import { type CSSProperties, FormEvent, useEffect, useState } from "react";
 import { clientLogos, faqs, logoRail, metrics, pricingTiers, processSteps, projects, projectTypes, services } from "@/lib/content";
+import { CtaArrow, MeetingIcons } from "./UIPrimitives";
 
 type Project = (typeof projects)[number];
 
@@ -176,14 +177,6 @@ export function FoldGlyph({ small = false }: { small?: boolean }) {
   );
 }
 
-function MeetingIcons() {
-  return (
-    <span className="meeting-icons" aria-hidden="true">
-      <img src="/icons/google-meet-2026.webp" alt="" width={24} height={24} />
-    </span>
-  );
-}
-
 export function PremiumButton({
   href,
   children,
@@ -201,11 +194,7 @@ export function PremiumButton({
     <a href={href} className={secondary ? "premium-button premium-button--secondary" : "premium-button"}>
       {meeting ? <MeetingIcons /> : null}
       <span>{children}</span>
-      {hideArrow ? null : (
-        <span className="cta-arrow" aria-hidden="true">
-          <img src="/right-arrow.svg" alt="" width={20} height={20} />
-        </span>
-      )}
+      {hideArrow ? null : <CtaArrow size={20} />}
     </a>
   );
 }
@@ -507,9 +496,7 @@ function HowWeWorkSection() {
               <span className="showcase-card__overlay" aria-hidden="true">
                 <span>
                   Create Yours
-                  <span className="cta-arrow">
-                    <img src="/right-arrow.svg" alt="" width={18} height={18} />
-                  </span>
+                  <CtaArrow />
                 </span>
               </span>
             </div>
@@ -520,9 +507,7 @@ function HowWeWorkSection() {
       </div>
       <Link href="/work" className="showcase-more-link">
         More Options
-        <span className="cta-arrow" aria-hidden="true">
-          <img src="/right-arrow.svg" alt="" width={18} height={18} />
-        </span>
+        <CtaArrow />
       </Link>
     </section>
   );
@@ -695,9 +680,7 @@ export function ServicePanel({ service, index, primary = false }: { service: (ty
       </ul>
       <a href="/services" className="text-cta">
         View service
-        <span className="cta-arrow" aria-hidden="true">
-          <img src="/right-arrow.svg" alt="" width={18} height={18} />
-        </span>
+        <CtaArrow />
       </a>
     </motion.article>
   );
@@ -1119,9 +1102,7 @@ export function ContactForm() {
       </label>
       <button type="submit" className="submit-button">
         <span>Send inquiry</span>
-        <span className="cta-arrow" aria-hidden="true">
-          <img src="/right-arrow.svg" alt="" width={18} height={18} />
-        </span>
+        <CtaArrow />
       </button>
       <a className="email-fallback" href="mailto:hello@firstfold.studio">
         <Mail size={16} aria-hidden="true" />

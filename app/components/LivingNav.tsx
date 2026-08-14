@@ -4,6 +4,7 @@
 import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { CtaArrow, MeetingIcons } from "./UIPrimitives";
 
 const navItems = [
   { label: "Websites", href: "/services" },
@@ -83,13 +84,9 @@ export function LivingNav() {
       </nav>
 
       <a href="/contact" className="nav-cta">
-        <span className="meeting-icons" aria-hidden="true">
-          <img src="/icons/google-meet-2026.webp" alt="" width={24} height={24} />
-        </span>
+        <MeetingIcons />
         <span>30 Mins. Call</span>
-        <span className="cta-arrow" aria-hidden="true">
-          <img src="/right-arrow.svg" alt="" width={16} height={16} />
-        </span>
+        <CtaArrow size={16} />
       </a>
 
       <a href="/contact" className="nav-mobile-call" aria-label="Book a call">
@@ -112,9 +109,7 @@ export function LivingNav() {
             <span className="nav-link__body">
               <span>{item.label}</span>
             </span>
-            <span className="cta-arrow" aria-hidden="true">
-              <img src="/right-arrow.svg" alt="" width={16} height={16} />
-            </span>
+            <CtaArrow size={16} />
           </a>
         ))}
       </div>
