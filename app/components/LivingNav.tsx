@@ -18,24 +18,11 @@ export function LivingNav() {
   const [scrolled, setScrolled] = useState(false);
   const [showBookCall, setShowBookCall] = useState(false);
   const [heroTopNav, setHeroTopNav] = useState(pathname === "/");
-  const [navIntroDone, setNavIntroDone] = useState(pathname !== "/");
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
     return pathname === href || pathname.startsWith(`${href}/`);
   };
-
-  useEffect(() => {
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const reset = window.setTimeout(() => setNavIntroDone(pathname !== "/" || reduced), 0);
-    if (pathname !== "/" || reduced) return () => window.clearTimeout(reset);
-
-    const timer = window.setTimeout(() => setNavIntroDone(true), 1980);
-    return () => {
-      window.clearTimeout(reset);
-      window.clearTimeout(timer);
-    };
-  }, [pathname]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -50,16 +37,12 @@ export function LivingNav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, [pathname]);
 
-  if (pathname === "/" && !navIntroDone) {
-    return null;
-  }
-
   return (
     <>
       <div className={showBookCall ? "site-nav-backdrop site-nav-backdrop--visible" : "site-nav-backdrop"} aria-hidden="true" />
-      <header className={["site-nav", scrolled ? "site-nav--compact" : "", showBookCall ? "site-nav--show-cta" : "", heroTopNav ? "site-nav--home-rail" : "", heroTopNav && !navIntroDone ? "site-nav--loader-wait" : ""].filter(Boolean).join(" ")}>
+      <header className={["site-nav", scrolled ? "site-nav--compact" : "", showBookCall ? "site-nav--show-cta" : "", heroTopNav ? "site-nav--home-rail" : ""].filter(Boolean).join(" ")}>
       <a href="/" className="brand-mark" aria-label="FirstFold Studio home">
-        <img src="/favicon.png" alt="" width={96} height={96} />
+        <img className="brand-mark__full" src="/firstfold-logo-nav.svg" alt="" width={2044} height={380} />
       </a>
 
       <nav className="nav-links" aria-label="Primary navigation">
@@ -77,12 +60,11 @@ export function LivingNav() {
 
       <a href="/contact" className="nav-cta">
         <MeetingIcons />
-        <span>30 Mins. Call</span>
-        <CtaArrow size={16} />
+        <span>Book a Call</span>
       </a>
 
       <a href="/contact" className="nav-mobile-call" aria-label="Book a 30 minute call">
-        <span>30 Mins.</span>
+        <span>Book a Call</span>
       </a>
 
       <button

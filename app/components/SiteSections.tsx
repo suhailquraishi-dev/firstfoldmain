@@ -1,11 +1,11 @@
 "use client";
 
 /* eslint-disable @next/next/no-img-element */
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Check, ChevronDown, Clock, Globe2, Mail } from "lucide-react";
 import Link from "next/link";
-import { type CSSProperties, FormEvent, useEffect, useState } from "react";
-import { clientLogos, faqs, logoRail, metrics, pricingTiers, processSteps, projects, projectTypes, services } from "@/lib/content";
+import { type CSSProperties, FormEvent, useState } from "react";
+import { faqs, logoRail, metrics, pricingTiers, processSteps, projects, projectTypes, services } from "@/lib/content";
 import { CtaArrow, FoldGlyph, MeetingIcons, MotionText, PremiumButton, SectionFrame, StatusBadge, TextCta } from "./UIPrimitives";
 
 type Project = (typeof projects)[number];
@@ -172,7 +172,6 @@ const bookingAvailableDays = new Set([6, 7, 8, 10, 11, 12, 13, 14, 15]);
 export function HomePage() {
   return (
     <main className="home-main">
-      <HomeLoader />
       <Hero />
       <div className="home-scroll-surface">
         <HowWeWorkSection />
@@ -186,24 +185,6 @@ export function HomePage() {
         <HomeBookingSection />
       </div>
     </main>
-  );
-}
-
-function HomeLoader() {
-  return (
-    <div className="home-loader" aria-hidden="true">
-      <div className="home-loader__grid">
-        <span className="home-loader__line home-loader__line--top" />
-        <span className="home-loader__line home-loader__line--left" />
-        <span className="home-loader__line home-loader__line--right" />
-        <span className="home-loader__line home-loader__line--center-x" />
-        <span className="home-loader__line home-loader__line--center-y" />
-        <span className="home-loader__line home-loader__line--lower" />
-        <span className="home-loader__line home-loader__line--inner-left" />
-        <span className="home-loader__line home-loader__line--inner-right" />
-      </div>
-      <img className="home-loader__logo" src="/firstfold-logo.svg" alt="" width={2044} height={380} />
-    </div>
   );
 }
 
@@ -314,61 +295,32 @@ export function CredsDeck() {
 }
 
 function Hero() {
-  const reduced = useReducedMotion();
-  const trustedLogos = clientLogos.slice(0, 6);
-  const [trustedLogoIndex, setTrustedLogoIndex] = useState(0);
-  const trustedLogo = trustedLogos[trustedLogoIndex];
-
-  useEffect(() => {
-    if (reduced || trustedLogos.length < 2) return;
-
-    const interval = window.setInterval(() => {
-      setTrustedLogoIndex((index) => (index + 1) % trustedLogos.length);
-    }, 2800);
-
-    return () => window.clearInterval(interval);
-  }, [reduced, trustedLogos.length]);
-
   return (
-    <section className="hero-shell hero-shell--landing theme-yellow" style={{ "--hero-bg": "url('/images/homepage-hero-bg.webp')" } as CSSProperties}>
-      <div className="hero-lines" aria-hidden="true">
-        <span />
-        <span />
-        <span />
-      </div>
+    <section
+      className="hero-shell hero-shell--landing theme-yellow"
+      style={
+        {
+          "--hero-bg": "url('/images/hero/home-gradient-desktop.webp')",
+          "--hero-bg-mobile": "url('/images/hero/home-gradient-mobile.webp')",
+        } as CSSProperties
+      }
+    >
       <div className="hero-grid">
         <div className="hero-copy">
-          <h1>
-            Don&apos;t build like you&apos;re Series A when <span className="hero-title-mark">you&apos;re on V1.</span>
+          <h1 aria-label="Build what matters. Scale when ready.">
+            <span className="hero-title-line"><span className="hero-title-mark">Build what matters.</span></span>{" "}
+            <span className="hero-title-line">Scale when ready.</span>
           </h1>
           <p className="hero-subtitle">
             Launch-ready websites for your first version, built in 5–7 days.
           </p>
           <div className="hero-actions">
-            <PremiumButton href="/contact" meeting>
-              30 Mins. Call
+            <PremiumButton href="/contact" meeting hideArrow>
+              Book a Call
             </PremiumButton>
             <PremiumButton href="/pricing" secondary hideArrow>
               View Plans
             </PremiumButton>
-          </div>
-        </div>
-        <div className="hero-client-stack" aria-label="Trusted FirstFold clients">
-          <span>Trusted by</span>
-          <div>
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.img
-                key={trustedLogo.name}
-                src={trustedLogo.src}
-                alt={trustedLogo.name}
-                width={180}
-                height={46}
-                initial={reduced ? false : { opacity: 0, x: -22, filter: "brightness(0) invert(1) blur(6px)" }}
-                animate={reduced ? { opacity: 0.88, x: 0, filter: "brightness(0) invert(1) blur(0px)" } : { opacity: 0.88, x: 0, filter: "brightness(0) invert(1) blur(0px)" }}
-                exit={reduced ? { opacity: 0 } : { opacity: 0, x: 22, filter: "brightness(0) invert(1) blur(6px)" }}
-                transition={{ duration: 0.72, ease: [0.16, 1, 0.3, 1] }}
-              />
-            </AnimatePresence>
           </div>
         </div>
       </div>

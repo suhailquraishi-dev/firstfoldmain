@@ -36,13 +36,13 @@ test("server-renders the FirstFold Studio homepage", async () => {
 
   const html = await response.text();
   assert.match(html, /<title>FirstFold Studio \| AI-Native Websites<\/title>/i);
-  assert.match(html, /home-loader__logo/);
+  assert.doesNotMatch(html, /home-loader__logo/);
   assert.match(html, /home-scroll-surface/);
-  assert.match(html, /Don&#x27;t build like you&#x27;re Series A/);
+  assert.match(html, /Build what matters\. Scale when ready\./);
   assert.match(html, /Launch-ready websites for your first version, built in 5–7 days/);
   assert.doesNotMatch(html, /Everything you need to take your idea/);
   assert.doesNotMatch(html, /About FirstFold Studio/);
-  assert.match(html, /30 Mins\. Call/);
+  assert.match(html, /Book a Call/);
   assert.match(html, /View Plans/);
   assert.doesNotMatch(html, /Explore plans/);
   assert.doesNotMatch(html, /Work reel/);
@@ -84,7 +84,7 @@ test("server-renders the FirstFold Studio homepage", async () => {
   assert.match(html, /Enterprise GTM/);
   assert.match(html, /Productized services/);
   assert.match(html, /Package what you do\. Make it easier to buy/);
-  assert.match(html, /Trusted by/);
+  assert.doesNotMatch(html, /Trusted by/);
   assert.doesNotMatch(html, /Proof, packaged/);
   assert.doesNotMatch(html, /images\/creds\/s1\.jpg/);
   assert.doesNotMatch(html, /Tools we build with/);
@@ -111,7 +111,7 @@ test("server-renders the FirstFold Studio homepage", async () => {
   assert.match(html, /10-21d/);
   assert.match(html, /favicon\.png/);
   assert.doesNotMatch(html, /human-team\.png/);
-  assert.match(html, /logos\/clients\/client-1\.svg/);
+  assert.doesNotMatch(html, /logos\/clients\/client-1\.svg/);
   assert.doesNotMatch(html, /logos\/clients\/client-4\.svg/);
   assert.match(html, /logos\/nextjs\.svg/);
   assert.match(html, /logos\/cursor\.svg/);

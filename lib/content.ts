@@ -21,14 +21,6 @@ export const logoRail = [
   { name: "Replit", wordmark: "Replit", src: "/logos/replit.svg" },
 ];
 
-export const clientLogos = [
-  { name: "Client 1", src: "/logos/clients/client-1.svg" },
-  { name: "Client 2", src: "/logos/clients/client-2.svg" },
-  { name: "Client 3", src: "/logos/clients/client-3.svg" },
-  { name: "Client 5", src: "/logos/clients/client-5.svg" },
-  { name: "Client 6", src: "/logos/clients/client-6.svg" },
-];
-
 export const services = [
   {
     name: "AI-Native Websites",
