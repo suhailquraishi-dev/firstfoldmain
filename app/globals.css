@@ -6167,6 +6167,9 @@ body {
 }
 
 .capabilities-section {
+  display: grid;
+  align-items: center;
+  min-height: clamp(640px, 72svh, 860px);
   background: #fff;
 }
 
