@@ -6127,6 +6127,7 @@ body {
   justify-self: end;
   width: min(100%, 660px);
   aspect-ratio: 1 / 1;
+  will-change: transform;
 }
 
 .hero-artwork img {

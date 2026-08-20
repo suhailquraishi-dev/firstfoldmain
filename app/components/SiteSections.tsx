@@ -1,7 +1,7 @@
 "use client";
 
 /* eslint-disable @next/next/no-img-element */
-import { AnimatePresence, motion, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
+import { AnimatePresence, motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
 import { Check, ChevronDown, Clock, Globe2, Mail } from "lucide-react";
 import Link from "next/link";
 import { type CSSProperties, FormEvent, type PointerEvent as ReactPointerEvent, useRef, useState } from "react";
@@ -269,10 +269,14 @@ export function CredsDeck() {
 }
 
 function Hero() {
+  const reducedMotion = useReducedMotion();
+  const { scrollY } = useScroll();
+  const artworkY = useTransform(scrollY, [0, 900], [0, -112]);
+
   return (
     <section className="hero-shell hero-shell--landing theme-yellow">
       <div className="hero-grid">
-        <div className="hero-copy">
+        <motion.div className="hero-copy" style={reducedMotion ? undefined : { y: artworkY }}>
           <h1 aria-label="Helping Founders Raise Next Million">
             <span className="hero-title-line hero-title-line--sans hero-title-line--ink">Helping</span>
             <span className="hero-title-line hero-title-line--sans hero-title-line--ink">Founders Raise</span>
@@ -289,10 +293,10 @@ function Hero() {
               View Plans
             </PremiumButton>
           </div>
-        </div>
-        <div className="hero-artwork" aria-hidden="true">
+        </motion.div>
+        <motion.div className="hero-artwork" aria-hidden="true" style={reducedMotion ? undefined : { y: artworkY }}>
           <img src="/images/hero/firstfold-vision-craft.webp" alt="" width={1341} height={1351} />
-        </div>
+        </motion.div>
       </div>
     </section>
   );
