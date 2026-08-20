@@ -3,7 +3,7 @@
 /* eslint-disable @next/next/no-html-link-for-pages, @next/next/no-img-element */
 import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CtaArrow } from "./UIPrimitives";
 
 const navItems = [
@@ -15,6 +15,28 @@ const navItems = [
 export function LivingNav() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [backed, setBacked] = useState(pathname !== "/");
+
+  useEffect(() => {
+    const updateBacked = () => {
+      if (pathname !== "/") {
+        setBacked(true);
+        return;
+      }
+
+      const hero = document.querySelector<HTMLElement>(".hero-shell--landing");
+      setBacked(hero ? window.scrollY >= hero.offsetHeight - 86 : window.scrollY > 24);
+    };
+
+    const frame = requestAnimationFrame(updateBacked);
+    window.addEventListener("scroll", updateBacked, { passive: true });
+    window.addEventListener("resize", updateBacked);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", updateBacked);
+      window.removeEventListener("resize", updateBacked);
+    };
+  }, [pathname]);
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
@@ -22,7 +44,7 @@ export function LivingNav() {
   };
 
   return (
-    <header className="site-nav site-nav--show-cta">
+    <header className={backed ? "site-nav site-nav--show-cta site-nav--backed" : "site-nav site-nav--show-cta"}>
       <a href="/" className="brand-mark" aria-label="FirstFold Studio home">
         <img className="brand-mark__full" src="/firstfold-logo-nav.svg" alt="" width={745} height={121} />
       </a>

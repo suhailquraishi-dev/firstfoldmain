@@ -487,6 +487,26 @@ textarea {
     transform 260ms cubic-bezier(0.2, 1.2, 0.26, 1);
 }
 
+.site-nav::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: -1;
+  height: 76px;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-ink) 8%, transparent);
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 12px 34px color-mix(in srgb, var(--color-ink) 8%, transparent);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease;
+}
+
+.site-nav--backed::before {
+  opacity: 1;
+}
+
 .site-nav--compact {
   background: transparent;
 }
@@ -4545,6 +4565,10 @@ textarea {
 }
 
 @media (max-width: 1430px) {
+  .site-nav::before {
+    height: 74px;
+  }
+
   .site-nav {
     top: 12px;
     right: 18px;
@@ -6255,7 +6279,7 @@ body {
 
 .homepage-banner-section {
   padding: 0 var(--site-gutter) var(--site-section-y);
-  background: #ffe466;
+  background: var(--color-surface);
 }
 
 .homepage-banner-link {
@@ -6782,6 +6806,10 @@ body {
 }
 
 @media (max-width: 520px) {
+  .site-nav::before {
+    height: 60px;
+  }
+
   .site-nav,
   .site-nav--home-rail {
     top: 10px;
