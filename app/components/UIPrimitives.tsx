@@ -2,7 +2,8 @@
 
 /* eslint-disable @next/next/no-img-element */
 import { motion, useReducedMotion } from "framer-motion";
-import { type ReactNode } from "react";
+import { usePathname } from "next/navigation";
+import { type ReactNode, useEffect, useState } from "react";
 
 export function CtaArrow({ size = 18 }: { size?: number }) {
   return (
@@ -66,8 +67,37 @@ export function PremiumButton({
 }
 
 export function MobileStickyCTAs() {
+  const pathname = usePathname();
+  const [heroPassed, setHeroPassed] = useState(false);
+  const isVisible = pathname !== "/" || heroPassed;
+
+  useEffect(() => {
+    if (pathname !== "/") {
+      return;
+    }
+
+    const updateHeroPassed = () => {
+      const hero = document.querySelector<HTMLElement>(".hero-shell--landing");
+      if (!hero) {
+        setHeroPassed(true);
+        return;
+      }
+
+      setHeroPassed(hero.getBoundingClientRect().bottom <= 96);
+    };
+
+    const frame = requestAnimationFrame(updateHeroPassed);
+    window.addEventListener("scroll", updateHeroPassed, { passive: true });
+    window.addEventListener("resize", updateHeroPassed);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", updateHeroPassed);
+      window.removeEventListener("resize", updateHeroPassed);
+    };
+  }, [pathname]);
+
   return (
-    <nav className="mobile-sticky-ctas" aria-label="Mobile primary actions">
+    <nav className={isVisible ? "mobile-sticky-ctas is-visible" : "mobile-sticky-ctas"} aria-label="Mobile primary actions">
       <a className="mobile-sticky-ctas__button mobile-sticky-ctas__button--primary" href="/contact">
         Book a Call
       </a>

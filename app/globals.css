@@ -5930,8 +5930,8 @@ textarea {
 
 /* 2026 site-wide consistency pass */
 :root {
-  --background: #f4f4f4;
-  --color-page: #f4f4f4;
+  --background: #f7f7f7;
+  --color-page: #f7f7f7;
   --site-gutter: max(22px, calc((100vw - 1440px) / 2 + 48px));
   --site-section-y: clamp(88px, 8vw, 128px);
   --site-section-y-mobile: 68px;
@@ -5979,7 +5979,7 @@ body {
 .hero-shell--landing {
   min-height: 100svh;
   padding: clamp(104px, 8vw, 130px) var(--site-gutter) clamp(48px, 5vw, 76px);
-  background: #f4f4f4;
+  background: #f7f7f7;
   color: var(--color-ink);
 }
 
@@ -7361,6 +7361,16 @@ body {
     border-top: 1px solid color-mix(in srgb, var(--color-ink) 12%, transparent);
     background: color-mix(in srgb, var(--color-surface) 96%, transparent);
     box-shadow: 0 -16px 36px color-mix(in srgb, var(--color-ink) 10%, transparent);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(100%);
+    transition: opacity 180ms ease, transform 180ms ease;
+  }
+
+  .mobile-sticky-ctas.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
   }
 
   .mobile-sticky-ctas__button {
@@ -7388,5 +7398,13 @@ body {
     border-color: color-mix(in srgb, var(--color-ink) 8%, transparent);
     color: var(--color-ink);
     background: var(--color-highlight-soft);
+  }
+
+  .hero-grid {
+    gap: 36px;
+  }
+
+  .hero-actions {
+    margin-bottom: 8px;
   }
 }
