@@ -46,6 +46,8 @@ test("server-renders the FirstFold Studio homepage", async () => {
   assert.doesNotMatch(html, /About FirstFold Studio/);
   assert.match(html, /Book a Call/);
   assert.match(html, /View Plans/);
+  assert.match(html, /mobile-sticky-ctas/);
+  assert.match(html, /Mobile primary actions/);
   assert.doesNotMatch(html, /Explore plans/);
   assert.doesNotMatch(html, /Work reel/);
   assert.doesNotMatch(html, /Previous work, packaged like a launch film/);
@@ -185,6 +187,7 @@ test("renders the planned routes and removes the starter shell", async () => {
   assert.match(caseStudy, /Next project:[\s\S]*Founder Field Notes/);
   assert.match(page, /<HomePage \/>/);
   assert.match(layout, /openGraph/);
+  assert.match(layout, /MobileStickyCTAs/);
   assert.doesNotMatch(layout, /Starter Project|codex-preview|_sites-preview/);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);
 

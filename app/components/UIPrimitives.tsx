@@ -65,6 +65,19 @@ export function PremiumButton({
   );
 }
 
+export function MobileStickyCTAs() {
+  return (
+    <nav className="mobile-sticky-ctas" aria-label="Mobile primary actions">
+      <a className="mobile-sticky-ctas__button mobile-sticky-ctas__button--primary" href="/contact">
+        Book a Call
+      </a>
+      <a className="mobile-sticky-ctas__button mobile-sticky-ctas__button--secondary" href="/pricing">
+        View Plans
+      </a>
+    </nav>
+  );
+}
+
 export function TextCta({
   href,
   children,

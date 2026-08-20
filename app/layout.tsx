@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ClientProviders } from "./components/ClientProviders";
 import { FinalCTA, Footer } from "./components/SiteSections";
 import { LivingNav } from "./components/LivingNav";
+import { MobileStickyCTAs } from "./components/UIPrimitives";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -42,6 +43,7 @@ export default function RootLayout({
           {children}
           <FinalCTA />
           <Footer />
+          <MobileStickyCTAs />
         </ClientProviders>
       </body>
     </html>
