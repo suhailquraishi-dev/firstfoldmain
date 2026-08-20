@@ -6299,6 +6299,7 @@ body {
 
 .audience-fit-section {
   max-width: none;
+  border-top: 0;
   background: #fff;
 }
 
