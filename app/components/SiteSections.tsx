@@ -1,10 +1,10 @@
 "use client";
 
 /* eslint-disable @next/next/no-img-element */
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
 import { Check, ChevronDown, Clock, Globe2, Mail } from "lucide-react";
 import Link from "next/link";
-import { type CSSProperties, FormEvent, useState } from "react";
+import { type CSSProperties, FormEvent, type PointerEvent as ReactPointerEvent, useRef, useState } from "react";
 import { faqs, logoRail, metrics, pricingTiers, processSteps, projects, projectTypes, services } from "@/lib/content";
 import { CtaArrow, FoldGlyph, MeetingIcons, MotionText, PremiumButton, SectionFrame, StatusBadge, TextCta } from "./UIPrimitives";
 
@@ -110,18 +110,6 @@ const capabilityColumns = [
     items: ["Reusable sections", "Analytics setup", "Handoff notes", "Iteration map", "Updates", "Post-launch support"],
   },
 ];
-const teamMembers = [
-  {
-    name: "Suhail Quraishi",
-    role: "CEO & Founder",
-    image: "/images/team/orange-profile.png",
-  },
-  {
-    name: "Kanak Priya Raj",
-    role: "Chief Marketing Officer & Sales",
-    image: "/images/team/orange-profile.png",
-  },
-];
 const credsDeckSlides = [
   { title: "Creds slide 1", src: "/images/creds/s1.jpg" },
   { title: "Creds slide 2", src: "/images/creds/s2.jpg" },
@@ -174,15 +162,15 @@ export function HomePage() {
     <main className="home-main">
       <Hero />
       <div className="home-scroll-surface">
+        <FounderNote />
         <HowWeWorkSection />
         <HomepageBanner />
         <AudienceFitSection />
-        <ToolRail />
         <ProcessTeaser />
-        <FounderNote />
+        <ToolRail />
+        <HomePricingSection />
         <TeamSection />
         <FAQAccordion />
-        <HomeBookingSection />
       </div>
     </main>
   );
@@ -258,20 +246,6 @@ function TrackLink({ href, label, meta, meeting = false }: { href: string; label
   );
 }
 
-function HomeBookingSection() {
-  return (
-    <section className="home-booking-section">
-      <div className="home-booking-layout">
-        <div className="home-booking-copy">
-          <h2>Book a call.</h2>
-          <p>Pick the sprint shape. We will reply with the cleanest next step.</p>
-        </div>
-        <BookingPreview />
-      </div>
-    </section>
-  );
-}
-
 export function CredsDeck() {
   return (
     <section className="creds-deck-section" aria-label="FirstFold creds deck preview">
@@ -296,32 +270,28 @@ export function CredsDeck() {
 
 function Hero() {
   return (
-    <section
-      className="hero-shell hero-shell--landing theme-yellow"
-      style={
-        {
-          "--hero-bg": "url('/images/hero/home-gradient-desktop.webp')",
-          "--hero-bg-mobile": "url('/images/hero/home-gradient-mobile.webp')",
-        } as CSSProperties
-      }
-    >
+    <section className="hero-shell hero-shell--landing theme-yellow">
       <div className="hero-grid">
         <div className="hero-copy">
-          <h1 aria-label="Build what matters. Scale when ready.">
-            <span className="hero-title-line"><span className="hero-title-mark">Build what matters.</span></span>{" "}
-            <span className="hero-title-line">Scale when ready.</span>
+          <h1 aria-label="Helping Founders Raise Next Million">
+            <span className="hero-title-line hero-title-line--editorial">Helping</span>
+            <span className="hero-title-line hero-title-line--sans">Founders Raise</span>
+            <span className="hero-title-line hero-title-line--editorial hero-title-line--ink">Next Million</span>
           </h1>
           <p className="hero-subtitle">
             Launch-ready websites for your first version, built in 5–7 days.
           </p>
           <div className="hero-actions">
-            <PremiumButton href="/contact" meeting hideArrow>
+            <PremiumButton href="/contact" hideArrow>
               Book a Call
             </PremiumButton>
             <PremiumButton href="/pricing" secondary hideArrow>
               View Plans
             </PremiumButton>
           </div>
+        </div>
+        <div className="hero-artwork" aria-hidden="true">
+          <img src="/images/hero/firstfold-vision-craft.webp" alt="" width={1341} height={1351} />
         </div>
       </div>
     </section>
@@ -601,26 +571,140 @@ function FounderNote() {
   );
 }
 
-function TeamSection() {
+function HomePricingSection() {
+  const proTier = pricingTiers[0];
+  const plusTier = pricingTiers[1];
+  const included = proTier.includes.slice(0, 4);
+  const paidIncluded = plusTier.includes.slice(0, 4);
+
   return (
-    <section className="team-section" aria-labelledby="team-title">
-      <div className="team-section__copy">
-        <h2 id="team-title">
-          <MotionText>Meet the team</MotionText>
+    <section className="home-pricing-section" aria-labelledby="home-pricing-title">
+      <div className="home-pricing-copy">
+        <h2 id="home-pricing-title">
+          <MotionText>Choose your plan</MotionText>
         </h2>
-        <p>People on the other side of the screen, ready to help you launch cleaner.</p>
+        <p>Built for where you are, and where you are going.</p>
       </div>
-      <div className="team-list" aria-label="FirstFold team">
-        {teamMembers.map((member) => (
-          <article className="team-member" key={member.name}>
-            <img src={member.image} alt="" width={192} height={192} loading="lazy" />
+      <div className="home-pricing-cards">
+        <article className="home-pricing-card home-pricing-card--light">
+          <div className="home-pricing-card__top">
             <div>
-              <h3>{member.name}</h3>
-              <p>{member.role}</p>
+              <span className="home-pricing-card__eyebrow">Launch essentials</span>
+              <h3>{proTier.name}</h3>
             </div>
-          </article>
-        ))}
+            <div className="home-pricing-card__price">
+              <strong>{proTier.price}</strong>
+              <small>{proTier.timeline}</small>
+            </div>
+          </div>
+          <p className="home-pricing-card__summary">{proTier.summary}</p>
+          <ul className="home-pricing-card__features">
+            {included.map((item) => (
+              <li key={item}>
+                <Check size={15} aria-hidden="true" />
+                {item}
+              </li>
+            ))}
+          </ul>
+          <PremiumButton href="/contact" secondary hideArrow>
+            {proTier.cta}
+          </PremiumButton>
+        </article>
+        <article className="home-pricing-card home-pricing-card--orange">
+          <div className="home-pricing-card__top">
+            <div>
+              <span className="home-pricing-card__eyebrow">More room to build</span>
+              <h3>{plusTier.name}</h3>
+            </div>
+            <div className="home-pricing-card__price">
+              <strong>{plusTier.price}</strong>
+              <small>{plusTier.timeline}</small>
+            </div>
+          </div>
+          <p className="home-pricing-card__summary">{plusTier.summary}</p>
+          <ul className="home-pricing-card__features">
+            {paidIncluded.map((item) => (
+              <li key={item}>
+                <Check size={15} aria-hidden="true" />
+                {item}
+              </li>
+            ))}
+          </ul>
+          <PremiumButton href="/pricing" hideArrow>
+            See all plans
+          </PremiumButton>
+        </article>
       </div>
+      <Link href="/contact" className="home-pricing-sales-link">
+        Looking for something custom? <strong>Contact us</strong>
+        <CtaArrow />
+      </Link>
+    </section>
+  );
+}
+
+function TeamSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const reducedMotion = useReducedMotion();
+  const pointerX = useMotionValue(-600);
+  const pointerY = useMotionValue(-600);
+  const glowX = useSpring(pointerX, { stiffness: 110, damping: 24, mass: 0.45 });
+  const glowY = useSpring(pointerY, { stiffness: 110, damping: 24, mass: 0.45 });
+  const trailX = useSpring(pointerX, { stiffness: 58, damping: 22, mass: 0.8 });
+  const trailY = useSpring(pointerY, { stiffness: 58, damping: 22, mass: 0.8 });
+
+  const moveGlow = (event: ReactPointerEvent<HTMLElement>) => {
+    if (reducedMotion || event.pointerType !== "mouse") return;
+    const bounds = sectionRef.current?.getBoundingClientRect();
+    if (!bounds) return;
+    pointerX.set(event.clientX - bounds.left - 260);
+    pointerY.set(event.clientY - bounds.top - 260);
+  };
+
+  const hideGlow = () => {
+    pointerX.set(-600);
+    pointerY.set(-600);
+  };
+
+  return (
+    <section
+      ref={sectionRef}
+      className="team-section founder-spotlight"
+      aria-labelledby="team-title"
+      onPointerMove={moveGlow}
+      onPointerLeave={hideGlow}
+    >
+      <motion.div
+        className="founder-spotlight__glow founder-spotlight__glow--primary"
+        style={{ x: glowX, y: glowY }}
+        aria-hidden="true"
+      />
+      <motion.div
+        className="founder-spotlight__glow founder-spotlight__glow--trail"
+        style={{ x: trailX, y: trailY }}
+        aria-hidden="true"
+      />
+      <div className="team-section__copy">
+        <span className="team-section__eyebrow">Founder note / 01</span>
+        <h2 id="team-title">
+          <MotionText>Hear from the founder</MotionText>
+        </h2>
+        <p>Why FirstFold exists.</p>
+      </div>
+      <figure className="founder-note">
+        <div className="founder-note__identity">
+          <img src="/images/team/orange-profile.png" alt="" width={192} height={192} loading="lazy" />
+          <figcaption>
+            <strong>Suhail Quraishi</strong>
+            <span>CEO &amp; Founder</span>
+          </figcaption>
+        </div>
+        <blockquote>
+          <span aria-hidden="true">“</span>
+          A lot of founders start with big ambitions, but turning an idea into something real is often the hardest part.
+          That’s where we come in—to help them take their first step, and take it right.
+        </blockquote>
+      </figure>
     </section>
   );
 }
@@ -992,9 +1076,28 @@ export function PageHero({ title, copy }: { title: string; copy: string }) {
   );
 }
 
+export function FinalCTA() {
+  return (
+    <section className="final-cta" aria-labelledby="final-cta-title">
+      <div className="final-cta__copy">
+        <p>Have an idea worth launching?</p>
+        <h2 id="final-cta-title">
+          <span>Make the first</span>
+          <strong>version count.</strong>
+        </h2>
+        <span>Tell us what you are building. We will help shape the clearest way to launch it.</span>
+        <PremiumButton href="/contact" secondary hideArrow>
+          Book a Call
+        </PremiumButton>
+      </div>
+      <img src="/images/hero/firstfold-vision-craft.webp" alt="" width={1341} height={1351} loading="lazy" />
+    </section>
+  );
+}
+
 export function Footer() {
   return (
-    <footer className="site-footer theme-orange">
+    <footer className="site-footer">
       <div className="footer-directory">
         <nav aria-label="Footer products">
           <h2>Products</h2>
@@ -1025,7 +1128,7 @@ export function Footer() {
         <span>© 2026 FirstFold Studio</span>
         <a href="mailto:hello@firstfold.studio">hello@firstfold.studio</a>
       </div>
-      <img className="footer-wordmark" src="/firstfold-wordmark.svg" alt="FirstFold" width={1476} height={319} loading="lazy" />
+      <img className="footer-wordmark" src="/firstfold-logo-nav.svg" alt="FirstFold" width={745} height={121} loading="lazy" />
     </footer>
   );
 }

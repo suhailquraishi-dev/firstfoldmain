@@ -1,7 +1,6 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import Lenis from "lenis";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -9,30 +8,6 @@ export function ClientProviders({ children }: { children: React.ReactNode }) {
   const [cursor, setCursor] = useState({ x: -100, y: -100 });
   const [active, setActive] = useState(false);
   const pathname = usePathname();
-
-  useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      return;
-    }
-
-    const lenis = new Lenis({
-      duration: 1.05,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-    });
-
-    let frame = 0;
-    const raf = (time: number) => {
-      lenis.raf(time);
-      frame = requestAnimationFrame(raf);
-    };
-
-    frame = requestAnimationFrame(raf);
-    return () => {
-      cancelAnimationFrame(frame);
-      lenis.destroy();
-    };
-  }, []);
 
   useEffect(() => {
     const move = (event: PointerEvent) => {

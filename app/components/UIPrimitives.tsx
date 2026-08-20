@@ -23,7 +23,7 @@ export function MeetingIcons({ size = 24 }: { size?: number }) {
 export function FoldGlyph({ small = false }: { small?: boolean }) {
   return (
     <span className={small ? "fold-glyph fold-glyph--small" : "fold-glyph"} aria-hidden="true">
-      <span />
+      <img src="/firstfold-icon.svg" alt="" width={small ? 18 : 42} height={small ? 18 : 42} />
     </span>
   );
 }

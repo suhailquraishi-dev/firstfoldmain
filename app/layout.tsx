@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ClientProviders } from "./components/ClientProviders";
-import { Footer } from "./components/SiteSections";
+import { FinalCTA, Footer } from "./components/SiteSections";
 import { LivingNav } from "./components/LivingNav";
 import "./globals.css";
 
@@ -23,9 +23,9 @@ export const metadata: Metadata = {
     images: ["/og.png"],
   },
   icons: {
-    icon: "/favicon.png",
-    shortcut: "/favicon.png",
-    apple: "/favicon.png",
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+    apple: "/favicon.svg",
   },
 };
 
@@ -40,6 +40,7 @@ export default function RootLayout({
         <LivingNav />
         <ClientProviders>
           {children}
+          <FinalCTA />
           <Footer />
         </ClientProviders>
       </body>

@@ -3,8 +3,8 @@
 /* eslint-disable @next/next/no-html-link-for-pages, @next/next/no-img-element */
 import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-import { CtaArrow, MeetingIcons } from "./UIPrimitives";
+import { useState } from "react";
+import { CtaArrow } from "./UIPrimitives";
 
 const navItems = [
   { label: "Websites", href: "/services" },
@@ -15,34 +15,16 @@ const navItems = [
 export function LivingNav() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [showBookCall, setShowBookCall] = useState(false);
-  const [heroTopNav, setHeroTopNav] = useState(pathname === "/");
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
     return pathname === href || pathname.startsWith(`${href}/`);
   };
 
-  useEffect(() => {
-    const onScroll = () => {
-      setScrolled(window.scrollY > 24);
-      const isHomeTop = pathname === "/" && window.scrollY < window.innerHeight - 84;
-      setHeroTopNav(isHomeTop);
-      setShowBookCall(!isHomeTop);
-    };
-
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [pathname]);
-
   return (
-    <>
-      <div className={showBookCall ? "site-nav-backdrop site-nav-backdrop--visible" : "site-nav-backdrop"} aria-hidden="true" />
-      <header className={["site-nav", scrolled ? "site-nav--compact" : "", showBookCall ? "site-nav--show-cta" : "", heroTopNav ? "site-nav--home-rail" : ""].filter(Boolean).join(" ")}>
+    <header className="site-nav site-nav--show-cta">
       <a href="/" className="brand-mark" aria-label="FirstFold Studio home">
-        <img className="brand-mark__full" src="/firstfold-logo-nav.svg" alt="" width={2044} height={380} />
+        <img className="brand-mark__full" src="/firstfold-logo-nav.svg" alt="" width={745} height={121} />
       </a>
 
       <nav className="nav-links" aria-label="Primary navigation">
@@ -59,7 +41,6 @@ export function LivingNav() {
       </nav>
 
       <a href="/contact" className="nav-cta">
-        <MeetingIcons />
         <span>Book a Call</span>
       </a>
 
@@ -87,7 +68,6 @@ export function LivingNav() {
           </a>
         ))}
       </div>
-      </header>
-    </>
+    </header>
   );
 }
