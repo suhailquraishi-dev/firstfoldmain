@@ -274,9 +274,9 @@ function Hero() {
       <div className="hero-grid">
         <div className="hero-copy">
           <h1 aria-label="Helping Founders Raise Next Million">
-            <span className="hero-title-line hero-title-line--editorial">Helping</span>
-            <span className="hero-title-line hero-title-line--sans">Founders Raise</span>
-            <span className="hero-title-line hero-title-line--editorial hero-title-line--ink">Next Million</span>
+            <span className="hero-title-line hero-title-line--sans hero-title-line--ink">Helping</span>
+            <span className="hero-title-line hero-title-line--sans hero-title-line--ink">Founders Raise</span>
+            <span className="hero-title-line hero-title-line--editorial hero-title-line--orange">Next Million</span>
           </h1>
           <p className="hero-subtitle">
             Launch-ready websites for your first version, built in 5–7 days.
