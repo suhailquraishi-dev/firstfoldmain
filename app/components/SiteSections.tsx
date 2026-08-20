@@ -303,13 +303,14 @@ function ToolRail() {
 
   return (
     <section className="tool-rail-section" aria-label="Tools FirstFold builds with">
-      <div className="tool-ui-visual" aria-hidden="true">
+      <div className="tool-ui-visual">
         <div className="tool-ui-orbit tool-ui-orbit--outer" />
         <div className="tool-ui-orbit tool-ui-orbit--inner" />
         <div className="tool-ui-center">Our Stack</div>
         {featuredTools.map((logo, index) => (
-          <span className={`tool-ui-node ${index < 8 ? "tool-ui-node--outer" : "tool-ui-node--inner"} tool-ui-node--${index}`} key={logo.name}>
+          <span className={`tool-ui-node ${index < 8 ? "tool-ui-node--outer" : "tool-ui-node--inner"} tool-ui-node--${index}`} key={logo.name} tabIndex={0} aria-label={logo.name}>
             <img src={logo.src} alt="" width={42} height={42} loading="lazy" />
+            <span className="tool-ui-node__label" aria-hidden="true">{logo.name}</span>
           </span>
         ))}
       </div>
@@ -557,7 +558,6 @@ function FounderNote() {
       <div className="capabilities-grid">
         {capabilityColumns.map((column) => (
           <article className="capability-column" key={column.title}>
-            <span className={`capability-icon capability-icon--${column.icon}`} aria-hidden="true" />
             <h2>{column.title}</h2>
             <ul>
               {column.items.map((item) => (
