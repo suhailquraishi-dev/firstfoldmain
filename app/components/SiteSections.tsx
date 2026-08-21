@@ -1,7 +1,7 @@
 "use client";
 
 /* eslint-disable @next/next/no-img-element */
-import { AnimatePresence, motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
+import { motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
 import { Check, ChevronDown, Mail } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -68,40 +68,40 @@ const processDeliverables = [
 
 const audienceRows = [
   {
-    title: "Founders",
-    summary: "From idea to something people can actually use.",
+    title: "First launch",
+    summary: "Use Pro when the first public version needs to get clear and live.",
     description:
-      "Launching a new business or testing an idea? We help you get the essentials live — from your first website and brand presence to the assets you need to start selling, sharing, and validating.",
+      "Best for a focused founder website with the essential pages, responsive build, launch QA, and one clean decision path.",
   },
   {
-    title: "AI products",
-    summary: "Make the product feel as good as the technology behind it.",
+    title: "More story",
+    summary: "Use Plus when the offer needs more room to explain, prove, and compare.",
     description:
-      "We help AI products launch with clear positioning, polished websites, product visuals, demos, and launch assets — without spending months building a full brand system.",
+      "Best for a broader website with more pages, custom interactions, analytics setup, and a longer support window.",
   },
   {
-    title: "SaaS teams",
-    summary: "Everything you need to ship the next version.",
+    title: "Hands-on release",
+    summary: "Use Master when launch support matters before and after the site goes live.",
     description:
-      "Whether you're launching your V1, a new feature, or repositioning the product, we build the website, launch pages, visuals, and supporting assets needed to get it out quickly.",
+      "Best when the site needs priority revisions, advanced interactions, launch strategy, updates, and deeper post-launch backup.",
   },
   {
-    title: "Creator-led brands",
-    summary: "Turn an audience into a brand.",
+    title: "Founder-led offers",
+    summary: "Good fit when the buyer needs to understand the offer before they talk to you.",
     description:
-      "For creators launching products, communities, courses, or businesses. We build the digital presence around the launch — from landing pages and social assets to the visual system tying everything together.",
+      "FirstFold works well for services, products, tools, communities, and AI-enabled businesses that need a sharper public story.",
   },
   {
-    title: "Enterprise GTM",
-    summary: "Move faster without waiting on another internal cycle.",
+    title: "AI-assisted speed",
+    summary: "Fast does not mean generic.",
     description:
-      "We support GTM teams with campaign pages, launch assets, sales visuals, event creatives, and other execution-heavy work — built quickly and within your existing brand.",
+      "AI helps with research, structure, draft routes, and QA. Human judgment owns positioning, taste, hierarchy, and every shipped claim.",
   },
   {
-    title: "Productized services",
-    summary: "Package what you do. Make it easier to buy.",
+    title: "Room to grow",
+    summary: "The first version should not trap the second.",
     description:
-      "For agencies, consultants, studios, and service businesses turning expertise into a repeatable offer. We help structure, position, and launch it with the right website and supporting assets.",
+      "Plans stay focused, but the page system leaves room for product pages, resources, dashboards, proof, and future launches.",
   },
 ];
 
@@ -185,13 +185,13 @@ function Hero() {
     <section className="hero-shell hero-shell--landing theme-yellow">
       <div className="hero-grid">
         <motion.div className="hero-copy" style={reducedMotion ? undefined : { y: artworkY }}>
-          <h1 aria-label="Helping Founders Raise Next Million">
+          <h1 aria-label="Helping founders launch toward their next million in revenue, funding, or customers">
             <span className="hero-title-line hero-title-line--sans hero-title-line--ink">Helping</span>
-            <span className="hero-title-line hero-title-line--sans hero-title-line--ink">Founders Raise</span>
-            <span className="hero-title-line hero-title-line--editorial hero-title-line--orange">Next Million</span>
+            <span className="hero-title-line hero-title-line--sans hero-title-line--ink">Founders Launch</span>
+            <span className="hero-title-line hero-title-line--editorial hero-title-line--orange">Toward Their Next Million</span>
           </h1>
           <p className="hero-subtitle">
-            Launch-ready websites for your first version, starting in 5–7 days.
+            Launch-ready websites for funding, revenue, or first customers — starting in 5–7 days.
           </p>
           <div className="hero-actions">
             <PremiumButton href="/contact" hideArrow>
@@ -237,12 +237,12 @@ function HowWeWorkSection() {
   return (
     <section className="showcase-section" aria-labelledby="showcase-title">
       <div className="showcase-heading">
-        <span className="showcase-eyebrow">Ready to Go Live Website Library</span>
+        <span className="showcase-eyebrow">Independent website references</span>
         <div>
           <h2 id="showcase-title">
-            <MotionText>Launch-ready references, curated for founders.</MotionText>
+            <MotionText>Patterns we can learn from, not copy.</MotionText>
           </h2>
-          <p>Browse independent website references to discuss useful patterns, then shape an original first version.</p>
+          <p>These examples help us discuss useful direction, hierarchy, and proof. The work we build for you stays original to your offer.</p>
         </div>
       </div>
 
@@ -280,7 +280,7 @@ function HowWeWorkSection() {
         ))}
       </div>
       <Link href="/work" className="showcase-more-link">
-        More Options
+        See FirstFold concept work
         <CtaArrow />
       </Link>
     </section>
@@ -293,7 +293,7 @@ function HomepageBanner() {
       <Link href="/pricing" className="homepage-banner-link">
         <picture>
           <source srcSet="/images/homepage-banner-mobile.webp" media="(max-width: 700px)" width={236} height={324} />
-          <img src="/images/homepage-banner.webp" alt="Looking for something more curated? Personalised design, priced for founders. Check Our Plans." width={1200} height={400} loading="lazy" />
+          <img src="/images/homepage-banner.webp" alt="Looking for something more curated? Personalized design, priced for founders. Check Our Plans." width={1200} height={400} loading="lazy" />
         </picture>
       </Link>
     </section>
@@ -307,9 +307,9 @@ function AudienceFitSection() {
     <section className="audience-fit-section" aria-labelledby="audience-fit-title">
       <div className="audience-fit-copy">
         <h2 id="audience-fit-title">
-          <MotionText>Start with what actually matters.</MotionText>
+          <MotionText>One offer model. Three support levels.</MotionText>
         </h2>
-        <p>Made for people starting something.</p>
+        <p>The same website foundation sits under Pro, Plus, and Master. The plan changes the room, support, and launch depth.</p>
       </div>
       <div className="audience-fit-list" aria-label="Who FirstFold websites are for">
         {audienceRows.map((item, index) => (
@@ -608,7 +608,7 @@ function TeamSection() {
         <blockquote>
           <span aria-hidden="true">“</span>
           A lot of founders start with big ambitions, but turning an idea into something real is often the hardest part.
-          That’s where we come in—to help them take their first step, and take it right.
+          That’s where we come in—to help them take their first step, and take it right.”
         </blockquote>
       </figure>
     </section>
@@ -914,17 +914,13 @@ export function FAQAccordion() {
           const active = open === index;
           return (
             <div className="faq-item" key={item.question}>
-              <button type="button" aria-expanded={active} onClick={() => setOpen(active ? -1 : index)}>
+              <button type="button" aria-expanded={active} aria-controls={`faq-answer-${index}`} onClick={() => setOpen(active ? -1 : index)}>
                 <span>{item.question}</span>
                 <ChevronDown size={18} aria-hidden="true" />
               </button>
-              <AnimatePresence initial={false}>
-                {active ? (
-                  <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.28 }}>
-                    <p>{item.answer}</p>
-                  </motion.div>
-                ) : null}
-              </AnimatePresence>
+              <div id={`faq-answer-${index}`} className="faq-answer" hidden={!active}>
+                <p>{item.answer}</p>
+              </div>
             </div>
           );
         })}

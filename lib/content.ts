@@ -1,9 +1,9 @@
 export const navItems = [
   { label: "Home", href: "/", icon: "/icons/nav/house.svg" },
-  { label: "Work", href: "/work", icon: "/icons/nav/panels-top-left.svg" },
-  { label: "Services", href: "/services", icon: "/icons/nav/sparkle.svg" },
+  { label: "Concept work", href: "/work", icon: "/icons/nav/panels-top-left.svg" },
+  { label: "Websites", href: "/services", icon: "/icons/nav/sparkle.svg" },
   { label: "Process", href: "/process", icon: "/icons/nav/workflow.svg" },
-  { label: "Pricing", href: "/pricing", icon: "/icons/nav/badge-dollar-sign.svg" },
+  { label: "Plans", href: "/pricing", icon: "/icons/nav/badge-dollar-sign.svg" },
   { label: "About", href: "/about", icon: "/icons/nav/user-round.svg" },
   { label: "Contact", href: "/contact", icon: "/icons/nav/mail.svg" },
 ];
