@@ -1,11 +1,11 @@
 "use client";
 
 /* eslint-disable @next/next/no-img-element */
-import { motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { Check, ChevronDown, Mail } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { type CSSProperties, FormEvent, type PointerEvent as ReactPointerEvent, type ReactNode, useRef, useState } from "react";
+import { type CSSProperties, FormEvent, type ReactNode, useState } from "react";
 import { faqs, launchCapabilities, logoRail, pricingTiers, processSteps, projects, projectTypes, resourceGuides, sharedBuildIncludes, websiteOutcomes } from "@/lib/content";
 import { CtaArrow, FoldGlyph, MotionText, PremiumButton, SectionFrame, StatusBadge, TextCta } from "./UIPrimitives";
 
@@ -550,46 +550,8 @@ function HomePricingSection() {
 }
 
 function TeamSection() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const reducedMotion = useReducedMotion();
-  const pointerX = useMotionValue(-600);
-  const pointerY = useMotionValue(-600);
-  const glowX = useSpring(pointerX, { stiffness: 110, damping: 24, mass: 0.45 });
-  const glowY = useSpring(pointerY, { stiffness: 110, damping: 24, mass: 0.45 });
-  const trailX = useSpring(pointerX, { stiffness: 58, damping: 22, mass: 0.8 });
-  const trailY = useSpring(pointerY, { stiffness: 58, damping: 22, mass: 0.8 });
-
-  const moveGlow = (event: ReactPointerEvent<HTMLElement>) => {
-    if (reducedMotion || event.pointerType !== "mouse") return;
-    const bounds = sectionRef.current?.getBoundingClientRect();
-    if (!bounds) return;
-    pointerX.set(event.clientX - bounds.left - 260);
-    pointerY.set(event.clientY - bounds.top - 260);
-  };
-
-  const hideGlow = () => {
-    pointerX.set(-600);
-    pointerY.set(-600);
-  };
-
   return (
-    <section
-      ref={sectionRef}
-      className="team-section founder-spotlight"
-      aria-labelledby="team-title"
-      onPointerMove={moveGlow}
-      onPointerLeave={hideGlow}
-    >
-      <motion.div
-        className="founder-spotlight__glow founder-spotlight__glow--primary"
-        style={{ x: glowX, y: glowY }}
-        aria-hidden="true"
-      />
-      <motion.div
-        className="founder-spotlight__glow founder-spotlight__glow--trail"
-        style={{ x: trailX, y: trailY }}
-        aria-hidden="true"
-      />
+    <section className="team-section founder-spotlight" aria-labelledby="team-title">
       <div className="team-section__copy">
         <span className="team-section__eyebrow">Founder note / 01</span>
         <h2 id="team-title">
@@ -931,7 +893,7 @@ export function FAQAccordion() {
   const [open, setOpen] = useState(0);
 
   return (
-    <SectionFrame title="Straight answers. No theatre." accent="yellow" compact>
+    <SectionFrame title="Straight answers. No theatre." accent="yellow" compact className="home-faq-section">
       <div className="faq-list">
         {faqs.map((item, index) => {
           const active = open === index;

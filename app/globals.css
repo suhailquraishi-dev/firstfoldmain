@@ -525,7 +525,7 @@ textarea {
   z-index: -1;
   height: 76px;
   border-bottom: 1px solid color-mix(in srgb, var(--color-ink) 8%, transparent);
-  background: rgba(255, 255, 255, 0.96);
+  background: #fff;
   box-shadow: 0 12px 34px color-mix(in srgb, var(--color-ink) 8%, transparent);
   opacity: 0;
   pointer-events: none;
@@ -3701,7 +3701,11 @@ textarea {
 
 .faq-list {
   border-top: 1px solid var(--line);
-  background: var(--paper);
+  background: transparent;
+}
+
+.home-faq-section {
+  background: var(--color-surface-soft);
 }
 
 .faq-item {
@@ -4747,7 +4751,7 @@ textarea {
     height: 38px;
     border-color: color-mix(in srgb, var(--color-ink) 12%, transparent);
     border-radius: 8px;
-    background: rgba(255, 255, 255, 0.88);
+    background: #fff;
   }
 
   .mobile-panel {
@@ -4761,7 +4765,7 @@ textarea {
     padding: 6px;
     border: 1px solid color-mix(in srgb, var(--color-ink) 8%, transparent);
     border-radius: 14px;
-    background: rgba(255, 255, 255, 0.96);
+    background: #fff;
     box-shadow: 0 18px 42px color-mix(in srgb, var(--color-ink) 12%, transparent);
   }
 
@@ -6291,38 +6295,6 @@ textarea {
   overflow: hidden;
   min-height: clamp(620px, 56vw, 820px);
   align-items: center;
-}
-
-.founder-spotlight__glow {
-  position: absolute;
-  z-index: -1;
-  width: 520px;
-  height: 520px;
-  border-radius: 50%;
-  pointer-events: none;
-  opacity: 0;
-  filter: blur(44px);
-  transition: opacity 420ms ease;
-  will-change: transform;
-}
-
-.founder-spotlight__glow--primary {
-  background: radial-gradient(circle, rgba(255, 51, 0, 0.28) 0%, rgba(255, 51, 0, 0.09) 34%, transparent 70%);
-}
-
-.founder-spotlight__glow--trail {
-  width: 620px;
-  height: 620px;
-  background: radial-gradient(circle, rgba(139, 196, 236, 0.12) 0%, rgba(255, 219, 92, 0.06) 34%, transparent 72%);
-  filter: blur(62px);
-}
-
-.founder-spotlight:hover .founder-spotlight__glow--primary {
-  opacity: 0.72;
-}
-
-.founder-spotlight:hover .founder-spotlight__glow--trail {
-  opacity: 0.56;
 }
 
 .team-section__copy,
@@ -9398,6 +9370,19 @@ body {
 .concept-case-page > .premium-button:active .cta-arrow img,
 .resource-detail-cta .premium-button:active .cta-arrow img {
   filter: var(--icon-filter-on-dark);
+}
+
+.showcase-card__overlay {
+  display: none;
+}
+
+.pricing-preview-card.is-featured::before,
+.pricing-preview-card.is-featured::after {
+  display: none;
+}
+
+.pricing-secondary-page .pricing-preview-card.is-featured {
+  border-color: color-mix(in srgb, var(--color-ink) 10%, transparent);
 }
 
 .resource-detail-hero {
