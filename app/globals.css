@@ -115,13 +115,13 @@
   --surface: #f8f8f8;
   --surface-warm: #fbfaf5;
   --soft: #ebe4d7;
-  --yellow: #ffd21e;
-  --yellow-soft: #ffec78;
+  --yellow: var(--orange);
+  --yellow-soft: #ffffff;
   --brown: #5a3517;
-  --blue: #94c8ec;
   --orange: #ff3300;
-  --nav-panel: #fff7d7;
-  --nav-panel-solid: #fff9e4;
+  --blue: var(--orange);
+  --nav-panel: #ffffff;
+  --nav-panel-solid: #ffffff;
   --hero-bg-fallback: #172a38;
   --landing-rail-gap: clamp(44px, 4vw, 88px);
   --font-ui: "Season Sans", Roboto, "Rethink Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -156,16 +156,16 @@
   --color-on-dark-subtle: #ededed;
   --color-on-dark-faint: #bdbdbd;
   --color-action: var(--orange);
-  --color-action-soft: #fff7ef;
+  --color-action-soft: #ffffff;
   --color-highlight: var(--yellow);
-  --color-highlight-soft: #fff4bd;
-  --color-highlight-wash: #fff0a9;
-  --color-highlight-chip: #fff8dc;
+  --color-highlight-soft: #ffffff;
+  --color-highlight-wash: #ffffff;
+  --color-highlight-chip: #ffffff;
   --color-info: var(--blue);
-  --color-info-soft: #e6f2fb;
-  --color-info-wash: #d9effb;
+  --color-info-soft: #ffffff;
+  --color-info-wash: #ffffff;
   --color-peach-soft: #fff2ec;
-  --color-process-blue: #b9d9f0;
+  --color-process-blue: #ffffff;
   --color-process-neutral: #f3f3f3;
   --color-neutral-soft: #f7f6f1;
   --color-neutral-line: #eeeeee;
@@ -310,7 +310,7 @@
   --icon-filter-muted-strong: brightness(0) saturate(0) opacity(0.74);
   --icon-filter-on-dark: invert(1);
   --icon-filter-action: invert(28%) sepia(96%) saturate(4112%) hue-rotate(8deg) brightness(105%) contrast(109%);
-  --icon-filter-yellow: brightness(0) saturate(100%) invert(78%) sepia(75%) saturate(562%) hue-rotate(349deg) brightness(103%) contrast(105%);
+  --icon-filter-yellow: var(--icon-filter-action);
 
   --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
   --duration-fast: 180ms;
@@ -497,7 +497,7 @@ textarea {
   padding: 0;
   border: 0;
   border-radius: 0;
-  background: transparent;
+  background: #fff;
   box-shadow: none;
   transform: none;
   overflow: visible;
@@ -527,7 +527,7 @@ textarea {
   border-bottom: 1px solid color-mix(in srgb, var(--color-ink) 8%, transparent);
   background: #fff;
   box-shadow: 0 12px 34px color-mix(in srgb, var(--color-ink) 8%, transparent);
-  opacity: 0;
+  opacity: 1;
   pointer-events: none;
   transition: opacity 180ms ease;
 }
@@ -537,7 +537,7 @@ textarea {
 }
 
 .site-nav--compact {
-  background: transparent;
+  background: #fff;
 }
 
 .site-nav--home-rail {
@@ -549,7 +549,7 @@ textarea {
   padding: 0;
   border: 0;
   border-radius: 0;
-  background: transparent;
+  background: #fff;
   box-shadow: none;
   transform: none;
 }
@@ -4042,14 +4042,17 @@ textarea {
   gap: 22px;
   min-height: 360px;
   padding: clamp(22px, 3vw, 30px);
+  border: 1px solid color-mix(in srgb, var(--color-ink) 9%, transparent);
+  border-radius: 8px;
+  background: #fff;
 }
 
 .resource-card--1 {
-  background: var(--yellow);
+  background: #fff;
 }
 
 .resource-card--2 {
-  background: var(--blue);
+  background: #fff;
 }
 
 .resource-card > span {
@@ -4116,7 +4119,7 @@ textarea {
 }
 
 .pricing-card.is-featured {
-  background: var(--yellow);
+  background: #fff;
 }
 
 .pricing-card > strong {
@@ -4393,9 +4396,9 @@ textarea {
 .form-status {
   display: none;
   padding: 14px;
-  border: 1px solid var(--line);
+  border: 1px solid color-mix(in srgb, var(--color-action) 32%, transparent);
   border-radius: 14px;
-  background: var(--yellow);
+  background: var(--color-action-soft);
   color: var(--foreground);
 }
 
@@ -4661,7 +4664,7 @@ textarea {
     padding: 0;
     border: 0;
     border-radius: 0;
-    background: transparent;
+    background: #fff;
     transform: none;
     overflow: visible;
   }
@@ -4676,7 +4679,7 @@ textarea {
     padding: 0;
     border: 0;
     border-radius: 0;
-    background: transparent;
+    background: #fff;
     box-shadow: none;
     transform: none;
   }
@@ -5204,7 +5207,7 @@ textarea {
   width: min(100%, 1440px);
   margin: 0 auto;
   padding: 0;
-  background: transparent;
+  background: #fff;
 }
 
 .home-pricing-section .pricing-preview-card {
@@ -8126,7 +8129,7 @@ body {
   }
 
   .mobile-sticky-ctas__button--primary {
-    color: var(--color-ink);
+    color: var(--color-on-dark);
     background: var(--color-action);
   }
 
@@ -10326,4 +10329,28 @@ body {
   .final-cta__copy > span {
     font-size: 17px;
   }
+}
+
+/* Site-wide polish: keep surfaces neutral and reserve orange for accents/actions. */
+.resource-card,
+.resource-card--1,
+.resource-card--2,
+.pricing-card.is-featured,
+.metric-card:first-child,
+.secondary-fit-check article:first-child,
+.secondary-resource-grid .resource-card:first-child,
+.concept-disclaimer,
+.resource-detail-cta {
+  background: #fff;
+}
+
+.form-status {
+  background: #fff;
+}
+
+.site-nav,
+.site-nav--compact,
+.site-nav--home-rail,
+.site-nav--home-rail.site-nav--compact {
+  background: #fff !important;
 }
