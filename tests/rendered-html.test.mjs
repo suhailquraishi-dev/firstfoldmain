@@ -41,7 +41,7 @@ test("server-renders the FirstFold Studio homepage", async () => {
   assert.match(html, /Helping/);
   assert.match(html, /Founders Raise/);
   assert.match(html, /Next Million/);
-  assert.match(html, /Launch-ready websites for your first version, built in 5–7 days/);
+  assert.match(html, /Launch-ready websites for your first version, starting in 5–7 days/);
   assert.doesNotMatch(html, /Everything you need to take your idea/);
   assert.doesNotMatch(html, /About FirstFold Studio/);
   assert.match(html, /Book a Call/);
@@ -57,7 +57,7 @@ test("server-renders the FirstFold Studio homepage", async () => {
   assert.doesNotMatch(html, /Google Meet or Zoom/);
   assert.match(html, /Ready to Go Live Website Library/);
   assert.match(html, /Launch-ready references, curated for founders\./);
-  assert.match(html, /Browse real website directions we can adapt into a sharper first version\./);
+  assert.match(html, /Browse independent website references to discuss useful patterns, then shape an original first version\./);
   assert.match(html, /B2B SaaS/);
   assert.match(html, /Developer/);
   assert.match(html, /Regulated/);
@@ -122,7 +122,7 @@ test("server-renders the FirstFold Studio homepage", async () => {
   assert.match(html, /Next\.js/);
   assert.doesNotMatch(html, /capability-icon/);
   assert.match(html, /Strong foundations\. A clearer path to launch\./);
-  assert.match(html, /10–21 days/);
+  assert.match(html, /5–14 days/);
   assert.match(html, /Discovery call/);
   assert.match(html, /AI-assisted draft/);
   assert.match(html, /Human design pass/);
@@ -150,13 +150,14 @@ test("server-renders the FirstFold Studio homepage", async () => {
   assert.doesNotMatch(html, /Your site is taking shape|react-loading-skeleton|codex-preview/i);
 });
 
-test("renders the planned routes and removes the starter shell", async () => {
-  const [work, services, process, pricing, resources, about, contact, caseStudy, page, layout, packageJson] = await Promise.all([
+test("renders distinct secondary routes and removes conflicting offer copy", async () => {
+  const [work, services, process, pricing, resources, resourceGuide, about, contact, conceptStudy, page, layout, packageJson] = await Promise.all([
     render("/work").then((response) => response.text()),
     render("/services").then((response) => response.text()),
     render("/process").then((response) => response.text()),
     render("/pricing").then((response) => response.text()),
     render("/resources").then((response) => response.text()),
+    render("/resources/first-fold-checklist").then((response) => response.text()),
     render("/about").then((response) => response.text()),
     render("/contact").then((response) => response.text()),
     render("/work/signal-desk").then((response) => response.text()),
@@ -165,18 +166,21 @@ test("renders the planned routes and removes the starter shell", async () => {
     readFile(new URL("../package.json", import.meta.url), "utf8"),
   ]);
 
-  assert.match(work, /Case studies with the work doing the talking/);
-  assert.match(work, /Creator Pack/);
-  assert.match(services, /AI-native websites lead/);
-  assert.match(process, /Two tracks\. One clear way in/);
-  assert.match(process, /Track A \/ Assets/);
-  assert.match(process, /Track B \/ Calls &amp; Plans/);
-  assert.match(process, /What you get once you book/);
-  assert.match(process, /From first call to live site/);
-  assert.match(process, /10–21 days/);
-  assert.match(process, /Live website and handoff notes/);
-  assert.doesNotMatch(process, /Clear story per screen<\/span><strong>1/);
-  assert.match(pricing, /Plans Starting at \$99/);
+  assert.match(work, /Website directions built to make an idea easier to see/);
+  assert.match(work, /Concept study/);
+  assert.match(work, /B2B SaaS/);
+  assert.doesNotMatch(work, /42%|more qualified calls/);
+  assert.match(services, /A launch-ready website with the thinking already inside it/);
+  assert.match(services, /Clarity first\. Proof close behind/);
+  assert.match(services, /Every plan includes/);
+  assert.doesNotMatch(services, /Creator Packs|Enterprise Packs|\$4\.8k/);
+  assert.match(process, /Five visible stages\. No mystery at the end/);
+  assert.match(process, /Your input/);
+  assert.match(process, /FirstFold output/);
+  assert.match(process, /Review point/);
+  assert.match(process, /Visible work/);
+  assert.doesNotMatch(process, /Track A|Track B|\$4\.8k/);
+  assert.match(pricing, /Plans starting at \$99/);
   assert.match(pricing, /Pro/);
   assert.match(pricing, /Plus/);
   assert.match(pricing, /Master/);
@@ -189,23 +193,29 @@ test("renders the planned routes and removes the starter shell", async () => {
   assert.doesNotMatch(pricing, /Strategy included/);
   assert.doesNotMatch(pricing, /Design \+ build/);
   assert.match(pricing, /Launch QA/);
-  assert.match(resources, /Field Notes are coming/);
-  assert.match(resources, /First-fold checklist/);
-  assert.match(resources, /AI launch stack/);
-  assert.match(resources, /Founder website teardown/);
-  assert.match(resources, /Ask for the checklist/);
+  assert.match(resources, /Practical notes for a clearer first launch/);
+  assert.match(resources, /The first-fold checklist/);
+  assert.match(resources, /The AI launch stack/);
+  assert.match(resources, /A founder website teardown/);
+  assert.match(resourceGuide, /The first-fold checklist/);
+  assert.match(resourceGuide, /Lead with one job/);
+  assert.match(resourceGuide, /Run the phone test/);
   assert.doesNotMatch(resources, resourcesPlaceholderPattern);
-  assert.match(about, /A studio for the first fold/);
-  assert.match(contact, /Project type/);
-  assert.match(contact, /Book a call/);
-  assert.match(contact, /14:30/);
+  assert.match(about, /A founder-led studio for getting the first version right/);
+  assert.match(about, /AI accelerates the making/);
+  assert.doesNotMatch(about, /human-team\.png/);
+  assert.match(contact, /Plan interest/);
+  assert.match(contact, /Tell us what needs to go live/);
+  assert.doesNotMatch(contact, /14:30|\$4\.8k|Creator Pack|Enterprise Pack/);
   assert.match(contact, /Send inquiry/);
   assert.match(contact, /Opening your email draft/);
   assert.doesNotMatch(contact, contactPlaceholderPattern);
-  assert.match(caseStudy, /Problem/);
-  assert.match(caseStudy, /case-browser/);
-  assert.match(caseStudy, /42%/);
-  assert.match(caseStudy, /Next project:[\s\S]*Founder Field Notes/);
+  assert.match(conceptStudy, /About this study/);
+  assert.match(conceptStudy, /exploratory FirstFold concept/);
+  assert.match(conceptStudy, /Story direction/);
+  assert.match(conceptStudy, /Responsive decisions/);
+  assert.doesNotMatch(conceptStudy, /42%|commercial results<\/span>/);
+  assert.match(conceptStudy, /Next direction:[\s\S]*Founder Field Notes/);
   assert.match(page, /<HomePage \/>/);
   assert.match(layout, /openGraph/);
   assert.match(layout, /MobileStickyCTAs/);

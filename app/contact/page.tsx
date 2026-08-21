@@ -3,7 +3,7 @@ import { ContactPage } from "../components/SiteSections";
 
 export const metadata: Metadata = {
   title: "Contact | FirstFold Studio",
-  description: "Start a FirstFold Studio launch inquiry.",
+  description: "Book a FirstFold intro call or send a short brief for a Pro, Plus, or Master website launch.",
 };
 
 export default function Page() {

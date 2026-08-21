@@ -11,16 +11,16 @@ export const metadata: Metadata = {
     default: "FirstFold Studio",
     template: "%s",
   },
-  description: "AI-native websites, creator packs, and enterprise packs for founders who need the first fold to work harder.",
+  description: "Launch-ready founder websites with clear strategy, responsive design, human judgment, and plans starting at $99.",
   openGraph: {
     title: "FirstFold Studio",
-    description: "AI-native websites, creator packs, and enterprise packs for founders.",
+    description: "Launch-ready founder websites with plans at $99, $199, and $499.",
     images: [{ url: "/og.png", width: 1200, height: 630, alt: "FirstFold Studio AI-native websites" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "FirstFold Studio",
-    description: "AI-native websites, creator packs, and enterprise packs for founders.",
+    description: "Launch-ready founder websites with plans at $99, $199, and $499.",
     images: ["/og.png"],
   },
   icons: {
@@ -38,12 +38,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <a className="skip-link" href="#main-content">Skip to main content</a>
         <LivingNav />
+        <MobileStickyCTAs />
         <ClientProviders>
           {children}
           <FinalCTA />
           <Footer />
-          <MobileStickyCTAs />
         </ClientProviders>
       </body>
     </html>

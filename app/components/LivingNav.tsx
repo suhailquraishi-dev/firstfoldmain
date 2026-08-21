@@ -3,7 +3,7 @@
 /* eslint-disable @next/next/no-html-link-for-pages, @next/next/no-img-element */
 import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CtaArrow } from "./UIPrimitives";
 
 const navItems = [
@@ -16,6 +16,7 @@ export function LivingNav() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [backed, setBacked] = useState(pathname !== "/");
+  const toggleRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const updateBacked = () => {
@@ -38,6 +39,19 @@ export function LivingNav() {
     };
   }, [pathname]);
 
+  useEffect(() => {
+    if (!open) return;
+
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      setOpen(false);
+      toggleRef.current?.focus();
+    };
+
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [open]);
+
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
     return pathname === href || pathname.startsWith(`${href}/`);
@@ -53,7 +67,7 @@ export function LivingNav() {
         {navItems.map((item) => {
           const active = isActive(item.href);
           return (
-            <a key={item.href} href={item.href} className={active ? "nav-link is-active" : "nav-link"}>
+            <a key={item.href} href={item.href} className={active ? "nav-link is-active" : "nav-link"} aria-current={active ? "page" : undefined}>
               <span className="nav-link__body">
                 <span>{item.label}</span>
               </span>
@@ -62,34 +76,42 @@ export function LivingNav() {
         })}
       </nav>
 
-      <a href="/contact" className="nav-cta">
+      <a href="/contact" className="nav-cta" aria-current={pathname === "/contact" ? "page" : undefined}>
         <span>Book a Call</span>
       </a>
 
-      <a href="/contact" className="nav-mobile-call" aria-label="Book a 30 minute call">
+      <a href="/contact" className="nav-mobile-call" aria-label="Book a Call" aria-current={pathname === "/contact" ? "page" : undefined}>
         <span>Book a Call</span>
       </a>
 
       <button
+        ref={toggleRef}
         className="nav-toggle"
         type="button"
         aria-label={open ? "Close navigation menu" : "Open navigation menu"}
         aria-expanded={open}
+        aria-controls="mobile-navigation-panel"
         onClick={() => setOpen((value) => !value)}
       >
         {open ? <X size={18} aria-hidden="true" /> : <Menu size={18} aria-hidden="true" />}
       </button>
 
-      <div className={open ? "mobile-panel is-open" : "mobile-panel"}>
+      <nav id="mobile-navigation-panel" className={open ? "mobile-panel is-open" : "mobile-panel"} aria-label="Mobile navigation">
         {navItems.map((item) => (
-          <a key={item.href} href={item.href} className={isActive(item.href) ? "is-active" : ""} onClick={() => setOpen(false)}>
+          <a
+            key={item.href}
+            href={item.href}
+            className={isActive(item.href) ? "is-active" : ""}
+            aria-current={isActive(item.href) ? "page" : undefined}
+            onClick={() => setOpen(false)}
+          >
             <span className="nav-link__body">
               <span>{item.label}</span>
             </span>
             <CtaArrow size={16} />
           </a>
         ))}
-      </div>
+      </nav>
     </header>
   );
 }

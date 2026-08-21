@@ -97,11 +97,11 @@ export function MobileStickyCTAs() {
   }, [pathname]);
 
   return (
-    <nav className={isVisible ? "mobile-sticky-ctas is-visible" : "mobile-sticky-ctas"} aria-label="Mobile primary actions">
-      <a className="mobile-sticky-ctas__button mobile-sticky-ctas__button--primary" href="/contact">
+    <nav className={isVisible ? "mobile-sticky-ctas is-visible" : "mobile-sticky-ctas"} aria-label="Mobile primary actions" aria-hidden={!isVisible}>
+      <a className="mobile-sticky-ctas__button mobile-sticky-ctas__button--primary" href="/contact" tabIndex={isVisible ? undefined : -1} aria-current={pathname === "/contact" ? "page" : undefined}>
         Book a Call
       </a>
-      <a className="mobile-sticky-ctas__button mobile-sticky-ctas__button--secondary" href="/pricing">
+      <a className="mobile-sticky-ctas__button mobile-sticky-ctas__button--secondary" href="/pricing" tabIndex={isVisible ? undefined : -1} aria-current={pathname === "/pricing" ? "page" : undefined}>
         Plans at $99
       </a>
     </nav>

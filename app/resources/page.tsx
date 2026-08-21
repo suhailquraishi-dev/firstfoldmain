@@ -3,7 +3,7 @@ import { ResourcesPage } from "../components/SiteSections";
 
 export const metadata: Metadata = {
   title: "Resources | FirstFold Studio",
-  description: "Guides, notes, and templates for modern launch systems.",
+  description: "Practical FirstFold guides for website clarity, AI-assisted launch work, and founder-site reviews.",
 };
 
 export default function Page() {

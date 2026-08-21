@@ -3,7 +3,7 @@ import { ProcessPage } from "../components/SiteSections";
 
 export const metadata: Metadata = {
   title: "Process | FirstFold Studio",
-  description: "The AI-assisted, human-led FirstFold Studio launch process.",
+  description: "The five-stage, AI-assisted and human-led FirstFold website launch process.",
 };
 
 export default function Page() {

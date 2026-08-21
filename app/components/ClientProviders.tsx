@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -8,6 +8,7 @@ export function ClientProviders({ children }: { children: React.ReactNode }) {
   const [cursor, setCursor] = useState({ x: -100, y: -100 });
   const [active, setActive] = useState(false);
   const pathname = usePathname();
+  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
     const move = (event: PointerEvent) => {
@@ -38,11 +39,13 @@ export function ClientProviders({ children }: { children: React.ReactNode }) {
       <AnimatePresence mode="wait">
         <motion.div
           key={pathname}
+          id="main-content"
+          tabIndex={-1}
           className="page-transition"
-          initial={{ opacity: 0 }}
+          initial={reducedMotion ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+          exit={reducedMotion ? undefined : { opacity: 0 }}
+          transition={reducedMotion ? { duration: 0 } : { duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
         >
           {children}
         </motion.div>

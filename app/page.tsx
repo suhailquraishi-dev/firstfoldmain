@@ -3,7 +3,7 @@ import { HomePage } from "./components/SiteSections";
 
 export const metadata: Metadata = {
   title: "FirstFold Studio | AI-Native Websites",
-  description: "AI-native websites, creator packs, and enterprise packs for founders who need the first fold to work harder.",
+  description: "Launch-ready founder websites with Pro, Plus, and Master plans at $99, $199, and $499.",
 };
 
 export default function Home() {

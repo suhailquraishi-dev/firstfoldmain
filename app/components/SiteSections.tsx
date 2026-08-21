@@ -2,11 +2,12 @@
 
 /* eslint-disable @next/next/no-img-element */
 import { AnimatePresence, motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
-import { Check, ChevronDown, Clock, Globe2, Mail } from "lucide-react";
+import { Check, ChevronDown, Mail } from "lucide-react";
 import Link from "next/link";
-import { type CSSProperties, FormEvent, type PointerEvent as ReactPointerEvent, useEffect, useRef, useState } from "react";
-import { faqs, logoRail, pricingTiers, processSteps, projects, projectTypes, services } from "@/lib/content";
-import { CtaArrow, FoldGlyph, MeetingIcons, MotionText, PremiumButton, SectionFrame, StatusBadge, TextCta } from "./UIPrimitives";
+import { usePathname } from "next/navigation";
+import { type CSSProperties, FormEvent, type PointerEvent as ReactPointerEvent, type ReactNode, useRef, useState } from "react";
+import { faqs, launchCapabilities, logoRail, pricingTiers, processSteps, projects, projectTypes, resourceGuides, sharedBuildIncludes, websiteOutcomes } from "@/lib/content";
+import { CtaArrow, FoldGlyph, MotionText, PremiumButton, SectionFrame, StatusBadge, TextCta } from "./UIPrimitives";
 
 type Project = (typeof projects)[number];
 
@@ -133,45 +134,6 @@ const credsDeckSlides = [
   { title: "Creds slide 4", src: "/images/creds/s4.jpg" },
   { title: "Creds slide 5", src: "/images/creds/s5.jpg" },
 ];
-const bookingCalendarDays = [
-  null,
-  null,
-  null,
-  null,
-  null,
-  1,
-  2,
-  3,
-  4,
-  5,
-  6,
-  7,
-  8,
-  9,
-  10,
-  11,
-  12,
-  13,
-  14,
-  15,
-  16,
-  17,
-  18,
-  19,
-  20,
-  21,
-  22,
-  23,
-  24,
-  25,
-  26,
-  27,
-  28,
-  29,
-  30,
-  31,
-];
-const bookingAvailableDays = new Set([6, 7, 8, 10, 11, 12, 13, 14, 15]);
 
 export function HomePage() {
   return (
@@ -189,76 +151,6 @@ export function HomePage() {
         <FAQAccordion />
       </div>
     </main>
-  );
-}
-
-function BookingPreview() {
-  return (
-    <section className="booking-panel" aria-label="Book a call">
-      <div className="booking-card">
-        <h2>Intro with FirstFold</h2>
-        <p>Tell us what you are building. We will help map the next move.</p>
-        <div className="booking-card__meta">
-          <span>
-            <Clock size={18} aria-hidden="true" />
-            20m
-          </span>
-          <span>
-            <MeetingIcons size={18} />
-            Google Meet
-          </span>
-          <span>
-            <Globe2 size={18} aria-hidden="true" />
-            Asia/Kolkata
-          </span>
-        </div>
-      </div>
-      <div className="calendar-embed" aria-label="Calendar availability preview">
-        <div className="calendar-embed__header">
-          <strong>
-            August <span>2026</span>
-          </strong>
-          <span className="calendar-embed__slot">Next open: 14:30</span>
-        </div>
-        <div className="calendar-embed__weekdays" aria-hidden="true">
-          {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
-            <span key={day}>{day}</span>
-          ))}
-        </div>
-        <div className="calendar-embed__grid">
-          {bookingCalendarDays.map((day, index) =>
-            day ? (
-              <button
-                type="button"
-                key={`${day}-${index}`}
-                className={bookingAvailableDays.has(day) ? (day === 6 ? "is-active" : "is-available") : ""}
-                aria-label={`${day} August 2026${bookingAvailableDays.has(day) ? ", available" : ""}`}
-                disabled={!bookingAvailableDays.has(day)}
-              >
-                {day}
-              </button>
-            ) : (
-              <span key={`blank-${index}`} aria-hidden="true" />
-            ),
-          )}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function TrackLink({ href, label, meta, meeting = false }: { href: string; label: string; meta: string; meeting?: boolean }) {
-  return (
-    <li>
-      <a href={href}>
-        <span className={meeting ? "track-link-list__call" : undefined}>
-          {meeting ? <MeetingIcons size={18} /> : null}
-          {label}
-        </span>
-        <strong>{meta}</strong>
-        <CtaArrow size={16} />
-      </a>
-    </li>
   );
 }
 
@@ -299,7 +191,7 @@ function Hero() {
             <span className="hero-title-line hero-title-line--editorial hero-title-line--orange">Next Million</span>
           </h1>
           <p className="hero-subtitle">
-            Launch-ready websites for your first version, built in 5–7 days.
+            Launch-ready websites for your first version, starting in 5–7 days.
           </p>
           <div className="hero-actions">
             <PremiumButton href="/contact" hideArrow>
@@ -350,7 +242,7 @@ function HowWeWorkSection() {
           <h2 id="showcase-title">
             <MotionText>Launch-ready references, curated for founders.</MotionText>
           </h2>
-          <p>Browse real website directions we can adapt into a sharper first version.</p>
+          <p>Browse independent website references to discuss useful patterns, then shape an original first version.</p>
         </div>
       </div>
 
@@ -462,6 +354,7 @@ function PricingCards({ showProofStrip = false }: { showProofStrip?: boolean }) 
 
           return (
             <article
+              id={tier.name.toLowerCase()}
               className={[
                 "pricing-preview-card",
                 isFeatured ? "is-featured" : "",
@@ -478,7 +371,7 @@ function PricingCards({ showProofStrip = false }: { showProofStrip?: boolean }) 
               ) : null}
               <div className="pricing-preview-card__head">
                 <div>
-                  <h3>{tier.name}</h3>
+                  <h2>{tier.name}</h2>
                   <p className="pricing-preview-card__summary">{tier.summary}</p>
                 </div>
                 <div className="pricing-preview-card__price-row">
@@ -528,37 +421,6 @@ function PricingCards({ showProofStrip = false }: { showProofStrip?: boolean }) 
   );
 }
 
-export function ServicePanel({ service, index, primary = false }: { service: (typeof services)[number]; index: number; primary?: boolean }) {
-  return (
-    <motion.article
-      className={primary ? `service-panel service-panel--primary ${service.color}` : `service-panel ${service.color}`}
-      initial={{ opacity: 0.35, y: 12 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-20%" }}
-      transition={{ duration: 0.45, delay: index * 0.04 }}
-    >
-      <span>{service.eyebrow}</span>
-      <h3>{service.name}</h3>
-      <p>{service.summary}</p>
-      <div className="service-meta">
-        <strong>{service.turnaround}</strong>
-        <strong>{service.price}</strong>
-      </div>
-      <ul>
-        {service.included.slice(0, 4).map((item) => (
-          <li key={item}>
-            <Check size={15} aria-hidden="true" />
-            {item}
-          </li>
-        ))}
-      </ul>
-      <TextCta href="/services">
-        View service
-      </TextCta>
-    </motion.article>
-  );
-}
-
 function ProcessTeaser() {
   const reducedMotion = useReducedMotion();
 
@@ -572,9 +434,9 @@ function ProcessTeaser() {
           </h2>
           <p>AI creates speed. Human judgment keeps every screen focused, useful, and ready to ship.</p>
         </div>
-        <div className="process-runway__window" aria-label="Typical launch window: 10 to 21 days">
+        <div className="process-runway__window" aria-label="Typical launch window: 5 to 14 days">
           <span>Typical launch window</span>
-          <strong>10–21 days</strong>
+          <strong>5–14 days</strong>
         </div>
       </header>
 
@@ -687,107 +549,6 @@ function HomePricingSection() {
   );
 }
 
-function LaunchTrack() {
-  const [activeStep, setActiveStep] = useState(0);
-  const stepRefs = useRef<(HTMLElement | null)[]>([]);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-
-        if (!visible) return;
-        const index = Number((visible.target as HTMLElement).dataset.stepIndex);
-        if (Number.isInteger(index)) setActiveStep(index);
-      },
-      { rootMargin: "-28% 0px -46%", threshold: [0.15, 0.35, 0.6] },
-    );
-
-    stepRefs.current.forEach((step) => {
-      if (step) observer.observe(step);
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
-  const goToStep = (index: number) => {
-    stepRefs.current[index]?.scrollIntoView({ behavior: "smooth", block: "center" });
-  };
-
-  return (
-    <section className="launch-track" aria-labelledby="launch-track-title">
-      <div className="launch-track__header">
-        <div>
-          <span className="launch-track__eyebrow">How we launch</span>
-          <h2 id="launch-track-title">
-            <MotionText>From first call to live site.</MotionText>
-          </h2>
-          <p>Five clear stages keep the work moving without a big reveal at the end.</p>
-        </div>
-        <div className="launch-track__window" aria-label="Typical launch window">
-          <span>Typical launch</span>
-          <strong>10–21 days</strong>
-        </div>
-      </div>
-
-      <div className="launch-track__facts" aria-label="Sprint facts">
-        <span><strong>3</strong> support levels</span>
-        <span><strong>1</strong> clear story per screen</span>
-        <span><strong>0</strong> big reveals</span>
-      </div>
-
-      <div className="launch-track__layout">
-        <nav className="launch-track__nav" aria-label="Launch stages">
-          <span>Sprint progress</span>
-          <div className="launch-track__progress" aria-hidden="true">
-            <i style={{ height: `${((activeStep + 1) / processSteps.length) * 100}%` }} />
-          </div>
-          <ol>
-            {processSteps.map((step, index) => (
-              <li className={activeStep === index ? "is-active" : ""} key={step.label}>
-                <button type="button" onClick={() => goToStep(index)} aria-current={activeStep === index ? "step" : undefined}>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  <strong>{step.label}</strong>
-                </button>
-              </li>
-            ))}
-          </ol>
-        </nav>
-
-        <div className="launch-track__steps">
-          {processSteps.map((step, index) => (
-            <article
-              className={activeStep === index ? "launch-track__step is-active" : "launch-track__step"}
-              data-step-index={index}
-              id={`launch-step-${index + 1}`}
-              key={step.label}
-              ref={(node) => {
-                stepRefs.current[index] = node;
-              }}
-            >
-              <span className="launch-track__number">{String(index + 1).padStart(2, "0")}</span>
-              <div className="launch-track__step-copy">
-                <h3>{step.label}</h3>
-                <p>{step.copy}</p>
-              </div>
-              <div className="launch-track__step-meta">
-                <span>Timing</span>
-                <strong>{step.time}</strong>
-              </div>
-              <div className="launch-track__deliverable">
-                <span>You leave with</span>
-                <strong>{processDeliverables[index]}</strong>
-              </div>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function TeamSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const reducedMotion = useReducedMotion();
@@ -874,12 +635,13 @@ export function ProjectCard({ project }: { project: Project }) {
           height={1024}
           loading="lazy"
         />
-        <i>{project.type}</i>
+        <i>{project.status}</i>
       </div>
-      <div>
-        <p>{project.type}</p>
-        <h3>{project.title}</h3>
+      <div className="project-card__copy">
+        <p>{project.status} / {project.type}</p>
+        <h2>{project.title}</h2>
         <span>{project.summary}</span>
+        <span className="project-card__link">Explore the direction <CtaArrow size={16} /></span>
       </div>
     </a>
   );
@@ -890,15 +652,24 @@ export function WorkPage() {
   const visible = filter === "All" ? projects : projects.filter((project) => project.type === filter);
 
   return (
-    <main className="page-shell">
-      <PageHero title="Case studies with the work doing the talking." copy="Filter by Website, Creator Pack, or Enterprise. Each thumbnail opens into a full case-study structure." />
-      <div className="filter-bar" aria-label="Filter work by type">
+    <main className="page-shell secondary-page">
+      <PageHero eyebrow="Concept work" title="Website directions built to make an idea easier to see." copy="These are transparent concept studies, not client case studies. Each one explores how a different founder offer could become a clear, responsive launch system." />
+      <div className="filter-bar secondary-filter-bar" role="group" aria-label="Filter concept work by type">
         {projectTypes.map((type) => (
-          <button key={type} type="button" className={filter === type ? "is-active" : ""} onClick={() => setFilter(type)}>
+          <button
+            key={type}
+            type="button"
+            className={filter === type ? "is-active" : ""}
+            aria-pressed={filter === type}
+            onClick={() => setFilter(type)}
+          >
             {type}
           </button>
         ))}
       </div>
+      <p className="visually-hidden" role="status" aria-live="polite">
+        {visible.length} website {visible.length === 1 ? "direction" : "directions"} shown.
+      </p>
       <div className="project-grid">
         {visible.map((project) => (
           <ProjectCard key={project.slug} project={project} />
@@ -910,138 +681,124 @@ export function WorkPage() {
 
 export function ServicesPage() {
   return (
-    <main className="page-shell">
-      <PageHero title="AI-native websites lead. Creator and enterprise packs extend the system." copy="Each product shows what is included, who it is for, starting price, turnaround, and how AI and human judgment divide the work." />
-        <div className="service-detail-grid">
-        {services.map((service, index) => (
-          <article id={service.slug} className={index === 0 ? `service-detail service-detail--primary ${service.color}` : `service-detail ${service.color}`} key={service.name}>
-            <span>{service.eyebrow}</span>
-            <h2>{service.name}</h2>
-            <p>{service.summary}</p>
-            <div className="service-meta">
-              <strong>{service.price}</strong>
-              <strong>{service.turnaround}</strong>
-            </div>
-            <h3>Included</h3>
-            <ul>
-              {service.included.map((item) => (
-                <li key={item}>
-                  <Check size={15} aria-hidden="true" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <h3>Who it is for</h3>
-            <p>{service.who}</p>
-            <h3>AI / human split</h3>
-            <p>{service.split}</p>
-            <PremiumButton href="/contact" secondary={index !== 0}>
-              Book this sprint
-            </PremiumButton>
-          </article>
-        ))}
-      </div>
+    <main className="page-shell secondary-page">
+      <PageHero
+        eyebrow="Websites"
+        title="A launch-ready website with the thinking already inside it."
+        copy="FirstFold shapes the offer, story, design, responsive build, and release path together so your first version is useful from day one."
+        actions={<><PremiumButton href="/pricing">See Plans</PremiumButton><PremiumButton href="/contact" secondary>Book a Call</PremiumButton></>}
+      />
+
+      <section className="secondary-section secondary-outcomes" aria-labelledby="website-outcomes-title">
+        <div className="secondary-section__heading">
+          <span>What the website must do</span>
+          <h2 id="website-outcomes-title">Clarity first. Proof close behind.</h2>
+        </div>
+        <div className="secondary-outcome-grid">
+          {websiteOutcomes.map((outcome, index) => <article key={outcome.title}><span>0{index + 1}</span><h3>{outcome.title}</h3><p>{outcome.copy}</p></article>)}
+        </div>
+      </section>
+
+      <section className="secondary-section" aria-labelledby="website-capabilities-title">
+        <div className="secondary-section__heading secondary-section__heading--split">
+          <div><span>One connected build</span><h2 id="website-capabilities-title">From rough material to a working public site.</h2></div>
+          <p>AI creates useful speed in research and drafting. Human judgment owns positioning, hierarchy, visual taste, accuracy, and the decision to ship.</p>
+        </div>
+        <div className="secondary-capability-grid">
+          {launchCapabilities.map((capability, index) => (
+            <article key={capability.label}>
+              <span>{String(index + 1).padStart(2, "0")} / {capability.label}</span>
+              <h3>{capability.title}</h3>
+              <p>{capability.copy}</p>
+              <ul>{capability.items.map((item) => <li key={item}><Check size={16} aria-hidden="true" />{item}</li>)}</ul>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="secondary-section secondary-plan-fit" aria-labelledby="website-plans-title">
+        <div className="secondary-section__heading"><span>Support levels</span><h2 id="website-plans-title">The foundation stays consistent. The room around it grows.</h2></div>
+        <div className="secondary-plan-fit__layout">
+          <div className="secondary-shared-list"><h3>Every plan includes</h3><ul>{sharedBuildIncludes.map((item) => <li key={item}><Check size={17} aria-hidden="true" />{item}</li>)}</ul></div>
+          <div className="secondary-plan-steps">
+            {pricingTiers.map((tier, index) => <article key={tier.name}><span>{tier.price} / {tier.timeline}</span><h3>{tier.name}</h3><p>{index === 0 ? "For a focused first version with the essential launch path." : index === 1 ? "For more pages, interaction, analytics, and a longer support window." : "For a broader launch with strategy, advanced interaction, and priority support."}</p><TextCta href={`/pricing#${tier.name.toLowerCase()}`}>See {tier.name}</TextCta></article>)}
+          </div>
+        </div>
+      </section>
+
+      <section className="secondary-section secondary-fit-check" aria-label="Website sprint fit">
+        <article><span>Good fit</span><h2>You have something real to launch.</h2><p>A product, service, or founder-led offer exists, but the public story and website need to become clearer and more usable.</p></article>
+        <article><span>Not the right fit</span><h2>You need a long discovery program first.</h2><p>FirstFold is built for focused launch work, not open-ended transformation, speculative branding, or unsupported outcome promises.</p></article>
+      </section>
     </main>
   );
 }
 
 export function ProcessPage() {
   return (
-    <main className="page-shell">
-      <section className="page-hero process-page-hero">
-        <h1>
-          <MotionText>Two tracks. One clear way in.</MotionText>
-        </h1>
-        <span>Browse the asset you need, then choose how much support you want around the launch.</span>
+    <main className="page-shell secondary-page">
+      <PageHero eyebrow="Process" title="Five visible stages. No mystery at the end." copy="The work moves through clear decisions, working screens, and specific review points so you always know what is ready and what needs your input." actions={<><PremiumButton href="/pricing">Choose a Plan</PremiumButton><PremiumButton href="/contact" secondary>Book a Call</PremiumButton></>} />
+      <section className="secondary-section secondary-process" aria-labelledby="full-process-title">
+        <div className="secondary-section__heading secondary-section__heading--split"><div><span>From first call to live site</span><h2 id="full-process-title">A delivery path built around useful decisions.</h2></div><p>Timing varies by plan, but the sequence stays stable. Each stage ends with something concrete enough to review.</p></div>
+        <ol className="secondary-process-list">
+          {processSteps.map((step, index) => (
+            <li id={`launch-step-${index + 1}`} key={step.label}>
+              <div className="secondary-process-list__lead"><span>{String(index + 1).padStart(2, "0")}</span><strong>{step.time}</strong></div>
+              <div className="secondary-process-list__summary"><h3>{step.label}</h3><p>{step.copy}</p></div>
+              <dl><div><dt>Your input</dt><dd>{step.clientInput}</dd></div><div><dt>FirstFold output</dt><dd>{step.output}</dd></div><div><dt>Review point</dt><dd>{step.reviewPoint}</dd></div></dl>
+            </li>
+          ))}
+        </ol>
       </section>
-      <section className="track-system" aria-label="FirstFold tracks">
-        <article>
-          <span className="track-system__tag">Track A / Assets</span>
-          <h2>
-            <MotionText>Products you can understand before the call.</MotionText>
-          </h2>
-          <p>Websites, creator packs, and enterprise systems are framed as deliverables: what they are, what is inside, who they are for, and where pricing starts.</p>
-          <ul className="track-link-list">
-            <TrackLink href="/services#ai-native-websites" label="AI-Native Websites" meta="from $4.8k" />
-            <TrackLink href="/services#creator-packs" label="Creator Packs" meta="from $1.6k" />
-            <TrackLink href="/services#enterprise-packs" label="Enterprise Systems" meta="custom" />
-          </ul>
-          <PremiumButton href="/services">
-            Browse the Folds
-          </PremiumButton>
-        </article>
-        <article>
-          <span className="track-system__tag">Track B / Calls & Plans</span>
-          <h2>
-            <MotionText>What you get once you book.</MotionText>
-          </h2>
-          <p>Discovery calls and Pro, Plus, Master plans explain how much of us you get: sprint duration, revision depth, post-launch support, and access.</p>
-          <ul className="track-link-list">
-            <TrackLink href="/contact" label="Discovery Call" meta="30 min" meeting />
-            <TrackLink href="/pricing" label="Pro, Plus, Master" meta="plans" />
-            <TrackLink href="/process" label="Process" meta="after booking" />
-          </ul>
-          <PremiumButton href="/contact" meeting>
-            Book a Discovery Call
-          </PremiumButton>
-        </article>
+      <section className="secondary-section secondary-principles" aria-labelledby="working-principles-title">
+        <div className="secondary-section__heading"><span>Working principles</span><h2 id="working-principles-title">Speed works when the review system is clear.</h2></div>
+        <div>{[
+          ["Visible work", "You review working structure and screens, not a surprise presentation at the end."],
+          ["Focused feedback", "Each review is tied to the agreed audience, page job, and launch decision."],
+          ["Human approval", "AI can accelerate options; a person owns every public claim and design decision."],
+          ["Launch QA", "Responsive behavior, actions, metadata, and handoff are checked before release."],
+        ].map(([title, copy], index) => <article key={title}><span>0{index + 1}</span><h3>{title}</h3><p>{copy}</p></article>)}</div>
       </section>
-      <LaunchTrack />
     </main>
   );
 }
 
 export function PricingPage() {
   return (
-    <main className="page-shell">
-      <section className="page-hero pricing-page-hero">
-        <h1>
-          <MotionText>Plans Starting at $99</MotionText>
-        </h1>
-        <span>Pick the support level. We bring the site live.</span>
-      </section>
+    <main className="page-shell secondary-page pricing-secondary-page">
+      <PageHero eyebrow="Plans" title="Plans starting at $99." copy="Pick the support level. We shape the website, build it responsively, and bring the first version live." />
       <PricingCards />
+      <section className="secondary-section secondary-buying-guide" aria-labelledby="buying-guide-title">
+        <div className="secondary-section__heading"><span>Choosing well</span><h2 id="buying-guide-title">Choose for the amount of support, not a bigger-looking card.</h2></div>
+        <div>{pricingTiers.map((tier, index) => <article key={tier.name}><span>{tier.name}</span><h3>{index === 0 ? "A focused launch" : index === 1 ? "More story and backup" : "A broader, hands-on release"}</h3><p>{index === 0 ? "Best when the offer is clear and the first site can stay compact." : index === 1 ? "Best when the site needs more pages, custom interactions, analytics, and iteration time." : "Best when launch strategy, advanced interactions, and priority post-launch support matter."}</p></article>)}</div>
+      </section>
+      <section className="secondary-section secondary-pricing-clarity" aria-label="Pricing clarity">
+        <article><span>Included in every plan</span><ul>{sharedBuildIncludes.map((item) => <li key={item}><Check size={16} aria-hidden="true" />{item}</li>)}</ul></article>
+        <article><span>Scoped separately</span><ul>{["Ongoing content production", "Large application backends", "Paid media management", "Unverified performance guarantees"].map((item) => <li key={item}>{item}</li>)}</ul></article>
+      </section>
+      <section className="secondary-section secondary-plan-faq" aria-labelledby="plan-faq-title"><div className="secondary-section__heading"><span>Before you choose</span><h2 id="plan-faq-title">Useful plan answers.</h2></div><div>{[
+        ["Can the scope change after we start?", "Yes, but the impact on timing and plan level is agreed before extra work begins."],
+        ["Do I need finished copy?", "No. Bring the raw material; writing and structure are part of shaping the website."],
+        ["Is hosting included?", "Launch support is included. Third-party hosting, domains, and paid services remain in your account."],
+        ["What happens after launch?", "Every plan includes a support window, with longer and higher-priority support in Plus and Master."],
+      ].map(([question, answer]) => <article key={question}><h3>{question}</h3><p>{answer}</p></article>)}</div></section>
     </main>
   );
 }
 
 export function ResourcesPage() {
-  const resourcePreviews = [
-    {
-      label: "Checklist",
-      title: "First-fold checklist",
-      copy: "A practical preflight for the first screen: promise, proof, call to action, mobile hierarchy, and launch QA.",
-    },
-    {
-      label: "Stack notes",
-      title: "AI launch stack",
-      copy: "The working stack behind fast site sprints: research, writing, prototyping, quality checks, and handoff.",
-    },
-    {
-      label: "Teardown",
-      title: "Founder website teardown",
-      copy: "A sharp review format for spotting where a founder site loses clarity, trust, or momentum before the first call.",
-    },
-  ];
-
   return (
-    <main className="page-shell">
-      <PageHero title="Field Notes are coming." copy="Useful checklists, teardown formats, and launch notes are being shaped from the same system we use inside client sprints." />
-      <section className="resource-preview-grid" aria-label="Upcoming FirstFold resources">
-        {resourcePreviews.map((resource, index) => (
-          <article className={`resource-card resource-card--${index + 1}`} key={resource.title}>
-            <span>{resource.label}</span>
+    <main className="page-shell secondary-page">
+      <PageHero eyebrow="Resources" title="Practical notes for a clearer first launch." copy="Use the same checks FirstFold applies to story, AI-assisted production, responsive hierarchy, and launch readiness." />
+      <section className="resource-preview-grid secondary-resource-grid" aria-label="FirstFold resource guides">
+        {resourceGuides.map((resource, index) => (
+          <Link className={`resource-card resource-card--${index + 1}`} href={`/resources/${resource.slug}`} key={resource.title}>
+            <div><span>{resource.label}</span><strong>{resource.readingTime}</strong></div>
             <h2>{resource.title}</h2>
-            <p>{resource.copy}</p>
-          </article>
+            <p>{resource.summary}</p>
+            <span className="resource-card__link">Read the guide <CtaArrow size={17} /></span>
+          </Link>
         ))}
-      </section>
-      <section className="resource-cta">
-        <div>
-          <h2>Want the first checklist?</h2>
-          <p>Ask for it now and we will send the first-fold preflight when the first note is ready.</p>
-        </div>
-        <PremiumButton href="/contact">Ask for the checklist</PremiumButton>
       </section>
     </main>
   );
@@ -1049,28 +806,30 @@ export function ResourcesPage() {
 
 export function AboutPage() {
   return (
-    <main className="page-shell">
-      <PageHero title="A studio for the first fold and everything it implies." copy="FirstFold is built around one belief: the first screen should reveal the quality of the entire company." />
-      <section className="about-system">
-        <div>
-          <FoldGlyph />
-          <h2>AI accelerates the making. Humans decide what deserves to exist.</h2>
-        </div>
-        <p>FirstFold exists for founders who have the raw material already: sharp taste, useful ideas, messy notes, and not enough time to turn them into a launch system. The studio combines strategy, editorial taste, interaction design, and fast AI-assisted production so the first screen feels clear from the opening moment.</p>
-      </section>
-      <div className="about-photo">
-        <img src="/human-team.png" alt="AI-generated fictional FirstFold studio process scene" width={1792} height={1024} loading="lazy" />
-      </div>
+    <main className="page-shell secondary-page">
+      <PageHero eyebrow="About FirstFold" title="A founder-led studio for getting the first version right." copy="FirstFold helps founders turn useful ideas, messy material, and strong ambition into a clear website people can understand and act on." actions={<><PremiumButton href="/contact">Book a Call</PremiumButton><PremiumButton href="/pricing" secondary>See Plans</PremiumButton></>} />
+      <section className="secondary-section about-statement"><FoldGlyph /><h2>AI accelerates the making. Human judgment decides what deserves to exist.</h2><p>The studio uses AI for research, structure, variants, and repeatable checks. Positioning, factual accuracy, hierarchy, visual taste, and launch approval stay human-owned.</p></section>
+      <section className="secondary-section about-reasons" aria-labelledby="about-reasons-title"><div className="secondary-section__heading"><span>Why the studio exists</span><h2 id="about-reasons-title">The first public version should create momentum, not another unfinished system.</h2></div><div>{[
+        ["Start from the decision", "A page exists to help someone understand, trust, compare, or act. That job comes before decoration."],
+        ["Build the real thing", "Working responsive pages reveal problems that static presentations hide."],
+        ["Keep claims honest", "Specific proof and clear limits create more trust than inflated outcome language."],
+        ["Leave room to grow", "The first version is focused, but its sections and content rules should support the next one."],
+      ].map(([title, copy], index) => <article key={title}><span>0{index + 1}</span><h3>{title}</h3><p>{copy}</p></article>)}</div></section>
+      <section className="secondary-section about-expectations"><article><span>What clients bring</span><h2>Context, conviction, and timely decisions.</h2><p>You do not need perfect copy or a complete brand system. You do need truthful product context, access to the decision-maker, and focused feedback.</p></article><article><span>What FirstFold brings</span><h2>Structure, design judgment, and a path to live.</h2><p>The work is shaped as one connected website system, reviewed in visible stages, and checked before release.</p></article></section>
     </main>
   );
 }
 
 export function ContactPage() {
+  const bookingUrl = process.env.NEXT_PUBLIC_BOOKING_URL?.trim();
+
   return (
-    <main className="page-shell contact-page">
-      <PageHero title="Book a call." copy="Pick the sprint shape. We will reply with the cleanest next step." />
-      <BookingPreview />
-      <ContactForm />
+    <main className="page-shell secondary-page contact-page">
+      <PageHero eyebrow="Start here" title="Tell us what needs to go live." copy="Choose a call when a booking link is available, or send a short brief. We will reply with the clearest next step and the plan that fits." />
+      <section className="contact-paths">
+        {bookingUrl ? <article className="contact-booking"><span>Talk it through</span><h2>Book a focused intro call.</h2><p>Use 20 minutes to share the offer, current material, timing, and what the website needs to change.</p><a className="premium-button" href={bookingUrl} target="_blank" rel="noreferrer"><span>Choose a Time</span><CtaArrow size={20} /></a></article> : null}
+        <article className={bookingUrl ? "contact-brief" : "contact-brief contact-brief--wide"}><span>Send a brief</span><h2>A few useful details are enough.</h2><p>The form opens a prepared email in your mail app. Nothing is presented as submitted until you send it.</p><ContactForm /></article>
+      </section>
     </main>
   );
 }
@@ -1083,19 +842,18 @@ export function ContactForm() {
 
     const form = new FormData(event.currentTarget);
     const field = (name: string) => String(form.get(name) ?? "").trim();
-    const projectType = field("projectType") || "Project";
+    const plan = field("plan") || "Not sure";
     const body = [
       `Name: ${field("name")}`,
       `Email: ${field("email")}`,
-      `Project type: ${projectType}`,
-      `Budget: ${field("budget")}`,
+      `Plan interest: ${plan}`,
       `Timeline: ${field("timeline") || "Not specified"}`,
       "",
       "Brief:",
       field("brief"),
     ].join("\n");
 
-    window.location.href = `mailto:hello@firstfold.studio?subject=${encodeURIComponent(`FirstFold inquiry: ${projectType}`)}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:hello@firstfold.studio?subject=${encodeURIComponent(`FirstFold website inquiry: ${plan}`)}&body=${encodeURIComponent(body)}`;
     setSubmitted(true);
   }
 
@@ -1110,28 +868,26 @@ export function ContactForm() {
         <input name="email" type="email" autoComplete="email" required placeholder="you@company.com" />
       </label>
       <label>
-        Project type
-        <select name="projectType" defaultValue="AI-Native Website">
-          <option>AI-Native Website</option>
-          <option>Creator Pack</option>
-          <option>Enterprise Pack</option>
+        Plan interest
+        <select name="plan" defaultValue="Not sure">
+          <option>Pro</option>
+          <option>Plus</option>
+          <option>Master</option>
+          <option>Not sure</option>
         </select>
       </label>
       <label>
-        Budget
-        <select name="budget" defaultValue="$4.8k-$8.5k">
-          <option>$4.8k-$8.5k</option>
-          <option>$8.5k-$15k</option>
-          <option>$15k+</option>
+        Launch timing
+        <select name="timeline" defaultValue="As soon as possible">
+          <option>As soon as possible</option>
+          <option>Within a month</option>
+          <option>1-3 months</option>
+          <option>Flexible</option>
         </select>
-      </label>
-      <label>
-        Timeline
-        <input name="timeline" placeholder="10-21 days, next month, flexible..." />
       </label>
       <label className="contact-form__wide">
-        What are you launching?
-        <textarea name="brief" required placeholder="A new site, sharper creator system, enterprise workflow, or something still taking shape..." rows={6} />
+        What needs to go live?
+        <textarea name="brief" required placeholder="What are you launching, who is it for, and what material already exists?" rows={6} />
       </label>
       <button type="submit" className="submit-button">
         <span>Send inquiry</span>
@@ -1177,29 +933,47 @@ export function FAQAccordion() {
   );
 }
 
-export function PageHero({ title, copy }: { title: string; copy: string }) {
+export function PageHero({ eyebrow, title, copy, actions }: { eyebrow?: string; title: string; copy: string; actions?: ReactNode }) {
   return (
-    <section className="page-hero">
-      <h1>
-        <MotionText>{title}</MotionText>
-      </h1>
-      <span>{copy}</span>
+    <section className="page-hero secondary-hero">
+      <div className="secondary-hero__title">
+        {eyebrow ? <span className="secondary-eyebrow">{eyebrow}</span> : null}
+        <h1><MotionText>{title}</MotionText></h1>
+      </div>
+      <div className="secondary-hero__aside">
+        <p>{copy}</p>
+        {actions ? <div className="secondary-hero__actions">{actions}</div> : null}
+      </div>
     </section>
   );
 }
 
 export function FinalCTA() {
+  const pathname = usePathname();
+  const routeCopy: Record<string, { eyebrow: string; line: string; accent: string; copy: string }> = {
+    "/services": { eyebrow: "Know what the website needs to do?", line: "Choose the right", accent: "support level.", copy: "Compare the three plans or tell us what you are launching." },
+    "/process": { eyebrow: "Ready to begin the first stage?", line: "Bring the context.", accent: "We will shape the path.", copy: "Start with a plan or a focused conversation about the launch." },
+    "/pricing": { eyebrow: "Still deciding between plans?", line: "Choose for the", accent: "support you need.", copy: "Tell us the scope and timing. We will point you to the cleanest fit." },
+    "/work": { eyebrow: "Have a direction worth making real?", line: "Turn the concept", accent: "into a live site.", copy: "Share the idea, audience, and material you already have." },
+    "/about": { eyebrow: "Have something useful to launch?", line: "Make the first", accent: "version count.", copy: "FirstFold can help turn the raw material into a clear public website." },
+    "/resources": { eyebrow: "Found a useful starting point?", line: "Apply it to", accent: "your own launch.", copy: "Use the guides yourself or bring the material into a focused website sprint." },
+    "/contact": { eyebrow: "Prefer to compare first?", line: "See the support", accent: "behind each plan.", copy: "Review the scope, timing, and post-launch support before reaching out." },
+  };
+  const key = Object.keys(routeCopy).find((route) => pathname === route || pathname.startsWith(`${route}/`));
+  const content = key ? routeCopy[key] : { eyebrow: "Have an idea worth launching?", line: "Make the first", accent: "version count.", copy: "Tell us what you are building. We will help shape the clearest way to launch it." };
+  const isContact = pathname === "/contact";
+
   return (
     <section className="final-cta" aria-labelledby="final-cta-title">
       <div className="final-cta__copy">
-        <p>Have an idea worth launching?</p>
+        <p>{content.eyebrow}</p>
         <h2 id="final-cta-title">
-          <span>Make the first</span>
-          <strong>version count.</strong>
+          <span>{content.line}</span>
+          <strong>{content.accent}</strong>
         </h2>
-        <span>Tell us what you are building. We will help shape the clearest way to launch it.</span>
-        <PremiumButton href="/contact" secondary hideArrow>
-          Book a Call
+        <span>{content.copy}</span>
+        <PremiumButton href={isContact ? "/pricing" : "/contact"} secondary hideArrow>
+          {isContact ? "See Plans" : "Book a Call"}
         </PremiumButton>
       </div>
       <img src="/images/hero/firstfold-vision-craft.webp" alt="" width={1341} height={1351} loading="lazy" />
@@ -1212,28 +986,27 @@ export function Footer() {
     <footer className="site-footer">
       <div className="footer-directory">
         <nav aria-label="Footer products">
-          <h2>Products</h2>
-          <Link href="/services">AI-native websites</Link>
-          <Link href="/services">Creator packs</Link>
-          <Link href="/services">Enterprise systems</Link>
-          <Link href="/pricing">Pricing</Link>
+          <h2>Websites</h2>
+          <Link href="/services">What we build</Link>
+          <Link href="/process">How we launch</Link>
+          <Link href="/pricing">Pro, Plus &amp; Master</Link>
+          <Link href="/work">Concept work</Link>
         </nav>
         <nav aria-label="Footer company">
           <h2>Company</h2>
-          <Link href="/work">Work</Link>
-          <Link href="/process">Process</Link>
           <Link href="/about">About</Link>
           <Link href="/resources">Resources</Link>
+          <Link href="/contact">Contact</Link>
         </nav>
         <nav aria-label="Footer contact">
           <h2>Contact</h2>
           <Link href="/contact">Book a call</Link>
           <a href="mailto:hello@firstfold.studio">Email us</a>
-          <Link href="/work">Case studies</Link>
+          <Link href="/work">Website directions</Link>
         </nav>
         <div className="footer-statement">
           <h2>Making first folds feel alive.</h2>
-          <p>AI-native websites with human taste, clear proof, and launch-ready systems.</p>
+          <p>Launch-ready founder websites with clear proof, responsive thinking, and human judgment.</p>
         </div>
       </div>
       <div className="footer-brand-row">
