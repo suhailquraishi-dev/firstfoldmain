@@ -3,7 +3,15 @@ import { ProcessPage } from "../components/SiteSections";
 
 export const metadata: Metadata = {
   title: "Process | FirstFold Studio",
-  description: "The five-stage, AI-assisted and human-led FirstFold website launch process.",
+  description: "Follow the five-stage FirstFold process from discovery to live website, with clear inputs, outputs, and review points.",
+  openGraph: {
+    title: "Process | FirstFold Studio",
+    description: "Follow the five-stage FirstFold process from discovery to live website, with clear inputs, outputs, and review points.",
+  },
+  twitter: {
+    title: "Process | FirstFold Studio",
+    description: "Follow the five-stage FirstFold process from discovery to live website, with clear inputs, outputs, and review points.",
+  },
 };
 
 export default function Page() {

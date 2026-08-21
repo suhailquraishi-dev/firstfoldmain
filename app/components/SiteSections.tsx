@@ -68,40 +68,40 @@ const processDeliverables = [
 
 const audienceRows = [
   {
-    title: "First launch",
-    summary: "Use Pro when the first public version needs to get clear and live.",
+    title: "Founders",
+    summary: "From idea to something people can actually use.",
     description:
-      "Best for a focused founder website with the essential pages, responsive build, launch QA, and one clean decision path.",
+      "Launching a new business or testing an idea? We help you get the essentials live with the right website, proof, and launch path.",
   },
   {
-    title: "More story",
-    summary: "Use Plus when the offer needs more room to explain, prove, and compare.",
+    title: "AI products",
+    summary: "Make the product feel as good as the technology behind it.",
     description:
-      "Best for a broader website with more pages, custom interactions, analytics setup, and a longer support window.",
+      "We help AI products launch with clearer positioning, polished product visuals, useful demos, and pages that explain the value without flattening the technology.",
   },
   {
-    title: "Hands-on release",
-    summary: "Use Master when launch support matters before and after the site goes live.",
+    title: "SaaS teams",
+    summary: "Everything you need to ship the next version.",
     description:
-      "Best when the site needs priority revisions, advanced interactions, launch strategy, updates, and deeper post-launch backup.",
+      "Whether you are launching V1, a feature, or a repositioning, we shape the website, launch pages, visuals, and supporting assets needed to get it out quickly.",
   },
   {
-    title: "Founder-led offers",
-    summary: "Good fit when the buyer needs to understand the offer before they talk to you.",
+    title: "Creator-led brands",
+    summary: "Turn an audience into a brand.",
     description:
-      "FirstFold works well for services, products, tools, communities, and AI-enabled businesses that need a sharper public story.",
+      "For creators launching products, communities, courses, or businesses. We build the digital presence around the launch without making it feel like a generic template.",
   },
   {
-    title: "AI-assisted speed",
-    summary: "Fast does not mean generic.",
+    title: "Enterprise GTM",
+    summary: "Move faster without waiting on another internal cycle.",
     description:
-      "AI helps with research, structure, draft routes, and QA. Human judgment owns positioning, taste, hierarchy, and every shipped claim.",
+      "We support GTM teams with focused launch pages, product visuals, sales materials, and execution-heavy web work inside the current brand.",
   },
   {
-    title: "Room to grow",
-    summary: "The first version should not trap the second.",
+    title: "Productized services",
+    summary: "Package what you do. Make it easier to buy.",
     description:
-      "Plans stay focused, but the page system leaves room for product pages, resources, dashboards, proof, and future launches.",
+      "For agencies, consultants, studios, and service businesses turning expertise into a repeatable offer. We help structure, position, and launch it with a sharper website.",
   },
 ];
 
@@ -185,10 +185,10 @@ function Hero() {
     <section className="hero-shell hero-shell--landing theme-yellow">
       <div className="hero-grid">
         <motion.div className="hero-copy" style={reducedMotion ? undefined : { y: artworkY }}>
-          <h1 aria-label="Helping founders launch toward their next million in revenue, funding, or customers">
+          <h1 aria-label="Helping founders raise their next million in funding, revenue, or customers">
             <span className="hero-title-line hero-title-line--sans hero-title-line--ink">Helping</span>
-            <span className="hero-title-line hero-title-line--sans hero-title-line--ink">Founders Launch</span>
-            <span className="hero-title-line hero-title-line--editorial hero-title-line--orange">Toward Their Next Million</span>
+            <span className="hero-title-line hero-title-line--sans hero-title-line--ink">Founders Raise</span>
+            <span className="hero-title-line hero-title-line--editorial hero-title-line--orange">Their Next Million</span>
           </h1>
           <p className="hero-subtitle">
             Launch-ready websites for funding, revenue, or first customers — starting in 5–7 days.
@@ -307,9 +307,9 @@ function AudienceFitSection() {
     <section className="audience-fit-section" aria-labelledby="audience-fit-title">
       <div className="audience-fit-copy">
         <h2 id="audience-fit-title">
-          <MotionText>One offer model. Three support levels.</MotionText>
+          <MotionText>Built for the first version that has to work.</MotionText>
         </h2>
-        <p>The same website foundation sits under Pro, Plus, and Master. The plan changes the room, support, and launch depth.</p>
+        <p>Different launch situations, one website system underneath. Pro, Plus, and Master change the room and support level.</p>
       </div>
       <div className="audience-fit-list" aria-label="Who FirstFold websites are for">
         {audienceRows.map((item, index) => (
@@ -443,7 +443,7 @@ function ProcessTeaser() {
       <div className="process-runway__facts" aria-label="Launch process facts">
         <span><strong>3</strong> support levels</span>
         <span><strong>1</strong> clear story per screen</span>
-        <span><strong>0</strong> big reveals</span>
+        <span><strong>0</strong> surprise scope</span>
       </div>
 
       <div className="process-runway__track">
@@ -684,7 +684,7 @@ export function ServicesPage() {
     <main className="page-shell secondary-page">
       <PageHero
         eyebrow="Websites"
-        title="A launch-ready website with the thinking already inside it."
+        title="A launch-ready website that makes the offer easier to buy."
         copy="FirstFold shapes the offer, story, design, responsive build, and release path together so your first version is useful from day one."
         actions={<><PremiumButton href="/pricing">See Plans</PremiumButton><PremiumButton href="/contact" secondary>Book a Call</PremiumButton></>}
       />
@@ -766,7 +766,7 @@ export function ProcessPage() {
 export function PricingPage() {
   return (
     <main className="page-shell secondary-page pricing-secondary-page">
-      <PageHero eyebrow="Plans" title="Plans starting at $99." copy="Pick the support level. We shape the website, build it responsively, and bring the first version live." />
+      <PageHero eyebrow="Plans" title="Plans Starting at $99" copy="Pick the support level. We shape the website, build it responsively, and bring the first version live." />
       <PricingCards />
       <section className="secondary-section secondary-buying-guide" aria-labelledby="buying-guide-title">
         <div className="secondary-section__heading"><span>Choosing well</span><h2 id="buying-guide-title">Choose for the amount of support, not a bigger-looking card.</h2></div>
@@ -774,7 +774,7 @@ export function PricingPage() {
       </section>
       <section className="secondary-section secondary-pricing-clarity" aria-label="Pricing clarity">
         <article><span>Included in every plan</span><ul>{sharedBuildIncludes.map((item) => <li key={item}><Check size={16} aria-hidden="true" />{item}</li>)}</ul></article>
-        <article><span>Scoped separately</span><ul>{["Ongoing content production", "Large application backends", "Paid media management", "Unverified performance guarantees"].map((item) => <li key={item}>{item}</li>)}</ul></article>
+        <article><span>Scoped separately</span><ul>{["Ongoing content production", "Large application backends", "Paid media management", "Guaranteed performance outcomes"].map((item) => <li key={item}>{item}</li>)}</ul></article>
       </section>
       <section className="secondary-section secondary-plan-faq" aria-labelledby="plan-faq-title"><div className="secondary-section__heading"><span>Before you choose</span><h2 id="plan-faq-title">Useful plan answers.</h2></div><div>{[
         ["Can the scope change after we start?", "Yes, but the impact on timing and plan level is agreed before extra work begins."],
@@ -815,7 +815,30 @@ export function AboutPage() {
         ["Keep claims honest", "Specific proof and clear limits create more trust than inflated outcome language."],
         ["Leave room to grow", "The first version is focused, but its sections and content rules should support the next one."],
       ].map(([title, copy], index) => <article key={title}><span>0{index + 1}</span><h3>{title}</h3><p>{copy}</p></article>)}</div></section>
-      <section className="secondary-section about-expectations"><article><span>What clients bring</span><h2>Context, conviction, and timely decisions.</h2><p>You do not need perfect copy or a complete brand system. You do need truthful product context, access to the decision-maker, and focused feedback.</p></article><article><span>What FirstFold brings</span><h2>Structure, design judgment, and a path to live.</h2><p>The work is shaped as one connected website system, reviewed in visible stages, and checked before release.</p></article></section>
+      <section className="secondary-section about-expectations">
+        {[
+          {
+            eyebrow: "What clients bring",
+            title: "Context, conviction, and timely decisions.",
+            points: ["Truthful product context", "Current material and references", "Access to the decision-maker", "Focused feedback at each review"],
+          },
+          {
+            eyebrow: "What FirstFold brings",
+            title: "Structure, design judgment, and a path to live.",
+            points: ["A clear website story", "AI-assisted structure and QA", "Human visual and copy judgment", "Responsive launch checks before release"],
+          },
+        ].map((item, index) => (
+          <article key={item.eyebrow}>
+            <span>{item.eyebrow}</span>
+            <h2>{item.title}</h2>
+            <ul>
+              {item.points.map((point, pointIndex) => (
+                <li key={point}><strong>{String(index * 4 + pointIndex + 1).padStart(2, "0")}</strong>{point}</li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </section>
     </main>
   );
 }
@@ -828,7 +851,7 @@ export function ContactPage() {
       <PageHero eyebrow="Start here" title="Tell us what needs to go live." copy="Choose a call when a booking link is available, or send a short brief. We will reply with the clearest next step and the plan that fits." />
       <section className="contact-paths">
         {bookingUrl ? <article className="contact-booking"><span>Talk it through</span><h2>Book a focused intro call.</h2><p>Use 20 minutes to share the offer, current material, timing, and what the website needs to change.</p><a className="premium-button" href={bookingUrl} target="_blank" rel="noreferrer"><span>Choose a Time</span><CtaArrow size={20} /></a></article> : null}
-        <article className={bookingUrl ? "contact-brief" : "contact-brief contact-brief--wide"}><span>Send a brief</span><h2>A few useful details are enough.</h2><p>The form opens a prepared email in your mail app. Nothing is presented as submitted until you send it.</p><ContactForm /></article>
+        <article className={bookingUrl ? "contact-brief" : "contact-brief contact-brief--wide"}><span>Send a brief</span><h2>A few useful details are enough.</h2><p>Opens a draft in your email app. Nothing sends until you review and send it.</p><ContactForm /></article>
       </section>
     </main>
   );
@@ -890,7 +913,7 @@ export function ContactForm() {
         <textarea name="brief" required placeholder="What are you launching, who is it for, and what material already exists?" rows={6} />
       </label>
       <button type="submit" className="submit-button">
-        <span>Send inquiry</span>
+        <span>Send the Brief</span>
         <CtaArrow />
       </button>
       <a className="email-fallback" href="mailto:hello@firstfold.studio">
@@ -996,7 +1019,7 @@ export function Footer() {
         </nav>
         <nav aria-label="Footer contact">
           <h2>Contact</h2>
-          <Link href="/contact">Book a call</Link>
+          <Link href="/contact">Book a Call</Link>
           <a href="mailto:hello@firstfold.studio">Email us</a>
           <Link href="/work">Website directions</Link>
         </nav>

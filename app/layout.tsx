@@ -14,13 +14,13 @@ export const metadata: Metadata = {
   description: "Launch-ready founder websites with clear strategy, responsive design, human judgment, and plans starting at $99.",
   openGraph: {
     title: "FirstFold Studio",
-    description: "Launch-ready founder websites with plans at $99, $199, and $499.",
-    images: [{ url: "/og.png", width: 1200, height: 630, alt: "FirstFold Studio AI-native websites" }],
+    description: "Launch-ready founder websites with clear strategy, responsive design, human judgment, and plans starting at $99.",
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "FirstFold Studio launch-ready websites" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "FirstFold Studio",
-    description: "Launch-ready founder websites with plans at $99, $199, and $499.",
+    description: "Launch-ready founder websites with clear strategy, responsive design, human judgment, and plans starting at $99.",
     images: ["/og.png"],
   },
   icons: {

@@ -23,6 +23,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: `${project.title} | FirstFold Studio`,
     description: `${project.status}: ${project.summary}`,
+    openGraph: {
+      title: `${project.title} | FirstFold Studio`,
+      description: `${project.status}: ${project.summary}`,
+      images: [{ url: project.image, width: 1536, height: 1024, alt: `${project.title} concept website direction` }],
+    },
+    twitter: {
+      title: `${project.title} | FirstFold Studio`,
+      description: `${project.status}: ${project.summary}`,
+      images: [project.image],
+    },
   };
 }
 
