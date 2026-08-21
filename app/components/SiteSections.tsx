@@ -440,12 +440,6 @@ function ProcessTeaser() {
         </div>
       </header>
 
-      <div className="process-runway__facts" aria-label="Launch process facts">
-        <span><strong>3</strong> support levels</span>
-        <span><strong>1</strong> clear story per screen</span>
-        <span><strong>0</strong> surprise scope</span>
-      </div>
-
       <div className="process-runway__track">
         <div className="process-runway__rail" aria-hidden="true">
           <motion.span
@@ -552,26 +546,21 @@ function HomePricingSection() {
 function TeamSection() {
   return (
     <section className="team-section founder-spotlight" aria-labelledby="team-title">
-      <div className="team-section__copy">
-        <span className="team-section__eyebrow">Founder note / 01</span>
-        <h2 id="team-title">
-          <MotionText>Hear from the founder</MotionText>
-        </h2>
-        <p>Why FirstFold exists.</p>
-      </div>
-      <figure className="founder-note">
-        <div className="founder-note__identity">
-          <img src="/images/team/orange-profile.png" alt="" width={192} height={192} loading="lazy" />
-          <figcaption>
-            <strong>Suhail Quraishi</strong>
-            <span>CEO &amp; Founder</span>
+      <figure className="founder-note" aria-labelledby="team-title">
+        <div className="founder-note__copy">
+          <figcaption className="founder-note__heading">
+            <span aria-hidden="true">“</span>
+            <h2 id="team-title">Hear from the founder</h2>
           </figcaption>
+          <blockquote>
+            A lot of founders start with big ambitions, but turning an idea into something real is often the hardest part.
+            That’s where we come in—to help them take their first step, and take it right.
+          </blockquote>
+          <p>- Suhail Quraishi</p>
         </div>
-        <blockquote>
-          <span aria-hidden="true">“</span>
-          A lot of founders start with big ambitions, but turning an idea into something real is often the hardest part.
-          That’s where we come in—to help them take their first step, and take it right.”
-        </blockquote>
+        <div className="founder-note__media" aria-hidden="true">
+          <img src="/images/team/founder-note-frame.webp" alt="" width={2032} height={2036} loading="lazy" />
+        </div>
       </figure>
     </section>
   );
@@ -947,7 +936,6 @@ export function FinalCTA() {
   return (
     <section className="final-cta" aria-labelledby="final-cta-title">
       <div className="final-cta__copy">
-        <p>{content.eyebrow}</p>
         <h2 id="final-cta-title">
           <span>{content.line}</span>
           <strong>{content.accent}</strong>

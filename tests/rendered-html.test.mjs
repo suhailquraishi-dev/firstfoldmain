@@ -126,7 +126,9 @@ test("server-renders the FirstFold Studio homepage", async () => {
   assert.doesNotMatch(html, /capability-icon/);
   assert.match(html, /Strong foundations\. A clearer path to launch\./);
   assert.match(html, /5–14 days/);
-  assert.match(html, /<strong>0<\/strong>\s*surprise scope/);
+  assert.doesNotMatch(html, /support levels/);
+  assert.doesNotMatch(html, /clear story per screen/);
+  assert.doesNotMatch(html, /surprise scope/);
   assert.doesNotMatch(html, /0\s*big reveals/);
   assert.match(html, /Discovery call/);
   assert.match(html, /AI-assisted draft/);
@@ -145,7 +147,8 @@ test("server-renders the FirstFold Studio homepage", async () => {
   assert.match(html, /Hear from the founder/);
   assert.match(html, /Suhail Quraishi/);
   assert.match(html, /A lot of founders start with big ambitions/);
-  assert.match(html, /take it right.”/);
+  assert.match(html, /take it right\./);
+  assert.match(html, /founder-note-frame\.webp/);
   assert.match(html, /Can the site become a product later\?/);
   assert.match(html, /The first version leaves room for portals, templates, subscriptions, resources, or dashboards\./);
   assert.match(html, /Do you need perfect brand assets first\?/);
