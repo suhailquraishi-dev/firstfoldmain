@@ -121,7 +121,14 @@ test("server-renders the FirstFold Studio homepage", async () => {
   assert.match(html, /tool-ui-node__label/);
   assert.match(html, /Next\.js/);
   assert.doesNotMatch(html, /capability-icon/);
-  assert.match(html, /10-21d/);
+  assert.match(html, /Strong foundations\. A clearer path to launch\./);
+  assert.match(html, /10–21 days/);
+  assert.match(html, /Discovery call/);
+  assert.match(html, /AI-assisted draft/);
+  assert.match(html, /Human design pass/);
+  assert.match(html, /Review round/);
+  assert.match(html, /Launch/);
+  assert.match(html, /See the full process/);
   assert.match(html, /favicon\.svg/);
   assert.doesNotMatch(html, /human-team\.png/);
   assert.doesNotMatch(html, /logos\/clients\/client-1\.svg/);

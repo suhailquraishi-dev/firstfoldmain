@@ -5,7 +5,7 @@ import { AnimatePresence, motion, useMotionValue, useReducedMotion, useScroll, u
 import { Check, ChevronDown, Clock, Globe2, Mail } from "lucide-react";
 import Link from "next/link";
 import { type CSSProperties, FormEvent, type PointerEvent as ReactPointerEvent, useEffect, useRef, useState } from "react";
-import { faqs, logoRail, metrics, pricingTiers, processSteps, projects, projectTypes, services } from "@/lib/content";
+import { faqs, logoRail, pricingTiers, processSteps, projects, projectTypes, services } from "@/lib/content";
 import { CtaArrow, FoldGlyph, MeetingIcons, MotionText, PremiumButton, SectionFrame, StatusBadge, TextCta } from "./UIPrimitives";
 
 type Project = (typeof projects)[number];
@@ -560,27 +560,64 @@ export function ServicePanel({ service, index, primary = false }: { service: (ty
 }
 
 function ProcessTeaser() {
+  const reducedMotion = useReducedMotion();
+
   return (
-    <SectionFrame title="Strong foundations, adapted - not rebuilt from zero every time." copy="That's how we keep it fast without cutting corners. AI creates speed; humans keep taste." accent="yellow">
-      <div className="metrics-grid">
-        {metrics.map((metric) => (
-          <article className="metric-card" key={metric.value}>
-            <span>{metric.label}</span>
-            <strong>{metric.value}</strong>
-          </article>
-        ))}
+    <section id="process-runway" className="process-runway" aria-labelledby="process-runway-title">
+      <header className="process-runway__header">
+        <div className="process-runway__intro">
+          <span className="process-runway__eyebrow">How we launch</span>
+          <h2 id="process-runway-title">
+            <MotionText>Strong foundations. A clearer path to launch.</MotionText>
+          </h2>
+          <p>AI creates speed. Human judgment keeps every screen focused, useful, and ready to ship.</p>
+        </div>
+        <div className="process-runway__window" aria-label="Typical launch window: 10 to 21 days">
+          <span>Typical launch window</span>
+          <strong>10–21 days</strong>
+        </div>
+      </header>
+
+      <div className="process-runway__facts" aria-label="Launch process facts">
+        <span><strong>3</strong> support levels</span>
+        <span><strong>1</strong> clear story per screen</span>
+        <span><strong>0</strong> big reveals</span>
       </div>
-      <div className="process-mini">
-        {processSteps.slice(0, 3).map((step) => (
-          <a href="/process" className="process-step" key={step.label}>
-            <span>{step.meta}</span>
-            <h3>{step.label}</h3>
-            <p>{step.copy}</p>
-            <strong>{step.time}</strong>
-          </a>
-        ))}
+
+      <div className="process-runway__track">
+        <div className="process-runway__rail" aria-hidden="true">
+          <motion.span
+            initial={reducedMotion ? false : { scaleX: 0 }}
+            whileInView={reducedMotion ? undefined : { scaleX: 1 }}
+            viewport={{ once: true, margin: "-20% 0px" }}
+            transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+          />
+        </div>
+        <ol className="process-runway__steps">
+          {processSteps.map((step, index) => (
+            <li key={step.label}>
+              <Link href={`/process#launch-step-${index + 1}`} className="process-runway__step">
+                <span className="process-runway__number">{String(index + 1).padStart(2, "0")}</span>
+                <div className="process-runway__step-top">
+                  <span>Stage {index + 1}</span>
+                  <strong>{step.time}</strong>
+                </div>
+                <h3>{step.label}</h3>
+                <p>{step.copy}</p>
+                <div className="process-runway__deliverable">
+                  <span>You leave with</span>
+                  <strong>{processDeliverables[index]}</strong>
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ol>
       </div>
-    </SectionFrame>
+
+      <TextCta href="/process" className="process-runway__cta">
+        See the full process
+      </TextCta>
+    </section>
   );
 }
 
