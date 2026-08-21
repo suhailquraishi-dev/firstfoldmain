@@ -135,7 +135,7 @@ test("server-renders the FirstFold Studio homepage", async () => {
   assert.match(html, /Human design pass/);
   assert.match(html, /Review round/);
   assert.match(html, /Launch/);
-  assert.match(html, /See the full process/);
+  assert.doesNotMatch(html, /See the full process/);
   assert.match(html, /favicon\.svg/);
   assert.doesNotMatch(html, /human-team\.png/);
   assert.doesNotMatch(html, /logos\/clients\/client-1\.svg/);

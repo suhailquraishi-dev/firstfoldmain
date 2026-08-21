@@ -469,9 +469,6 @@ function ProcessTeaser() {
         </ol>
       </div>
 
-      <TextCta href="/process" className="process-runway__cta">
-        See the full process
-      </TextCta>
     </section>
   );
 }
@@ -917,6 +914,7 @@ export function FinalCTA() {
           {isContact ? "See Plans" : "Book a Call"}
         </PremiumButton>
       </div>
+      <img src="/images/hero/bottom-cta-image.webp" alt="" width={3840} height={1966} loading="lazy" />
     </section>
   );
 }
