@@ -102,7 +102,7 @@ export function MobileStickyCTAs() {
         Book a Call
       </a>
       <a className="mobile-sticky-ctas__button mobile-sticky-ctas__button--secondary" href="/pricing">
-        View Plans
+        Plans at $99
       </a>
     </nav>
   );

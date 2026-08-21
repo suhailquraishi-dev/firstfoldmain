@@ -4,7 +4,7 @@
 import { AnimatePresence, motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
 import { Check, ChevronDown, Clock, Globe2, Mail } from "lucide-react";
 import Link from "next/link";
-import { type CSSProperties, FormEvent, type PointerEvent as ReactPointerEvent, useRef, useState } from "react";
+import { type CSSProperties, FormEvent, type PointerEvent as ReactPointerEvent, useEffect, useRef, useState } from "react";
 import { faqs, logoRail, metrics, pricingTiers, processSteps, projects, projectTypes, services } from "@/lib/content";
 import { CtaArrow, FoldGlyph, MeetingIcons, MotionText, PremiumButton, SectionFrame, StatusBadge, TextCta } from "./UIPrimitives";
 
@@ -14,39 +14,55 @@ const showcaseTemplates = [
   {
     title: "Transaction data intelligence",
     category: "Fintech Infrastructure",
+    filters: ["B2B SaaS", "Regulated"],
     image: "/images/showcase/spade.png",
     href: "https://spade.com/?utm_source=landing.gallery",
   },
   {
     title: "Agentic web CMS",
     category: "Headless CMS",
+    filters: ["B2B SaaS"],
     image: "/images/showcase/prismic.png",
     href: "https://prismic.io/?utm_source=landing.gallery",
   },
   {
     title: "AI support QA",
     category: "CX Enablement",
+    filters: ["B2B SaaS"],
     image: "/images/showcase/solidroad.png",
     href: "https://solidroad.com/?utm_source=landing.gallery",
   },
   {
     title: "Business identity verification",
     category: "Compliance Infrastructure",
+    filters: ["Regulated"],
     image: "/images/showcase/duna.png",
     href: "https://duna.com/?utm_source=landing.gallery",
   },
   {
     title: "Secure code sandboxes",
     category: "Developer Infrastructure",
+    filters: ["Developer"],
     image: "/images/showcase/daytona.png",
     href: "https://www.daytona.io/?utm_source=landing.gallery",
   },
   {
     title: "Personal wellness companion",
     category: "Consumer Health",
+    filters: ["Consumer", "Regulated"],
     image: "/images/showcase/holo.png",
     href: "https://tryholo.com/?utm_source=landing.gallery",
   },
+];
+
+const showcaseFilters = ["All", "B2B SaaS", "Developer", "Regulated", "Consumer"];
+
+const processDeliverables = [
+  "A focused launch brief",
+  "Approved structure and first draft",
+  "A polished visual direction",
+  "A launch-ready revision",
+  "Live website and handoff notes",
 ];
 
 const audienceRows = [
@@ -290,7 +306,7 @@ function Hero() {
               Book a Call
             </PremiumButton>
             <PremiumButton href="/pricing" secondary hideArrow>
-              View Plans
+              Plans at $99
             </PremiumButton>
           </div>
         </motion.div>
@@ -323,31 +339,51 @@ function ToolRail() {
 }
 
 function HowWeWorkSection() {
+  const [activeFilter, setActiveFilter] = useState("All");
+  const visibleTemplates = activeFilter === "All" ? showcaseTemplates : showcaseTemplates.filter((item) => item.filters.includes(activeFilter));
+
   return (
     <section className="showcase-section" aria-labelledby="showcase-title">
       <div className="showcase-heading">
+        <span className="showcase-eyebrow">Ready to Go Live Website Library</span>
         <div>
           <h2 id="showcase-title">
-            <MotionText>Need to launch soon? Explore these.</MotionText>
+            <MotionText>Launch-ready references, curated for founders.</MotionText>
           </h2>
-          <p>Select from best library, specially curated for you.</p>
+          <p>Browse real website directions we can adapt into a sharper first version.</p>
         </div>
       </div>
 
+      <div className="showcase-filters" aria-label="Template categories">
+        {showcaseFilters.map((filter) => (
+          <button
+            className={activeFilter === filter ? "is-active" : ""}
+            type="button"
+            aria-pressed={activeFilter === filter}
+            key={filter}
+            onClick={() => setActiveFilter(filter)}
+          >
+            <span>{filter}</span>
+          </button>
+        ))}
+      </div>
+
       <div className="showcase-grid" aria-label="Template library">
-        {showcaseTemplates.map((item) => (
+        {visibleTemplates.map((item) => (
           <a href={item.href} className="showcase-card" key={item.title} target="_blank" rel="noreferrer">
             <div className="showcase-card__preview">
               <img src={item.image} alt={`${item.title} landing page screenshot`} width={1440} height={900} loading="lazy" />
               <span className="showcase-card__overlay" aria-hidden="true">
-                <span>
-                  Create Yours
-                  <CtaArrow />
-                </span>
+                <CtaArrow />
               </span>
             </div>
-            <h3>{item.title}</h3>
-            <p>{item.category}</p>
+            <div className="showcase-card__meta">
+              <div>
+                <h3>{item.title}</h3>
+                <p>{item.category}</p>
+              </div>
+              <span className="showcase-card__badge">{item.filters[0]}</span>
+            </div>
           </a>
         ))}
       </div>
@@ -452,18 +488,7 @@ function PricingCards({ showProofStrip = false }: { showProofStrip?: boolean }) 
                       <span>{tier.timeline}</span>
                     </div>
                   </div>
-                  <PremiumButton href="/contact" secondary={!isFeatured}>
-                    {tier.cta}
-                  </PremiumButton>
                 </div>
-              </div>
-              <div className="pricing-benefit-list" aria-label={`${tier.name} key benefits`}>
-                {tier.benefits.map((benefit) => (
-                  <span key={benefit}>
-                    <Check size={14} aria-hidden="true" />
-                    {benefit}
-                  </span>
-                ))}
               </div>
               <div className="pricing-preview-card__rule" aria-hidden="true" />
               {"lead" in tier ? <p className="pricing-preview-card__lead">{tier.lead}</p> : null}
@@ -482,6 +507,9 @@ function PricingCards({ showProofStrip = false }: { showProofStrip?: boolean }) 
                   </div>
                 ))}
               </div>
+              <PremiumButton href="/contact" secondary={!isFeatured}>
+                {tier.cta}
+              </PremiumButton>
             </article>
           );
         })}
@@ -576,10 +604,7 @@ function FounderNote() {
 }
 
 function HomePricingSection() {
-  const proTier = pricingTiers[0];
-  const plusTier = pricingTiers[1];
-  const included = proTier.includes.slice(0, 4);
-  const paidIncluded = plusTier.includes.slice(0, 4);
+  const tierEyebrows = ["Launch essentials", "More room to build", "Hands-on support"];
 
   return (
     <section className="home-pricing-section" aria-labelledby="home-pricing-title">
@@ -590,59 +615,138 @@ function HomePricingSection() {
         <p>Built for where you are, and where you are going.</p>
       </div>
       <div className="home-pricing-cards">
-        <article className="home-pricing-card home-pricing-card--light">
-          <div className="home-pricing-card__top">
-            <div>
-              <span className="home-pricing-card__eyebrow">Launch essentials</span>
-              <h3>{proTier.name}</h3>
+        {pricingTiers.map((tier, index) => (
+          <article className="home-pricing-card" key={tier.name}>
+            <div className="home-pricing-card__top">
+              <div>
+                <span className="home-pricing-card__eyebrow">{tierEyebrows[index]}</span>
+                <h3>{tier.name}</h3>
+              </div>
+              <div className="home-pricing-card__price">
+                <strong>{tier.price}</strong>
+                <small>{tier.timeline}</small>
+              </div>
             </div>
-            <div className="home-pricing-card__price">
-              <strong>{proTier.price}</strong>
-              <small>{proTier.timeline}</small>
-            </div>
-          </div>
-          <p className="home-pricing-card__summary">{proTier.summary}</p>
-          <ul className="home-pricing-card__features">
-            {included.map((item) => (
-              <li key={item}>
-                <Check size={15} aria-hidden="true" />
-                {item}
-              </li>
-            ))}
-          </ul>
-          <PremiumButton href="/contact" secondary hideArrow>
-            {proTier.cta}
-          </PremiumButton>
-        </article>
-        <article className="home-pricing-card home-pricing-card--orange">
-          <div className="home-pricing-card__top">
-            <div>
-              <span className="home-pricing-card__eyebrow">More room to build</span>
-              <h3>{plusTier.name}</h3>
-            </div>
-            <div className="home-pricing-card__price">
-              <strong>{plusTier.price}</strong>
-              <small>{plusTier.timeline}</small>
-            </div>
-          </div>
-          <p className="home-pricing-card__summary">{plusTier.summary}</p>
-          <ul className="home-pricing-card__features">
-            {paidIncluded.map((item) => (
-              <li key={item}>
-                <Check size={15} aria-hidden="true" />
-                {item}
-              </li>
-            ))}
-          </ul>
-          <PremiumButton href="/pricing" hideArrow>
-            See all plans
-          </PremiumButton>
-        </article>
+            <p className="home-pricing-card__summary">{tier.summary}</p>
+            <ul className="home-pricing-card__features">
+              {tier.includes.slice(0, 4).map((item) => (
+                <li key={item}>
+                  <Check size={15} aria-hidden="true" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <PremiumButton href="/contact" secondary={index !== 0}>
+              {tier.cta}
+            </PremiumButton>
+          </article>
+        ))}
       </div>
       <Link href="/contact" className="home-pricing-sales-link">
         Looking for something custom? <strong>Contact us</strong>
         <CtaArrow />
       </Link>
+    </section>
+  );
+}
+
+function LaunchTrack() {
+  const [activeStep, setActiveStep] = useState(0);
+  const stepRefs = useRef<(HTMLElement | null)[]>([]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+        if (!visible) return;
+        const index = Number((visible.target as HTMLElement).dataset.stepIndex);
+        if (Number.isInteger(index)) setActiveStep(index);
+      },
+      { rootMargin: "-28% 0px -46%", threshold: [0.15, 0.35, 0.6] },
+    );
+
+    stepRefs.current.forEach((step) => {
+      if (step) observer.observe(step);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const goToStep = (index: number) => {
+    stepRefs.current[index]?.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
+
+  return (
+    <section className="launch-track" aria-labelledby="launch-track-title">
+      <div className="launch-track__header">
+        <div>
+          <span className="launch-track__eyebrow">How we launch</span>
+          <h2 id="launch-track-title">
+            <MotionText>From first call to live site.</MotionText>
+          </h2>
+          <p>Five clear stages keep the work moving without a big reveal at the end.</p>
+        </div>
+        <div className="launch-track__window" aria-label="Typical launch window">
+          <span>Typical launch</span>
+          <strong>10–21 days</strong>
+        </div>
+      </div>
+
+      <div className="launch-track__facts" aria-label="Sprint facts">
+        <span><strong>3</strong> support levels</span>
+        <span><strong>1</strong> clear story per screen</span>
+        <span><strong>0</strong> big reveals</span>
+      </div>
+
+      <div className="launch-track__layout">
+        <nav className="launch-track__nav" aria-label="Launch stages">
+          <span>Sprint progress</span>
+          <div className="launch-track__progress" aria-hidden="true">
+            <i style={{ height: `${((activeStep + 1) / processSteps.length) * 100}%` }} />
+          </div>
+          <ol>
+            {processSteps.map((step, index) => (
+              <li className={activeStep === index ? "is-active" : ""} key={step.label}>
+                <button type="button" onClick={() => goToStep(index)} aria-current={activeStep === index ? "step" : undefined}>
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <strong>{step.label}</strong>
+                </button>
+              </li>
+            ))}
+          </ol>
+        </nav>
+
+        <div className="launch-track__steps">
+          {processSteps.map((step, index) => (
+            <article
+              className={activeStep === index ? "launch-track__step is-active" : "launch-track__step"}
+              data-step-index={index}
+              id={`launch-step-${index + 1}`}
+              key={step.label}
+              ref={(node) => {
+                stepRefs.current[index] = node;
+              }}
+            >
+              <span className="launch-track__number">{String(index + 1).padStart(2, "0")}</span>
+              <div className="launch-track__step-copy">
+                <h3>{step.label}</h3>
+                <p>{step.copy}</p>
+              </div>
+              <div className="launch-track__step-meta">
+                <span>Timing</span>
+                <strong>{step.time}</strong>
+              </div>
+              <div className="launch-track__deliverable">
+                <span>You leave with</span>
+                <strong>{processDeliverables[index]}</strong>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
     </section>
   );
 }
@@ -845,40 +949,7 @@ export function ProcessPage() {
           </PremiumButton>
         </article>
       </section>
-      <section className="process-heading">
-        <h2>
-          <MotionText>What happens after you book.</MotionText>
-        </h2>
-        <p>The sprint mechanics stay simple: discovery, AI-assisted structure, human design judgment, review, and launch.</p>
-      </section>
-      <div className="process-metrics" aria-label="Sprint facts">
-        <article>
-          <span>Launch window</span>
-          <strong>10-21d</strong>
-        </article>
-        <article>
-          <span>Core offers</span>
-          <strong>3</strong>
-        </article>
-        <article>
-          <span>Clear story per screen</span>
-          <strong>1</strong>
-        </article>
-      </div>
-      <div className="process-list">
-        {processSteps.map((step) => (
-          <article className="process-row" key={step.label}>
-            <div className="process-row__visual" aria-hidden="true">
-              <strong>{step.time}</strong>
-            </div>
-            <div className="process-row__body">
-              <span className="process-row__meta">{step.meta}</span>
-              <h2>{step.label}</h2>
-              <p>{step.copy}</p>
-            </div>
-          </article>
-        ))}
-      </div>
+      <LaunchTrack />
     </main>
   );
 }
@@ -888,7 +959,7 @@ export function PricingPage() {
     <main className="page-shell">
       <section className="page-hero pricing-page-hero">
         <h1>
-          <MotionText>Simple pricing. Clear paths.</MotionText>
+          <MotionText>Plans Starting at $99</MotionText>
         </h1>
         <span>Pick the support level. We bring the site live.</span>
       </section>
