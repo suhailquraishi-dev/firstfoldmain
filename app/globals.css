@@ -112,7 +112,7 @@
   --line: #101010;
   --border: #d9d3c8;
   --paper: #ffffff;
-  --surface: #f8f8f8;
+  --surface: #ffffff;
   --surface-warm: #fbfaf5;
   --soft: #ebe4d7;
   --yellow: var(--orange);
@@ -6451,8 +6451,8 @@ textarea {
 
 /* 2026 site-wide consistency pass */
 :root {
-  --background: #f7f7f7;
-  --color-page: #f7f7f7;
+  --background: #ffffff;
+  --color-page: #ffffff;
   --site-gutter: max(22px, calc((100vw - 1440px) / 2 + 48px));
   --site-section-y: clamp(88px, 8vw, 128px);
   --site-section-y-mobile: 68px;
@@ -8580,7 +8580,7 @@ body {
 /* Secondary pages */
 .page-shell.secondary-page {
   padding: 0 var(--site-gutter);
-  background: #f7f7f7;
+  background: #fff;
   font-family: var(--season-sans);
 }
 
@@ -9256,7 +9256,7 @@ body {
 .concept-case-page,
 .resource-detail-page {
   padding: 150px var(--site-gutter) 112px;
-  background: #f7f7f7;
+  background: #fff;
   font-family: var(--season-sans);
 }
 
