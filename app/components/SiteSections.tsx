@@ -2,7 +2,7 @@
 
 /* eslint-disable @next/next/no-img-element */
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { Check, ChevronDown, Mail } from "lucide-react";
+import { Check, ChevronDown, Mail, Minus, Sparkles, UserRound } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { type CSSProperties, FormEvent, type ReactNode, useState } from "react";
@@ -57,6 +57,13 @@ const showcaseTemplates = [
 ];
 
 const showcaseFilters = ["All", "B2B SaaS", "Developer", "Regulated", "Consumer"];
+
+const pricingFaqs = [
+  { question: "Can the scope change after we start?", answer: "Yes, but the impact on timing and plan level is agreed before extra work begins." },
+  { question: "Do I need finished copy?", answer: "No. Bring the raw material; writing and structure are part of shaping the website." },
+  { question: "Is hosting included?", answer: "Launch support is included. Third-party hosting, domains, and paid services remain in your account." },
+  { question: "What happens after launch?", answer: "Every plan includes a support window, with longer and higher-priority support in Plus and Master." },
+];
 
 const processDeliverables = [
   "A focused launch brief",
@@ -271,6 +278,7 @@ function HowWeWorkSection() {
             </div>
             <div className="showcase-card__meta">
               <div>
+                <span className="showcase-card__source">External reference</span>
                 <h3>{item.title}</h3>
                 <p>{item.category}</p>
               </div>
@@ -349,8 +357,8 @@ function PricingCards({ showProofStrip = false }: { showProofStrip?: boolean }) 
   return (
     <>
       <div className="pricing-preview" aria-label="Website sprint pricing preview">
-        {pricingTiers.map((tier, index) => {
-          const isFeatured = index === 0;
+        {pricingTiers.map((tier) => {
+          const isFeatured = tier.name === "Plus";
 
           return (
             <article
@@ -555,7 +563,7 @@ export function ProjectCard({ project }: { project: Project }) {
           height={1024}
           loading="lazy"
         />
-        <i>{project.status}</i>
+        <i>FirstFold {project.status}</i>
       </div>
       <div className="project-card__copy">
         <p>{project.status} / {project.type}</p>
@@ -587,7 +595,7 @@ export function WorkPage() {
           </button>
         ))}
       </div>
-      <p className="visually-hidden" role="status" aria-live="polite">
+      <p className="work-filter-status" role="status" aria-live="polite">
         {visible.length} website {visible.length === 1 ? "direction" : "directions"} shown.
       </p>
       <div className="project-grid">
@@ -634,6 +642,7 @@ export function ServicesPage() {
             </article>
           ))}
         </div>
+        <TextCta href="/process" className="secondary-section__link">See the full process</TextCta>
       </section>
 
       <section className="secondary-section secondary-plan-fit" aria-labelledby="website-plans-title">
@@ -647,8 +656,8 @@ export function ServicesPage() {
       </section>
 
       <section className="secondary-section secondary-fit-check" aria-label="Website sprint fit">
-        <article><span>Good fit</span><h2>You have something real to launch.</h2><p>A product, service, or founder-led offer exists, but the public story and website need to become clearer and more usable.</p></article>
-        <article><span>Not the right fit</span><h2>You need a long discovery program first.</h2><p>FirstFold is built for focused launch work, not open-ended transformation, speculative branding, or unsupported outcome promises.</p></article>
+        <article className="secondary-fit-check__positive"><div><Check size={18} aria-hidden="true" /><span>Good fit</span></div><h2>You have something real to launch.</h2><p>A product, service, or founder-led offer exists, but the public story and website need to become clearer and more usable.</p></article>
+        <article className="secondary-fit-check__negative"><div><Minus size={18} aria-hidden="true" /><span>Not the right fit</span></div><h2>You need a long discovery program first.</h2><p>FirstFold is built for focused launch work, not open-ended transformation, speculative branding, or unsupported outcome promises.</p></article>
       </section>
     </main>
   );
@@ -660,6 +669,9 @@ export function ProcessPage() {
       <PageHero eyebrow="Process" title="Five visible stages. No mystery at the end." copy="The work moves through clear decisions, working screens, and specific review points so you always know what is ready and what needs your input." actions={<><PremiumButton href="/pricing">Choose a Plan</PremiumButton><PremiumButton href="/contact" secondary>Book a Call</PremiumButton></>} />
       <section className="secondary-section secondary-process" aria-labelledby="full-process-title">
         <div className="secondary-section__heading secondary-section__heading--split"><div><span>From first call to live site</span><h2 id="full-process-title">A delivery path built around useful decisions.</h2></div><p>Timing varies by plan, but the sequence stays stable. Each stage ends with something concrete enough to review.</p></div>
+        <nav className="secondary-process-index" aria-label="Process stages">
+          {processSteps.map((step, index) => <a href={`#launch-step-${index + 1}`} key={step.label}><span>{String(index + 1).padStart(2, "0")}</span><strong>{step.label}</strong></a>)}
+        </nav>
         <ol className="secondary-process-list">
           {processSteps.map((step, index) => (
             <li id={`launch-step-${index + 1}`} key={step.label}>
@@ -679,7 +691,34 @@ export function ProcessPage() {
           ["Launch QA", "Responsive behavior, actions, metadata, and handoff are checked before release."],
         ].map(([title, copy], index) => <article key={title}><span>0{index + 1}</span><h3>{title}</h3><p>{copy}</p></article>)}</div>
       </section>
+      <section className="secondary-section process-responsibility-split" aria-labelledby="process-responsibility-title">
+        <div className="secondary-section__heading"><span>One operating system</span><h2 id="process-responsibility-title">AI handles volume. Humans handle meaning.</h2></div>
+        <div className="process-responsibility-split__grid">
+          <article><Sparkles aria-hidden="true" /><span>AI contributes</span><h3>Research, routes, variants, and repeatable checks.</h3><p>It compresses the mechanical work so more time can go into comparison and refinement.</p></article>
+          <article><UserRound aria-hidden="true" /><span>Human-owned</span><h3>Positioning, hierarchy, taste, accuracy, and approval.</h3><p>A person makes the decisions that shape what the audience understands and what goes live.</p></article>
+        </div>
+        <p className="process-plan-link">The five-stage sequence stays consistent. Plan choice changes the room for pages, review, and post-launch support. <TextCta href="/pricing">Compare the plans</TextCta></p>
+      </section>
     </main>
+  );
+}
+
+function PricingPageNav() {
+  const items = [
+    ...pricingTiers.map((tier) => ({ label: tier.name, detail: tier.price, href: `#${tier.name.toLowerCase()}`, recommended: tier.name === "Plus" })),
+    { label: "Included", detail: "Every plan", href: "#included", recommended: false },
+    { label: "FAQ", detail: "Plan answers", href: "#faq", recommended: false },
+  ];
+
+  return (
+    <nav className="pricing-page-nav" aria-label="Jump to a pricing plan">
+      {items.map((item) => (
+        <a href={item.href} key={item.label} className={item.recommended ? "is-recommended" : ""}>
+          <span>{item.label}{item.recommended ? <small>Recommended</small> : null}</span>
+          <strong>{item.detail}</strong>
+        </a>
+      ))}
+    </nav>
   );
 }
 
@@ -687,21 +726,17 @@ export function PricingPage() {
   return (
     <main className="page-shell secondary-page pricing-secondary-page">
       <PageHero eyebrow="Plans" title="Plans Starting at $99" copy="Pick the support level. We shape the website, build it responsively, and bring the first version live." />
+      <PricingPageNav />
       <PricingCards />
-      <section className="secondary-section secondary-buying-guide" aria-labelledby="buying-guide-title">
+      <section id="choosing" className="secondary-section secondary-buying-guide" aria-labelledby="buying-guide-title">
         <div className="secondary-section__heading"><span>Choosing well</span><h2 id="buying-guide-title">Choose for the amount of support, not a bigger-looking card.</h2></div>
         <div>{pricingTiers.map((tier, index) => <article key={tier.name}><span>{tier.name}</span><h3>{index === 0 ? "A focused launch" : index === 1 ? "More story and backup" : "A broader, hands-on release"}</h3><p>{index === 0 ? "Best when the offer is clear and the first site can stay compact." : index === 1 ? "Best when the site needs more pages, custom interactions, analytics, and iteration time." : "Best when launch strategy, advanced interactions, and priority post-launch support matter."}</p></article>)}</div>
       </section>
-      <section className="secondary-section secondary-pricing-clarity" aria-label="Pricing clarity">
+      <section id="included" className="secondary-section secondary-pricing-clarity" aria-label="Pricing clarity">
         <article><span>Included in every plan</span><ul>{sharedBuildIncludes.map((item) => <li key={item}><Check size={16} aria-hidden="true" />{item}</li>)}</ul></article>
         <article><span>Scoped separately</span><ul>{["Ongoing content production", "Large application backends", "Paid media management", "Guaranteed performance outcomes"].map((item) => <li key={item}>{item}</li>)}</ul></article>
       </section>
-      <section className="secondary-section secondary-plan-faq" aria-labelledby="plan-faq-title"><div className="secondary-section__heading"><span>Before you choose</span><h2 id="plan-faq-title">Useful plan answers.</h2></div><div>{[
-        ["Can the scope change after we start?", "Yes, but the impact on timing and plan level is agreed before extra work begins."],
-        ["Do I need finished copy?", "No. Bring the raw material; writing and structure are part of shaping the website."],
-        ["Is hosting included?", "Launch support is included. Third-party hosting, domains, and paid services remain in your account."],
-        ["What happens after launch?", "Every plan includes a support window, with longer and higher-priority support in Plus and Master."],
-      ].map(([question, answer]) => <article key={question}><h3>{question}</h3><p>{answer}</p></article>)}</div></section>
+      <section id="faq" className="secondary-section secondary-plan-faq" aria-labelledby="plan-faq-title"><div className="secondary-section__heading"><span>Before you choose</span><h2 id="plan-faq-title">Useful plan answers.</h2></div><AccordionList items={pricingFaqs} idPrefix="pricing-faq" /></section>
     </main>
   );
 }
@@ -713,7 +748,7 @@ export function ResourcesPage() {
       <section className="resource-preview-grid secondary-resource-grid" aria-label="FirstFold resource guides">
         {resourceGuides.map((resource, index) => (
           <Link className={`resource-card resource-card--${index + 1}`} href={`/resources/${resource.slug}`} key={resource.title}>
-            <div><span>{resource.label}</span><strong>{resource.readingTime}</strong></div>
+            <div><span>{resource.label}</span><strong>{resource.readingTime} · {resource.updated}</strong></div>
             <h2>{resource.title}</h2>
             <p>{resource.summary}</p>
             <span className="resource-card__link">Read the guide <CtaArrow size={17} /></span>
@@ -748,8 +783,8 @@ export function AboutPage() {
             points: ["A clear website story", "AI-assisted structure and QA", "Human visual and copy judgment", "Responsive launch checks before release"],
           },
         ].map((item, index) => (
-          <article key={item.eyebrow}>
-            <span>{item.eyebrow}</span>
+          <article className={index === 0 ? "about-expectations__client" : "about-expectations__studio"} key={item.eyebrow}>
+            <div><UserRound size={18} aria-hidden="true" /><span>{item.eyebrow}</span></div>
             <h2>{item.title}</h2>
             <ul>
               {item.points.map((point, pointIndex) => (
@@ -758,6 +793,10 @@ export function AboutPage() {
             </ul>
           </article>
         ))}
+      </section>
+      <section className="secondary-section about-founder-note" aria-labelledby="about-founder-note-title">
+        <div className="about-founder-note__copy"><div><span aria-hidden="true">“</span><h2 id="about-founder-note-title">Hear from the founder</h2></div><blockquote>A lot of founders start with big ambitions, but turning an idea into something real is often the hardest part. That is where FirstFold comes in: to help make the first step clear, useful, and ready to launch.</blockquote><p>- Suhail Quraishi</p></div>
+        <img src="/images/team/founder-note-frame.webp" alt="Suhail Quraishi, founder of FirstFold" width={2032} height={2036} loading="lazy" />
       </section>
     </main>
   );
@@ -771,7 +810,7 @@ export function ContactPage() {
       <PageHero eyebrow="Start here" title="Tell us what needs to go live." copy="Choose a call when a booking link is available, or send a short brief. We will reply with the clearest next step and the plan that fits." />
       <section className="contact-paths">
         {bookingUrl ? <article className="contact-booking"><span>Talk it through</span><h2>Book a focused intro call.</h2><p>Use 20 minutes to share the offer, current material, timing, and what the website needs to change.</p><a className="premium-button" href={bookingUrl} target="_blank" rel="noreferrer"><span>Choose a Time</span><CtaArrow size={20} /></a></article> : null}
-        <article className={bookingUrl ? "contact-brief" : "contact-brief contact-brief--wide"}><span>Send a brief</span><h2>A few useful details are enough.</h2><p>Opens a draft in your email app. Nothing sends until you review and send it.</p><ContactForm /></article>
+        <article className={bookingUrl ? "contact-brief" : "contact-brief contact-brief--wide"}><span>Send a brief</span><h2>A few useful details are enough.</h2><p className="contact-email-disclosure"><Mail size={18} aria-hidden="true" />Opens a draft in your email app. This form does not submit or store your details on this website.</p><ContactForm /></article>
       </section>
     </main>
   );
@@ -847,36 +886,43 @@ export function ContactForm() {
   );
 }
 
-export function FAQAccordion() {
+function AccordionList({ items, idPrefix, className = "" }: { items: ReadonlyArray<{ question: string; answer: string }>; idPrefix: string; className?: string }) {
   const [open, setOpen] = useState(0);
 
   return (
-    <SectionFrame title="Straight answers. No theatre." accent="yellow" compact className="home-faq-section">
-      <div className="faq-list">
-        {faqs.map((item, index) => {
-          const active = open === index;
-          return (
-            <div className="faq-item" key={item.question}>
-              <button type="button" aria-expanded={active} aria-controls={`faq-answer-${index}`} onClick={() => setOpen(active ? -1 : index)}>
-                <span>{item.question}</span>
-                <ChevronDown size={18} aria-hidden="true" />
-              </button>
-              <div id={`faq-answer-${index}`} className="faq-answer" hidden={!active}>
-                <p>{item.answer}</p>
-              </div>
+    <div className={`faq-list ${className}`.trim()}>
+      {items.map((item, index) => {
+        const active = open === index;
+        const answerId = `${idPrefix}-answer-${index}`;
+        return (
+          <div className="faq-item" key={item.question}>
+            <button type="button" aria-expanded={active} aria-controls={answerId} onClick={() => setOpen(active ? -1 : index)}>
+              <span>{item.question}</span>
+              <ChevronDown size={18} aria-hidden="true" />
+            </button>
+            <div id={answerId} className="faq-answer" hidden={!active}>
+              <p>{item.answer}</p>
             </div>
-          );
-        })}
-      </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+export function FAQAccordion() {
+
+  return (
+    <SectionFrame title="Straight answers. No theatre." accent="yellow" compact className="home-faq-section">
+      <AccordionList items={faqs} idPrefix="home-faq" />
     </SectionFrame>
   );
 }
 
-export function PageHero({ eyebrow, title, copy, actions }: { eyebrow?: string; title: string; copy: string; actions?: ReactNode }) {
+export function PageHero({ title, copy, actions }: { eyebrow?: string; title: string; copy: string; actions?: ReactNode }) {
   return (
     <section className="page-hero secondary-hero">
       <div className="secondary-hero__title">
-        {eyebrow ? <span className="secondary-eyebrow">{eyebrow}</span> : null}
         <h1><MotionText>{title}</MotionText></h1>
       </div>
       <div className="secondary-hero__aside">

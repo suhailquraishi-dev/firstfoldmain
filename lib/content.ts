@@ -215,6 +215,7 @@ export type ResourceGuide = {
   summary: string;
   introduction: string;
   readingTime: string;
+  updated: string;
   sections: ResourceSection[];
 };
 
@@ -226,6 +227,7 @@ export const resourceGuides: ResourceGuide[] = [
     summary: "A practical preflight for making the first screen clear, credible, and useful on every device.",
     introduction: "The first fold does not need to explain the entire company. It needs to establish the right promise, enough proof, and a next step worth taking.",
     readingTime: "5 min",
+    updated: "Updated Aug 2026",
     sections: [
       { heading: "Lead with one job", body: "Decide the single question the first screen must answer. Everything else should support that answer or move below the fold.", items: ["Name the audience", "State the useful outcome", "Remove competing headlines"] },
       { heading: "Make proof visible", body: "Support the promise with something concrete before asking for trust.", items: ["Product interface or real work", "Specific capability or constraint", "Truthful customer or operating proof"] },
@@ -240,6 +242,7 @@ export const resourceGuides: ResourceGuide[] = [
     summary: "Where AI creates useful speed, where human judgment stays essential, and how the work reaches launch.",
     introduction: "AI is most useful when the brief, standards, and review points are explicit. The stack matters less than the operating discipline around it.",
     readingTime: "6 min",
+    updated: "Updated Aug 2026",
     sections: [
       { heading: "Research and structure", body: "Use AI to scan categories, organize raw notes, expose missing context, and produce routes worth comparing.", items: ["Market and language scan", "Information architecture options", "Question and risk list"] },
       { heading: "Writing and prototyping", body: "Generate variants quickly, then edit toward one voice and one page job.", items: ["Headline and proof routes", "Working page prototypes", "Responsive content checks"] },
@@ -254,6 +257,7 @@ export const resourceGuides: ResourceGuide[] = [
     summary: "A focused review method for finding where a founder site loses clarity, trust, or momentum.",
     introduction: "A useful teardown follows the visitor's decisions. It diagnoses what the page makes hard, then prioritizes the smallest changes with the largest effect.",
     readingTime: "7 min",
+    updated: "Updated Aug 2026",
     sections: [
       { heading: "Clarity", body: "Can a new visitor name the offer and audience after one screen? If not, find the first competing message.", items: ["Offer", "Audience", "Useful result"] },
       { heading: "Trust", body: "Look for the point where the site asks for belief without evidence.", items: ["Real examples", "Specific process", "Accurate scope and pricing"] },
