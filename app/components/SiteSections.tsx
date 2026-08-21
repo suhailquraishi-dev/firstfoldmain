@@ -383,7 +383,6 @@ function PricingCards({ showProofStrip = false }: { showProofStrip?: boolean }) 
                   </div>
                 </div>
               </div>
-              <div className="pricing-preview-card__rule" aria-hidden="true" />
               {"lead" in tier ? <p className="pricing-preview-card__lead">{tier.lead}</p> : null}
               <div className="pricing-inclusion-groups">
                 {tier.groups.map((group) => (
@@ -497,48 +496,21 @@ function FounderNote() {
 }
 
 function HomePricingSection() {
-  const tierEyebrows = ["Launch essentials", "More room to build", "Hands-on support"];
-
   return (
     <section className="home-pricing-section" aria-labelledby="home-pricing-title">
-      <div className="home-pricing-copy">
-        <h2 id="home-pricing-title">
-          <MotionText>Choose your plan</MotionText>
-        </h2>
-        <p>Built for where you are, and where you are going.</p>
+      <div className="home-pricing-header">
+        <div className="home-pricing-copy">
+          <h2 id="home-pricing-title">
+            <MotionText>Choose your plan</MotionText>
+          </h2>
+          <p>Built for where you are, and where you are going.</p>
+        </div>
+        <Link href="/contact" className="home-pricing-sales-link">
+          Looking for something custom? <strong>Contact us</strong>
+          <CtaArrow />
+        </Link>
       </div>
-      <div className="home-pricing-cards">
-        {pricingTiers.map((tier, index) => (
-          <article className="home-pricing-card" key={tier.name}>
-            <div className="home-pricing-card__top">
-              <div>
-                <span className="home-pricing-card__eyebrow">{tierEyebrows[index]}</span>
-                <h3>{tier.name}</h3>
-              </div>
-              <div className="home-pricing-card__price">
-                <strong>{tier.price}</strong>
-                <small>{tier.timeline}</small>
-              </div>
-            </div>
-            <p className="home-pricing-card__summary">{tier.summary}</p>
-            <ul className="home-pricing-card__features">
-              {tier.includes.slice(0, 4).map((item) => (
-                <li key={item}>
-                  <Check size={15} aria-hidden="true" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <PremiumButton href="/contact" secondary={index !== 0}>
-              {tier.cta}
-            </PremiumButton>
-          </article>
-        ))}
-      </div>
-      <Link href="/contact" className="home-pricing-sales-link">
-        Looking for something custom? <strong>Contact us</strong>
-        <CtaArrow />
-      </Link>
+      <PricingCards />
     </section>
   );
 }
@@ -945,7 +917,6 @@ export function FinalCTA() {
           {isContact ? "See Plans" : "Book a Call"}
         </PremiumButton>
       </div>
-      <img src="/images/hero/firstfold-vision-craft.webp" alt="" width={1341} height={1351} loading="lazy" />
     </section>
   );
 }
