@@ -9071,7 +9071,7 @@ body {
 }
 
 .pricing-secondary-page .pricing-preview-card {
-  min-height: 850px;
+  min-height: 680px;
   border: 1px solid color-mix(in srgb, var(--color-ink) 10%, transparent);
   border-radius: 8px;
   background: #fff;
@@ -10124,7 +10124,7 @@ body {
 }
 
 .home-scroll-surface .home-pricing-section .pricing-preview-card {
-  min-height: 850px;
+  min-height: 680px;
   border: 1px solid color-mix(in srgb, var(--color-ink) 10%, transparent);
   border-radius: 8px;
   background: #fff;
