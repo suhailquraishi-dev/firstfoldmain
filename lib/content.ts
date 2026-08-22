@@ -212,6 +212,8 @@ export type ResourceGuide = {
   slug: string;
   label: string;
   title: string;
+  seoTitle: string;
+  seoDescription: string;
   summary: string;
   introduction: string;
   readingTime: string;
@@ -224,6 +226,8 @@ export const resourceGuides: ResourceGuide[] = [
     slug: "first-fold-checklist",
     label: "Checklist",
     title: "The first-fold checklist",
+    seoTitle: "First-Fold Website Checklist for Founders",
+    seoDescription: "Use this practical first-fold website checklist to clarify your audience, promise, proof, CTA, and mobile layout before a founder website goes live.",
     summary: "A practical preflight for making the first screen clear, credible, and useful on every device.",
     introduction: "The first fold does not need to explain the entire company. It needs to establish the right promise, enough proof, and a next step worth taking.",
     readingTime: "5 min",
@@ -239,6 +243,8 @@ export const resourceGuides: ResourceGuide[] = [
     slug: "ai-launch-stack",
     label: "Stack notes",
     title: "The AI launch stack",
+    seoTitle: "AI Website Launch Stack: Human vs AI Workflow",
+    seoDescription: "See where AI speeds website research, structure, writing, prototyping, and QA—and where human judgment must own positioning, design, accuracy, and launch.",
     summary: "Where AI creates useful speed, where human judgment stays essential, and how the work reaches launch.",
     introduction: "AI is most useful when the brief, standards, and review points are explicit. The stack matters less than the operating discipline around it.",
     readingTime: "6 min",
@@ -254,6 +260,8 @@ export const resourceGuides: ResourceGuide[] = [
     slug: "founder-website-teardown",
     label: "Teardown",
     title: "A founder website teardown",
+    seoTitle: "Founder Website Teardown Framework",
+    seoDescription: "Use this founder website teardown framework to diagnose weak offer clarity, missing trust signals, broken conversion paths, and the right order for fixes.",
     summary: "A focused review method for finding where a founder site loses clarity, trust, or momentum.",
     introduction: "A useful teardown follows the visitor's decisions. It diagnoses what the page makes hard, then prioritizes the smallest changes with the largest effect.",
     readingTime: "7 min",

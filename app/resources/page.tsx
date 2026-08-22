@@ -1,18 +1,11 @@
-import type { Metadata } from "next";
 import { ResourcesPage } from "../components/SiteSections";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Resources | FirstFold Studio",
-  description: "Read practical FirstFold guides for first-fold clarity, AI-assisted launch work, and founder website reviews.",
-  openGraph: {
-    title: "Resources | FirstFold Studio",
-    description: "Read practical FirstFold guides for first-fold clarity, AI-assisted launch work, and founder website reviews.",
-  },
-  twitter: {
-    title: "Resources | FirstFold Studio",
-    description: "Read practical FirstFold guides for first-fold clarity, AI-assisted launch work, and founder website reviews.",
-  },
-};
+export const metadata = createPageMetadata({
+  title: "Founder Website Guides & Launch Checklists",
+  description: "Practical founder website guides covering first-fold clarity, AI-assisted production, responsive hierarchy, conversion paths, and launch readiness.",
+  path: "/resources",
+});
 
 export default function Page() {
   return <ResourcesPage />;

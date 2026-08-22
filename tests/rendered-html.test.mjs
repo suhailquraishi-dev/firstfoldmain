@@ -35,7 +35,11 @@ test("server-renders the FirstFold Studio homepage", async () => {
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
-  assert.match(html, /<title>FirstFold Studio \| Launch-Ready Websites<\/title>/i);
+  assert.match(html, /<title>Founder Website Design &amp; Launch in 5–14 Days \| FirstFold Studio<\/title>/i);
+  assert.match(html, /<link rel="canonical" href="https:\/\/firstfold\.co\.in\/"/i);
+  assert.match(html, /FirstFold designs and launches responsive websites for early-stage founders/i);
+  assert.match(html, /application\/ld\+json/i);
+  assert.match(html, /Founder website design and launch/i);
   assert.doesNotMatch(html, /home-loader__logo/);
   assert.match(html, /home-scroll-surface/);
   assert.match(html, /Helping/);
@@ -237,7 +241,9 @@ test("renders distinct secondary routes and removes conflicting offer copy", asy
   assert.match(page, /<HomePage \/>/);
   assert.match(layout, /openGraph/);
   assert.match(layout, /MobileStickyCTAs/);
-  assert.match(layout, /plans starting at \$99/);
+  assert.match(layout, /FirstFold website plans/);
+  assert.match(layout, /price: "99"/);
+  assert.match(layout, /metadataBase: new URL\(SITE_URL\)/);
   assert.doesNotMatch(layout, /Starter Project|codex-preview|_sites-preview/);
   assert.doesNotMatch(`${work}${services}${process}${pricing}${resources}${about}${contact}`, /Case studies|How it Works|AI-Native Websites|Creator Packs|Enterprise Packs|\$4\.8k|from \$1\.6k|Send inquiry|Book a call|Unverified performance guarantees/);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);
@@ -262,4 +268,31 @@ test("renders distinct secondary routes and removes conflicting offer copy", asy
   await access(new URL("public/logos/clients/client-1.svg", templateRoot));
   await access(new URL("public/logos/nextjs.svg", templateRoot));
   await access(new URL("public/logos/cursor.svg", templateRoot));
+});
+
+test("publishes specific crawl and social metadata for core search intents", async () => {
+  const [robotsResponse, sitemapResponse, pricing, resource, concept] = await Promise.all([
+    render("/robots.txt"),
+    render("/sitemap.xml"),
+    render("/pricing").then((response) => response.text()),
+    render("/resources/first-fold-checklist").then((response) => response.text()),
+    render("/work/signal-desk").then((response) => response.text()),
+  ]);
+
+  assert.equal(robotsResponse.status, 200);
+  assert.match(await robotsResponse.text(), /Sitemap: https:\/\/firstfold\.co\.in\/sitemap\.xml/);
+
+  assert.equal(sitemapResponse.status, 200);
+  const sitemap = await sitemapResponse.text();
+  assert.match(sitemap, /https:\/\/firstfold\.co\.in\/pricing/);
+  assert.match(sitemap, /https:\/\/firstfold\.co\.in\/resources\/first-fold-checklist/);
+  assert.match(sitemap, /https:\/\/firstfold\.co\.in\/work\/signal-desk/);
+
+  assert.match(pricing, /<title>Founder Website Design Pricing: \$99–\$499 \| FirstFold Studio<\/title>/);
+  assert.match(pricing, /<link rel="canonical" href="https:\/\/firstfold\.co\.in\/pricing"/);
+  assert.match(resource, /<title>First-Fold Website Checklist for Founders \| FirstFold Studio<\/title>/);
+  assert.match(resource, /"@type":"Article"/);
+  assert.match(resource, /"@type":"BreadcrumbList"/);
+  assert.match(concept, /<title>Signal Desk: B2B SaaS Website Concept \| FirstFold Studio<\/title>/);
+  assert.match(concept, /"@type":"CreativeWork"/);
 });

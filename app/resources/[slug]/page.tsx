@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getResourceGuide, resourceGuides } from "@/lib/content";
+import { absoluteUrl, createPageMetadata, serializeJsonLd, SITE_URL } from "@/lib/seo";
 import { Check } from "lucide-react";
 import { PremiumButton, TextCta } from "@/app/components/UIPrimitives";
 
@@ -19,18 +20,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!resource) return { title: "Resources | FirstFold Studio" };
 
-  return {
-    title: `${resource.title} | FirstFold Studio`,
-    description: resource.summary,
-    openGraph: {
-      title: `${resource.title} | FirstFold Studio`,
-      description: resource.summary,
-    },
-    twitter: {
-      title: `${resource.title} | FirstFold Studio`,
-      description: resource.summary,
-    },
-  };
+  return createPageMetadata({
+    title: resource.seoTitle,
+    description: resource.seoDescription,
+    path: `/resources/${resource.slug}`,
+    type: "article",
+  });
 }
 
 export default async function ResourcePage({ params }: PageProps) {
@@ -40,9 +35,36 @@ export default async function ResourcePage({ params }: PageProps) {
   if (!resource) notFound();
 
   const related = resourceGuides.filter((item) => item.slug !== resource.slug);
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "@id": `${absoluteUrl(`/resources/${resource.slug}`)}#article`,
+        headline: resource.seoTitle,
+        description: resource.seoDescription,
+        url: absoluteUrl(`/resources/${resource.slug}`),
+        image: absoluteUrl("/og.png"),
+        dateModified: "2026-08-22",
+        author: { "@id": `${SITE_URL}/#organization` },
+        publisher: { "@id": `${SITE_URL}/#organization` },
+        mainEntityOfPage: absoluteUrl(`/resources/${resource.slug}`),
+        inLanguage: "en",
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+          { "@type": "ListItem", position: 2, name: "Resources", item: absoluteUrl("/resources") },
+          { "@type": "ListItem", position: 3, name: resource.title, item: absoluteUrl(`/resources/${resource.slug}`) },
+        ],
+      },
+    ],
+  };
 
   return (
     <main className="resource-detail-page">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(structuredData) }} />
       <header className="resource-detail-hero">
         <div>
           <Link href="/resources">Resources</Link>

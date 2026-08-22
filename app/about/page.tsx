@@ -1,18 +1,11 @@
-import type { Metadata } from "next";
 import { AboutPage } from "../components/SiteSections";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "About | FirstFold Studio",
-  description: "Learn how FirstFold uses AI speed and human judgment to help founders get the first public version right.",
-  openGraph: {
-    title: "About | FirstFold Studio",
-    description: "Learn how FirstFold uses AI speed and human judgment to help founders get the first public version right.",
-  },
-  twitter: {
-    title: "About | FirstFold Studio",
-    description: "Learn how FirstFold uses AI speed and human judgment to help founders get the first public version right.",
-  },
-};
+export const metadata = createPageMetadata({
+  title: "About FirstFold: AI Speed, Human Website Design",
+  description: "Meet FirstFold, a founder-led website studio combining AI-assisted research and drafting with human positioning, visual judgment, responsive design, and launch QA.",
+  path: "/about",
+});
 
 export default function Page() {
   return <AboutPage />;

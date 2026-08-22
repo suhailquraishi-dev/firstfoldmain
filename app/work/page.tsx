@@ -1,18 +1,11 @@
-import type { Metadata } from "next";
 import { WorkPage } from "../components/SiteSections";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Concept Work | FirstFold Studio",
-  description: "Explore transparent FirstFold concept studies that show website story, visual direction, and responsive decisions.",
-  openGraph: {
-    title: "Concept Work | FirstFold Studio",
-    description: "Explore transparent FirstFold concept studies that show website story, visual direction, and responsive decisions.",
-  },
-  twitter: {
-    title: "Concept Work | FirstFold Studio",
-    description: "Explore transparent FirstFold concept studies that show website story, visual direction, and responsive decisions.",
-  },
-};
+export const metadata = createPageMetadata({
+  title: "Founder Website Concept Design Examples",
+  description: "Explore FirstFold concept studies for B2B SaaS, founder services, and team workflows, with story direction, visual systems, and responsive design decisions.",
+  path: "/work",
+});
 
 export default function Page() {
   return <WorkPage />;

@@ -1,18 +1,11 @@
-import type { Metadata } from "next";
 import { ProcessPage } from "../components/SiteSections";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Process | FirstFold Studio",
-  description: "Follow the five-stage FirstFold process from discovery to live website, with clear inputs, outputs, and review points.",
-  openGraph: {
-    title: "Process | FirstFold Studio",
-    description: "Follow the five-stage FirstFold process from discovery to live website, with clear inputs, outputs, and review points.",
-  },
-  twitter: {
-    title: "Process | FirstFold Studio",
-    description: "Follow the five-stage FirstFold process from discovery to live website, with clear inputs, outputs, and review points.",
-  },
-};
+export const metadata = createPageMetadata({
+  title: "5-Step Founder Website Launch Process",
+  description: "See FirstFold’s five-stage website process—from discovery and AI-assisted drafting to human design, responsive QA, and launch in 5–14 days.",
+  path: "/process",
+});
 
 export default function Page() {
   return <ProcessPage />;
