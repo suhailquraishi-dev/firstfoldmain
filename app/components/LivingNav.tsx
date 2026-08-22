@@ -17,6 +17,7 @@ export function LivingNav() {
   const [open, setOpen] = useState(false);
   const [backed, setBacked] = useState(pathname !== "/");
   const toggleRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const updateBacked = () => {
@@ -40,16 +41,41 @@ export function LivingNav() {
   }, [pathname]);
 
   useEffect(() => {
-    if (!open) return;
+    if (!open || !window.matchMedia("(max-width: 760px)").matches) return;
 
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key !== "Escape") return;
-      setOpen(false);
-      toggleRef.current?.focus();
+    const previousOverflow = document.body.style.overflow;
+    const focusable = Array.from(
+      panelRef.current?.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])') ?? [],
+    );
+
+    document.body.style.overflow = "hidden";
+    focusable[0]?.focus();
+
+    const handleKeydown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setOpen(false);
+        toggleRef.current?.focus();
+        return;
+      }
+
+      if (event.key !== "Tab" || focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     };
 
-    window.addEventListener("keydown", closeOnEscape);
-    return () => window.removeEventListener("keydown", closeOnEscape);
+    window.addEventListener("keydown", handleKeydown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKeydown);
+    };
   }, [open]);
 
   const isActive = (href: string) => {
@@ -96,7 +122,13 @@ export function LivingNav() {
         {open ? <X size={18} aria-hidden="true" /> : <Menu size={18} aria-hidden="true" />}
       </button>
 
-      <nav id="mobile-navigation-panel" className={open ? "mobile-panel is-open" : "mobile-panel"} aria-label="Mobile navigation">
+      <nav
+        ref={panelRef}
+        id="mobile-navigation-panel"
+        className={open ? "mobile-panel is-open" : "mobile-panel"}
+        aria-label="Mobile navigation"
+        aria-hidden={!open}
+      >
         {navItems.map((item) => (
           <a
             key={item.href}

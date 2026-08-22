@@ -704,20 +704,30 @@ export function ProcessPage() {
 }
 
 function PricingPageNav() {
-  const items = [
-    ...pricingTiers.map((tier) => ({ label: tier.name, detail: tier.price, href: `#${tier.name.toLowerCase()}`, recommended: tier.name === "Plus" })),
-    { label: "Included", detail: "Every plan", href: "#included", recommended: false },
-    { label: "FAQ", detail: "Plan answers", href: "#faq", recommended: false },
+  const planItems = pricingTiers.map((tier) => ({ label: tier.name, detail: tier.price, href: `#${tier.name.toLowerCase()}`, recommended: tier.name === "Plus" }));
+  const detailItems = [
+    { label: "Included", detail: "Every plan", href: "#included" },
+    { label: "FAQ", detail: "Plan answers", href: "#faq" },
   ];
 
   return (
     <nav className="pricing-page-nav" aria-label="Jump to a pricing plan">
-      {items.map((item) => (
-        <a href={item.href} key={item.label} className={item.recommended ? "is-recommended" : ""}>
-          <span>{item.label}{item.recommended ? <small>Recommended</small> : null}</span>
-          <strong>{item.detail}</strong>
-        </a>
-      ))}
+      <div className="pricing-page-nav__plans">
+        {planItems.map((item) => (
+          <a href={item.href} key={item.label} className={item.recommended ? "is-recommended" : ""}>
+            <span>{item.label}{item.recommended ? <small>Recommended</small> : null}</span>
+            <strong>{item.detail}</strong>
+          </a>
+        ))}
+      </div>
+      <div className="pricing-page-nav__details">
+        {detailItems.map((item) => (
+          <a href={item.href} key={item.label}>
+            <span>{item.label}</span>
+            <strong>{item.detail}</strong>
+          </a>
+        ))}
+      </div>
     </nav>
   );
 }
@@ -748,7 +758,7 @@ export function ResourcesPage() {
       <section className="resource-preview-grid secondary-resource-grid" aria-label="FirstFold resource guides">
         {resourceGuides.map((resource, index) => (
           <Link className={`resource-card resource-card--${index + 1}`} href={`/resources/${resource.slug}`} key={resource.title}>
-            <div><span>{resource.label}</span><strong>{resource.readingTime} · {resource.updated}</strong></div>
+            <div><span>{resource.label}</span><span className="resource-card__meta"><strong>{resource.readingTime}</strong><strong>{resource.updated}</strong></span></div>
             <h2>{resource.title}</h2>
             <p>{resource.summary}</p>
             <span className="resource-card__link">Read the guide <CtaArrow size={17} /></span>
